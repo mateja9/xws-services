@@ -8,9 +8,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>xws</groupId>
-	<artifactId>user-services</artifactId>
+	<artifactId>handlingReq-services</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>user-services</name>
+	<name>handlingReq-services</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
