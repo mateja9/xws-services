@@ -13,8 +13,10 @@ services:
     networks:
       static-network:
         ipv4_address: 172.20.0.2
-
-   mysql-backend:
+        
+  
+  
+  mysql-backend:
      image: mysql:8.0.19
      environment:
        MYSQL_ROOT_PASSWORD: fakultet
@@ -29,62 +31,63 @@ services:
        - static-network  
      volumes:
        - mysql-data:/var/lib/mysql  
-      -./init.sql:/docker-entrypoint-initdb.d/init.sql
+       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
+  
   user-services:
-    image: user-services
+     image: user-services
      environment:
          DATABASE_USERNAME: root
          DATABASE_PASSWORD: fakultet
          DATABASE_SCHEMA: user_services
          DATABASE_DOMAIN: mysql-backend
          DATABASE_PORT: 3306
-    build:
+     build:
       context: ./services/user-services
       dockerfile: Dockerfile
-    tty: true
-    networks:
+     tty: true
+     networks:
       - static-network
-    restart: on-failure 
-    depends_on:
-      - consul-server
+     restart: on-failure 
+     depends_on:
+       - consul-server
        - mysql-backend
 
   media-services:
-    image: media-services
+     image: media-services
      environment:
          DATABASE_USERNAME: root
          DATABASE_PASSWORD: fakultet
          DATABASE_SCHEMA: media_services
          DATABASE_DOMAIN: mysql-backend
          DATABASE_PORT: 3306
-    build:
+     build:
       context: ./services/media-services
       dockerfile: Dockerfile
-    tty: true
-    networks:
+     tty: true
+     networks:
       - static-network
-    restart: on-failure 
-    depends_on:
+     restart: on-failure 
+     depends_on:
       - consul-server
        - mysql-backend
 
   handlingreq-services:
-    image: handlingreq-services
+     image: handlingreq-services
      environment:
          DATABASE_USERNAME: root
          DATABASE_PASSWORD: fakultet
          DATABASE_SCHEMA: handlingreq_services
          DATABASE_DOMAIN: mysql-backend
          DATABASE_PORT: 3306
-    build:
+     build:
       context: ./services/handlingReq-services
       dockerfile: Dockerfile
-    tty: true
-    networks:
+     tty: true
+     networks:
       - static-network
-    restart: on-failure 
-    depends_on:
+     restart: on-failure 
+     depends_on:
       - consul-server
        - mysql-backend
  
@@ -106,6 +109,7 @@ services:
 
 volumes:
   mysql-data:
+  
   
 networks:
   static-network:
