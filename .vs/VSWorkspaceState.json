@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\services",
+    "\\services\\Gateway",
+    "\\services\\Gateway\\src",
+    "\\services\\Gateway\\src\\main",
+    "\\services\\Gateway\\src\\main\\resources",
+    "\\services\\handlingReq-services",
+    "\\services\\media-services",
+    "\\services\\user-services"
+  ],
+  "SelectedNode": "\\services\\Gateway\\src\\main\\resources\\application.yml",
+  "PreviewInSolutionExplorer": false
+}
