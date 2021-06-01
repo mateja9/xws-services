@@ -14,30 +14,31 @@ services:
       static-network:
         ipv4_address: 172.20.0.2
 
-  # mysql-backend:
-    # image: mysql:8.0.19
-    # environment:
-      # MYSQL_ROOT_PASSWORD: fakultet
-      # MYSQL_USER: root
-      # MYSQL_PASSWORD: fakultet
-      # MYSQL_DATABASE: xml_backend
-    # ports:
-      # - "3306"  
-    # restart: always  
-    # container_name: mysql-backend
-    # networks:
-      # - static-network  
-    # volumes:
-      # - mysql-data:/var/lib/mysql  
+   mysql-backend:
+     image: mysql:8.0.19
+     environment:
+       MYSQL_ROOT_PASSWORD: fakultet
+       MYSQL_USER: root
+       MYSQL_PASSWORD: fakultet
+       MYSQL_DATABASE: xml_backend
+     ports:
+       - "3306"  
+     restart: always  
+     container_name: mysql-backend
+     networks:
+       - static-network  
+     volumes:
+       - mysql-data:/var/lib/mysql  
+      -./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   user-services:
     image: user-services
-    # environment:
-        # DATABASE_USERNAME: root
-        # DATABASE_PASSWORD: fakultet
-        # DATABASE_SCHEMA: user_services
-        # DATABASE_DOMAIN: mysql-backend
-        # DATABASE_PORT: 3306
+     environment:
+         DATABASE_USERNAME: root
+         DATABASE_PASSWORD: fakultet
+         DATABASE_SCHEMA: user_services
+         DATABASE_DOMAIN: mysql-backend
+         DATABASE_PORT: 3306
     build:
       context: ./services/user-services
       dockerfile: Dockerfile
@@ -47,16 +48,16 @@ services:
     restart: on-failure 
     depends_on:
       - consul-server
-      # - mysql-backend
+       - mysql-backend
 
   media-services:
     image: media-services
-    # environment:
-        # DATABASE_USERNAME: root
-        # DATABASE_PASSWORD: fakultet
-        # DATABASE_SCHEMA: media_services
-        # DATABASE_DOMAIN: mysql-backend
-        # DATABASE_PORT: 3306
+     environment:
+         DATABASE_USERNAME: root
+         DATABASE_PASSWORD: fakultet
+         DATABASE_SCHEMA: media_services
+         DATABASE_DOMAIN: mysql-backend
+         DATABASE_PORT: 3306
     build:
       context: ./services/media-services
       dockerfile: Dockerfile
@@ -66,16 +67,16 @@ services:
     restart: on-failure 
     depends_on:
       - consul-server
-      # - mysql-backend
+       - mysql-backend
 
   handlingreq-services:
     image: handlingreq-services
-    # environment:
-        # DATABASE_USERNAME: root
-        # DATABASE_PASSWORD: fakultet
-        # DATABASE_SCHEMA: handlingreq_services
-        # DATABASE_DOMAIN: mysql-backend
-        # DATABASE_PORT: 3306
+     environment:
+         DATABASE_USERNAME: root
+         DATABASE_PASSWORD: fakultet
+         DATABASE_SCHEMA: handlingreq_services
+         DATABASE_DOMAIN: mysql-backend
+         DATABASE_PORT: 3306
     build:
       context: ./services/handlingReq-services
       dockerfile: Dockerfile
@@ -85,7 +86,7 @@ services:
     restart: on-failure 
     depends_on:
       - consul-server
-      # - mysql-backend
+       - mysql-backend
  
   gateway:
     image: gateway
