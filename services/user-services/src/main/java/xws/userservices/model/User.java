@@ -111,7 +111,7 @@ public class User {
         this.gender = gender;
     }
 
-    public User(String name, String lastname, String phoneNumber, String email,String username, String password, String rola, String gender ){
+    public User(String name, String lastname, String phoneNumber, String email, String username, String password, String rola, String gender ){
         this.name=name;
         this.lastname=lastname;
         this.phoneNumber=phoneNumber;
