@@ -3,6 +3,7 @@ package xws.userservices.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name="users")
 public class User {
 
     @Id
@@ -12,10 +13,10 @@ public class User {
     @Column(name = "Name", nullable = false)
     private String name;
 
-    @Column(name = "Last name", nullable = false)
+    @Column(name = "Last_name", nullable = false)
     private String lastname;
 
-    @Column(name = "Phone number", nullable = false)
+    @Column(name = "Phone_number", nullable = false)
     private String phoneNumber;
 
     @Column(name = "Email", nullable = false)
