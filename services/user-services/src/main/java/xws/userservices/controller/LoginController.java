@@ -30,7 +30,7 @@ public class LoginController {
 
     Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/user/login")
     public ResponseEntity<?> login(@RequestBody LoginZahtev zahtev, @Context HttpServletRequest request) {
 
 
@@ -57,7 +57,7 @@ public class LoginController {
 
     }
 
-    @GetMapping(value = "/login")
+    @GetMapping(value = "/user/login")
     public Object vratiUlogovanog(@Context HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -78,7 +78,7 @@ public class LoginController {
         return korisnik;
     }
 
-    @GetMapping(value = "/returnId")
+    @GetMapping(value = "/user/returnId")
     public Long vratiIdUlogovanog(@Context HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -92,7 +92,7 @@ public class LoginController {
         return null;
     }
 
-    @RequestMapping(method = PUT, value = "/logOut")
+    @RequestMapping(method = PUT, value = "/user/logOut")
     public ResponseEntity logOut(@Context HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();

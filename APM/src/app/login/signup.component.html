@@ -5,20 +5,20 @@
             <table>
                 <tr>
                     <td>Ime</td>
-                    <td><input type="text" required name="ime" #ime="ngModel"  [(ngModel)]="user.ime" [ngClass]="{'form-control':true,
-                    'is-invalid': !ime?.valid && !ime?.touched,
-                    'is-valid': ime?.valid && ime?.touched}" ></td>
-                    <td *ngIf="ime?.errors?.required && ime?.touched"> Polje se mora popuniti
+                    <td><input type="text" required name="name" #name="ngModel"  [(ngModel)]="user.name" [ngClass]="{'form-control':true,
+                    'is-invalid': !name?.valid && !name?.touched,
+                    'is-valid': name?.valid && name?.touched}" ></td>
+                    <td *ngIf="name?.errors?.required && name?.touched"> Polje se mora popuniti
                     </td>
                 </tr>
                 
                 <tr>
                     <td>Prezime</td>
-                    <td><input type="text" required name="prezime" #prezime="ngModel" [(ngModel)]="user.prezime" [ngClass]="{'form-control':true,
-                        'is-invalid': !prezime?.valid && !prezime?.touched,
-                        'is-valid': prezime?.valid && prezime?.touched}" ></td>
+                    <td><input type="text" required name="lastname" #lastname="ngModel" [(ngModel)]="user.lastname" [ngClass]="{'form-control':true,
+                        'is-invalid': !lastname?.valid && !lastname?.touched,
+                        'is-valid': lastname?.valid && lastname?.touched}" ></td>
 
-                    <td *ngIf="prezime?.errors?.required && prezime?.touched"> Polje se mora popuniti
+                    <td *ngIf="lastname?.errors?.required && lastname?.touched"> Polje se mora popuniti
                     </td>
                 </tr>
                 <tr>
@@ -31,6 +31,16 @@
                     <td *ngIf="email?.errors?.pattern && email?.touched"> Email nije validan</td>
                 </tr>
                 <tr>
+
+                    <td>Username</td>
+                    <td><input type="username" required name="username" #username="ngModel" [(ngModel)]="user.username" [ngClass]="{'form-control':true,
+                            'is-invalid': !username?.valid && !username?.touched,
+                            'is-valid': username?.valid && username?.touched}" pattern="[a-z0-9._%+-]+\.[a-z]{2,3}$"></td>
+
+                    <td *ngIf="username?.errors?.required && username?.touched"> Polje se mora popuniti</td>
+                    <td *ngIf="username?.errors?.pattern && username?.touched"> Username nije validan</td>
+                </tr>
+                <tr>
                     <td>Password</td>
                     <td><input type="password" required name="password" #password="ngModel" [(ngModel)]="user.password" [ngClass]="{'form-control':true,
                         'is-invalid': !password?.valid && !password?.touched,
@@ -40,12 +50,24 @@
                 </tr>
                 <tr>
                     <td>Telefon</td>
-                    <td><input type="text" required name="tel" #tel="ngModel" [(ngModel)]="user.brojTelefona" [ngClass]="{'form-control':true,
+                    <td><input type="text" required name="tel" #tel="ngModel" [(ngModel)]="user.phoneNumber" [ngClass]="{'form-control':true,
                         'is-invalid': !tel?.valid && !tel?.touched,
                         'is-valid': tel?.valid && tel?.touched}" pattern="^[0-9]{9,10}" ></td>
                     <td *ngIf="tel?.errors?.required && tel?.touched"> Polje se mora popuniti</td>
                     <td *ngIf="tel?.errors?.pattern && tel?.touched"> Polje mora biti samo broj duzine 9 ili 10 cifara</td>
                         
+                </tr>
+                <tr>
+
+                    <td>Pol</td>
+                    <td><input type="gender" required name="gender" #gender="ngModel" [(ngModel)]="user.gender"
+                            [ngClass]="{'form-control':true,
+                            'is-invalid': !gender?.valid && !gender?.touched,
+                            'is-valid': gender?.valid && gender?.touched}" pattern="[a-z0-9._%+-]+\.[a-z]{2,3}$">
+                    </td>
+
+                    <td *ngIf="gender?.errors?.required && gender?.touched"> Polje se mora popuniti</td>
+                    <td *ngIf="gender?.errors?.pattern && gender?.touched"> Email nije validan</td>
                 </tr>
                 <tr>
                 <td><input type="submit" value="Potvrdi" class="btn btn-info"></td>
