@@ -13,22 +13,16 @@ export class LoginService {
 
 
   constructor(private http: HttpClient) {
-    //  this.pacijetUrl='http//localhost:8080/api/pacijenti';
+  
   }
 
   public save(user: Korisnik) {
-    return this.http.post<Korisnik>("/user/addClient", user);
+    return this.http.post<Korisnik>("/user/addUser", user);
   }
 
   public getKorisnika(): Observable<Korisnik> {
     return this.http.get<Korisnik>("/user/login/")//.pipe(
-    //  map((data: Korisnik) =>
-    //  data.map(
-    //  (item: Korisnik) =>
-    //  new Korisnik(item.ime, item.prezime,item.email,item.password,item.grad,
-    //  item.drzava,item.adresa,item.telefon,item.broj_osiguranika,item.uloga)))
-    //)
-    //)
+ 
   }
 
   public ulogujSe(loginZahtev: Login) {

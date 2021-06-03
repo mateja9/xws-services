@@ -12,6 +12,8 @@ import {
 import { WelcomeComponent } from './home/welcome.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.services';
+import { BrowserModule } from '@angular/platform-browser';
+import { SignupComponent } from './login/signup.component';
 
 
 
@@ -20,15 +22,16 @@ import { LoginService } from './login/login.services';
     AppComponent,
     WelcomeComponent,
     LoginComponent,
+    SignupComponent,
   
   ],
   imports: [
-  
+    BrowserModule,
     HttpClientModule,
     RouterModule.forRoot([
       { path: 'welcome', component: WelcomeComponent },
       { path: 'login', component: LoginComponent },
-    
+      { path: 'signup', component: SignupComponent },
 
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full'},

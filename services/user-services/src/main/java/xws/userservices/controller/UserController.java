@@ -13,13 +13,18 @@ import xws.userservices.service.UserService;
 import java.text.MessageFormat;
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 @RestController
 @RequestMapping(produces =  MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
+
     @Autowired
     private UserService userService;
     Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-    @PostMapping( value = "/addUser")
+
+
+    @PostMapping( value = "/user/addUser")
     public ResponseEntity<?> addUser(@RequestBody User client) throws Exception {
         User postojeci = userService.findByEmail(client.getEmail());
 
