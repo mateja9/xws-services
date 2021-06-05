@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/services/Gateway/gateway.iml" filepath="$PROJECT_DIR$/services/Gateway/gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/services/handlingReq-services/handlingReq-services.iml" filepath="$PROJECT_DIR$/services/handlingReq-services/handlingReq-services.iml" />
+      <module fileurl="file://$PROJECT_DIR$/services/media-services/media-services.iml" filepath="$PROJECT_DIR$/services/media-services/media-services.iml" />
+      <module fileurl="file://$PROJECT_DIR$/services/user-services/user-services.iml" filepath="$PROJECT_DIR$/services/user-services/user-services.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/xws-services.iml" filepath="$PROJECT_DIR$/.idea/xws-services.iml" />
+    </modules>
+  </component>
+</project>

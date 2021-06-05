@@ -26,18 +26,24 @@ export class LoginComponent implements OnInit {
 
     constructor(private router: Router, private loginService: LoginService) {
         this.loginZahtev = new Login();
+        
         this.korisnik = new Korisnik();
+       // this.korisnik.rola="CLIENT";
+        
 
     }
 
     ngOnInit() {
         this.vratiKorisnika();
+      //  this.korisnik.rola="CLIENT";
 
     }
 
 
     login() {
+        
         this.odgovor = false;
+      //  this.korisnik.rola = "CLIENT";
         this.loginService.ulogujSe(this.loginZahtev).subscribe(result => this.vratiKorisnika(),
             err => this.odgovor = true
         );
@@ -45,16 +51,17 @@ export class LoginComponent implements OnInit {
     }
 
     vratiKorisnika() {
-
-        this.loginService.getKorisnika().subscribe({
+      //  this.korisnik.rola = "CLIENT";
+         this.loginService.getKorisnika().subscribe({
             next: korisnik => {
                 this.korisnik = korisnik;
-
-                console.log(this.korisnik.rola);
+                this.korisnik.rola = "CLIENT";
+                
                 console.log('Prosao u login subscribe!')
 
                
                  if (this.korisnik.rola == "CLIENT") {
+                     
                     this.router.navigate(["/korisnik"]);
                 }
                

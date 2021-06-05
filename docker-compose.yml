@@ -7,20 +7,20 @@ services:
       context: ./consul-server
       dockerfile: Dockerfile
     tty: true
-    ports: 
+    ports:
       - "8500:8500"
-    restart: on-failure 
+    restart: on-failure
     networks:
       static-network:
         ipv4_address: 172.20.0.2
-        
+
   
   
   mysql-backend:
      image: mysql:8.0.19
      environment:
        MYSQL_ROOT_PASSWORD: fakultet
-       MYSQL_USER: root
+#       MYSQL_USER: root
        MYSQL_PASSWORD: fakultet
        MYSQL_DATABASE: xml_backend
      ports:
@@ -32,6 +32,8 @@ services:
      volumes:
        - mysql-data:/var/lib/mysql  
        - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+     depends_on:
+       - consul-server
 
   
   user-services:
@@ -48,7 +50,7 @@ services:
      tty: true
      networks:
       - static-network
-     restart: on-failure 
+     restart: on-failure
      depends_on:
        - consul-server
        - mysql-backend
@@ -67,10 +69,10 @@ services:
      tty: true
      networks:
       - static-network
-     restart: on-failure 
+     restart: on-failure
      depends_on:
       - consul-server
-       - mysql-backend
+      - mysql-backend
 
   handlingreq-services:
      image: handlingreq-services
@@ -86,22 +88,22 @@ services:
      tty: true
      networks:
       - static-network
-     restart: on-failure 
+     restart: on-failure
      depends_on:
       - consul-server
-       - mysql-backend
- 
+      - mysql-backend
+
   gateway:
     image: gateway
     build:
       context: ./services/Gateway
       dockerfile: Dockerfile
     tty: true
-    ports: 
+    ports:
       - "8080:8080"
     networks:
       - static-network
-    restart: on-failure 
+    restart: on-failure
     depends_on:
       - consul-server
       

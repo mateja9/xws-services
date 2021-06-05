@@ -15,7 +15,10 @@ import xws.userservices.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.Collection;
 
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
@@ -43,15 +46,16 @@ public class LoginController {
 
             if (zahtev.getPassword().equals(ak.getPassword())) {
 
-                //if (zahtev.getPassword().equals(ak.getPassword())) {
+
                 HttpSession session = request.getSession();
-                session.setAttribute("user", ak);
+                session.setAttribute("client", ak);
                 LOGGER.info(MessageFormat.format("USER SESSION: USER-ID:{0}-session created, USER-EMAIL:{1}", ak.getId(), ak.getEmail()));
 
-                return new ResponseEntity<User>(ak, HttpStatus.CREATED);
-            }
 
+            }
+            return new ResponseEntity<User>(ak, HttpStatus.CREATED);
         }
+        else
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
 
@@ -62,7 +66,7 @@ public class LoginController {
 
         HttpSession session = request.getSession();
 
-        User korisnik = (User) session.getAttribute("User");
+        User korisnik = (User) session.getAttribute("client");
 
         if (korisnik != null) {
 
@@ -100,5 +104,21 @@ public class LoginController {
         return ResponseEntity.status(200).build();
     }
 
+    //Metoda koja proverava da li je ostcen integritet poruke
+    private boolean checkIntegrity(String data, byte[] dataHash) {
+        byte[] newDataHash = hash(data);
+        return Arrays.equals(dataHash, newDataHash);
+    }
 
+    public byte[] hash(String data) {
+        //Kao hes funkcija koristi SHA-256
+        try {
+            MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+            byte[] dataHash = sha256.digest(data.getBytes());
+            return dataHash;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
