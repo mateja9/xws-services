@@ -17,6 +17,9 @@ export class KorisnikService {
     getKorisnikeSve(): Observable<Korisnik[]> {
         return this._http.get<Korisnik[]>("/user/getAllClients")
     }
-
+    update(updatedUser: Korisnik) {
+        return this._http.put("/user/edit", updatedUser);
+      }
+    
     }
 

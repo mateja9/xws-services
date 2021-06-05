@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User addUser(User user) {
 
-        User newUser=new User(user.getName(), user.getLastname(),user.getPhoneNumber(),user.getEmail(),user.getUsername(),user.getPassword(),user.getRola(),user.getGender());
+        User newUser=new User(user.getName(), user.getLastname(),user.getPhoneNumber(),user.getEmail(),user.getUsername(),user.getPassword(),user.getRola(),user.getGender(), user.getWebsite(),user.getBio(),user.getDateofb());
 
         newUser=userRepository.save(newUser);
         return newUser;

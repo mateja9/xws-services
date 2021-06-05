@@ -8,4 +8,7 @@ export class Korisnik {
     password: string;
     rola: string;
     gender: string;
+    website: string;
+    bio: string;
+    dateofb: string;
 }

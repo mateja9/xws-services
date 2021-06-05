@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoginService } from 'app/login/login.services';
 
 import { Korisnik } from '../login/Korisnik';
+import { KorisnikService } from './korisnici.services';
 
 @Component({
   selector: 'pm-profil-korisnika',
@@ -11,10 +12,12 @@ import { Korisnik } from '../login/Korisnik';
 })
 export class ProfilKorisnikaComponent implements OnInit {
 
-  constructor(private _router: Router,private loginService:LoginService) { 
+  constructor(private _router: Router,private loginService:LoginService,private userService: KorisnikService,) { 
     this.korisnik = new Korisnik();
+    this.updatedUser = new Korisnik();
   }
   korisnik :Korisnik;
+  updatedUser:Korisnik;
   request:Request;
   
   ngOnInit(): void {
@@ -32,7 +35,16 @@ export class ProfilKorisnikaComponent implements OnInit {
     });
 
   }
-
+  edit() {
+    console.log("ueeeeeeeeeeeeeeee");
+    console.log(this.korisnik);
+    this.userService.update(this.korisnik).subscribe();
+    console.log("ueeeeeeeeeeeeeeee");
+    this.refresh();
+  }
+  refresh(){
+    window.location.reload();
+  }
   kraj() {
     this._router.navigate(["/welcome"]);
   }

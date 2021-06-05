@@ -37,6 +37,9 @@ export class SignupComponent implements OnInit {
 		this.user.password = "";
 		
         this.user.gender="";
+		this.user.website="";
+		this.user.bio="";
+		this.user.dateofb="";
 		this.router.navigate(["/homePage"]);
 	}
   

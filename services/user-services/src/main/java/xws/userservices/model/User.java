@@ -35,9 +35,40 @@ public class User {
     @Column(name = "Gender", nullable = false)
     private String gender;
 
+    @Column(name = "Website", nullable = false)
+    private String website;
 
+    @Column(name = "Bio", nullable = false)
+    private String bio;
+
+    @Column(name = "DateofB", nullable = false)
+    private String dateofb;
 
     public User() {
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getDateofb() {
+        return dateofb;
+    }
+
+    public void setDateofb(String dateofb) {
+        this.dateofb = dateofb;
     }
 
     public Long getId() {
@@ -112,7 +143,18 @@ public class User {
         this.gender = gender;
     }
 
-    public User(String name, String lastname, String phoneNumber, String email, String username, String password, String rola, String gender ){
+//    public User(String name, String lastname, String phoneNumber, String email, String username, String password, String rola, String gender ){
+//        this.name=name;
+//        this.lastname=lastname;
+//        this.phoneNumber=phoneNumber;
+//        this.email=email;
+//        this.username=username;
+//        this.password=password;
+//        this.rola=rola;
+//        this.gender=gender;
+//    }
+
+    public User(String name, String lastname, String phoneNumber, String email, String username, String password, String rola, String gender,String website,String bio, String dateofb ){
         this.name=name;
         this.lastname=lastname;
         this.phoneNumber=phoneNumber;
@@ -121,5 +163,8 @@ public class User {
         this.password=password;
         this.rola=rola;
         this.gender=gender;
+        this.website=website;
+        this.bio=bio;
+        this.dateofb=dateofb;
     }
 }

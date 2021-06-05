@@ -19,8 +19,7 @@ services:
   mysql-backend:
      image: mysql:8.0.19
      environment:
-       MYSQL_ROOT_PASSWORD: fakultet
-#       MYSQL_USER: root
+        # MYSQL_USER: root
        MYSQL_PASSWORD: fakultet
        MYSQL_DATABASE: xml_backend
      ports:

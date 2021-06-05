@@ -99,6 +99,35 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Website</td>
+                    <td><input type="text" required name="w" #w="ngModel" [(ngModel)]="user.website" [ngClass]="{'form-control':true,
+                        'is-invalid': !w?.valid && !w?.touched,
+                        'is-valid': w?.valid && w?.touched}" ></td>
+
+                    <td *ngIf="w?.errors?.required && w?.touched"> The field must be filled
+                    </td>
+                </tr>
+                <tr>
+                    <td>Bio</td>
+                    <td><input type="text" required name="w1" #w1="ngModel" [(ngModel)]="user.bio" [ngClass]="{'form-control':true,
+                        'is-invalid': !w1?.valid && !w1?.touched,
+                        'is-valid': w1?.valid && w1?.touched}" ></td>
+
+                    <td *ngIf="w1?.errors?.required && w1?.touched"> The field must be filled
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date of birth</td>
+                    <td><input type="text" required name="w2" #w2="ngModel" [(ngModel)]="user.dateofb" [ngClass]="{'form-control':true,
+                        'is-invalid': !w2?.valid && !w2?.touched,
+                        'is-valid': w2?.valid && w2?.touched}" ></td>
+
+                    <td *ngIf="w2?.errors?.required && w2?.touched"> The field must be filled
+                    </td>
+                </tr>
+
+
+                <tr>
                 <td><input type="submit" value="Sign up" class="btn btn-info"></td>
                 </tr>
             </table>
