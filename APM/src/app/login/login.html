@@ -1,34 +1,63 @@
-<html>
-    <body>
-        <div class="card">
-            <div class="card-body">
-                <h1>Uloguj se</h1>
-                <form (ngSubmit)="login()" #loginForm="ngForm">
-                    <table>
-                        <tr>
-                            <td>Email</td>
-                            <td><input type="text" required name="email" #email="ngModel" [(ngModel)]="loginZahtev.email" [ngClass]="{'form-control':true,
-                                'is-invalid': !email?.valid && !email?.touched,
-                                'is-valid': email?.valid && email?.touched}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></td>
-                            
-                            <td *ngIf="email?.errors?.required && email?.touched"> Polje se mora popuniti</td>
-                            <td *ngIf="email?.errors?.pattern && email?.touched"> Email nije validan</td>
-                        </tr>
-                        <tr>
-                            <td>Password</td>
-                            <td><input type="password" required name="password" #password="ngModel" [(ngModel)]="loginZahtev.password" [ngClass]="{'form-control':true,
-                                'is-invalid': !password?.valid && !password?.touched,
-                                'is-valid': password?.valid && password?.touched}"></td>
-                            <td *ngIf="password?.errors?.required && password?.touched"> Polje se mora popuniti</td>
-                        </tr>
-                        <tr>
-                            <td><input type="submit" value="Potvrdi" class="btn btn-info"></td>
-                        </tr>
-                        <!-- <td *ngIf="odgovor">Neisprvna email adresa ili password</td> -->
-                    </table>
-                </form>
-                <div *ngIf="odgovor" style="color: red;"><b>Neispravna email adresa ili password!<></b></div>
+<div class="wrapper" style="background-image: url(./assets/img/backg.png); margin-top: -30px; ">
+    <div>
+        <div class="sidebar" data-color="danger" data-background-color="white">
+            <div class="sidebar-background" ></div>
+            <div class="logo">
+                <a  class="simple-text">
+                    <div class="logo-img">
+                        <img src="/assets/img/logoxml.jpg" />
+                    </div>
+                   Nistagram
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/signup']" > <i class="material-icons">person_add</i>
+                            <p style="color: green; font-weight: 500;">Register</p>
+                        </a>
+                    </li>
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['/login']"> <i
+                                class="material-icons">person_pin</i>
+                            <p style="color: green; font-weight: 500;">Log in</p>
+                        </a>
+                    </li>
+                  
+                </ul>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+
+
+
+    <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
+    <h2>Log in</h2>
+    <form (ngSubmit)="login()" #loginForm="ngForm">
+        <table>
+            <tr>
+                <td>Email</td>
+                <td><input type="text" required name="email" #email="ngModel" [(ngModel)]="loginZahtev.email" [ngClass]="{'form-control':true,
+                    'is-invalid': !email?.valid && !email?.touched,
+                    'is-valid': email?.valid && email?.touched}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></td>
+                
+                <td *ngIf="email?.errors?.required && email?.touched">The field must be filled</td>
+                <td *ngIf="email?.errors?.pattern && email?.touched"> Email in invalid</td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" required name="password" #password="ngModel" [(ngModel)]="loginZahtev.password" [ngClass]="{'form-control':true,
+                    'is-invalid': !password?.valid && !password?.touched,
+                    'is-valid': password?.valid && password?.touched}"></td>
+                <td *ngIf="password?.errors?.required && password?.touched"> The field must be filled</td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Go" class="btn btn-info"></td>
+            </tr>
+            <!-- <td *ngIf="odgovor">Neisprvna email adresa ili password</td> -->
+        </table>
+    </form>
+    <div *ngIf="odgovor" style="color: red;"><b>Sorry, we were not able to find your account. Please try again.</b></div>
+   
+</div>
+</div>

@@ -1,24 +1,56 @@
-<div class="card">
-    <div class="card-body">
-        <h1>Registruj se</h1>
+<div class="wrapper" style="background-image: url(./assets/img/backg.png); margin-top: -30px; ">
+    <div>
+        <div class="sidebar" data-color="danger" data-background-color="white">
+            <div class="sidebar-background" ></div>
+            <div class="logo">
+                <a  class="simple-text">
+                    <div class="logo-img">
+                        <img src="/assets/img/logoxml.jpg" />
+                    </div>
+                   Nistagram
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/signup']" > <i class="material-icons">person_add</i>
+                            <p style="color: green; font-weight: 500;">Register</p>
+                        </a>
+                    </li>
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['/login']"> <i
+                                class="material-icons">person_pin</i>
+                            <p style="color: green; font-weight: 500;">Log in</p>
+                        </a>
+                    </li>
+                  
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
+        <h2>Sign up to explore Nistagram</h2>
         <form (ngSubmit)="onSubmit()" #userForm="ngForm">
             <table>
                 <tr>
-                    <td>Ime</td>
+                    <td>Name</td>
                     <td><input type="text" required name="name" #name="ngModel"  [(ngModel)]="user.name" [ngClass]="{'form-control':true,
                     'is-invalid': !name?.valid && !name?.touched,
                     'is-valid': name?.valid && name?.touched}" ></td>
-                    <td *ngIf="name?.errors?.required && name?.touched"> Polje se mora popuniti
+                    <td *ngIf="name?.errors?.required && name?.touched"> The field must be filled
                     </td>
                 </tr>
                 
                 <tr>
-                    <td>Prezime</td>
+                    <td>Last name</td>
                     <td><input type="text" required name="lastname" #lastname="ngModel" [(ngModel)]="user.lastname" [ngClass]="{'form-control':true,
                         'is-invalid': !lastname?.valid && !lastname?.touched,
                         'is-valid': lastname?.valid && lastname?.touched}" ></td>
 
-                    <td *ngIf="lastname?.errors?.required && lastname?.touched"> Polje se mora popuniti
+                    <td *ngIf="lastname?.errors?.required && lastname?.touched"> The field must be filled
                     </td>
                 </tr>
                 <tr>
@@ -27,8 +59,8 @@
                             'is-invalid': !email?.valid && !email?.touched,
                             'is-valid': email?.valid && email?.touched}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></td>
 
-                    <td *ngIf="email?.errors?.required && email?.touched"> Polje se mora popuniti</td>
-                    <td *ngIf="email?.errors?.pattern && email?.touched"> Email nije validan</td>
+                    <td *ngIf="email?.errors?.required && email?.touched"> The field must be filled</td>
+                    <td *ngIf="email?.errors?.pattern && email?.touched"> Email is invalid</td>
                 </tr>
                 <tr>
 
@@ -37,42 +69,43 @@
                             'is-invalid': !username?.valid && !username?.touched,
                             'is-valid': username?.valid && username?.touched}" pattern="[a-z0-9._%+-]+\.[a-z]{2,3}$"></td>
 
-                    <td *ngIf="username?.errors?.required && username?.touched"> Polje se mora popuniti</td>
-                    <td *ngIf="username?.errors?.pattern && username?.touched"> Username nije validan</td>
+                    <td *ngIf="username?.errors?.required && username?.touched"> The field must be filled</td>
+                    <td *ngIf="username?.errors?.pattern && username?.touched"> Username is invalid</td>
                 </tr>
                 <tr>
                     <td>Password</td>
                     <td><input type="password" required name="password" #password="ngModel" [(ngModel)]="user.password" [ngClass]="{'form-control':true,
                         'is-invalid': !password?.valid && !password?.touched,
                         'is-valid': password?.valid && password?.touched}"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10,}"></td>
-                    <td *ngIf="password?.errors?.required && password?.touched"> Polje se mora popuniti</td>
-                    <td *ngIf="password?.errors?.pattern&& password?.touched"> Sifra sadrzati velika i mala slova, brojeve i specijalne karaktere i minimalno 10 karaktera</td>
+                    <td *ngIf="password?.errors?.required && password?.touched"> The field must be filled</td>
+                    <td *ngIf="password?.errors?.pattern&& password?.touched"> The password must contain uppercase and lowercase letters, numbers and special characters and a minimum of 10 characters</td>
                 </tr>
                 <tr>
-                    <td>Telefon</td>
+                    <td>Phone number</td>
                     <td><input type="text" required name="tel" #tel="ngModel" [(ngModel)]="user.phoneNumber" [ngClass]="{'form-control':true,
                         'is-invalid': !tel?.valid && !tel?.touched,
                         'is-valid': tel?.valid && tel?.touched}" pattern="^[0-9]{9,10}" ></td>
-                    <td *ngIf="tel?.errors?.required && tel?.touched"> Polje se mora popuniti</td>
-                    <td *ngIf="tel?.errors?.pattern && tel?.touched"> Polje mora biti samo broj duzine 9 ili 10 cifara</td>
+                    <td *ngIf="tel?.errors?.required && tel?.touched"> The field must be filled</td>
+                    <td *ngIf="tel?.errors?.pattern && tel?.touched"> Please enter 9 or 10 digits</td>
                         
                 </tr>
                 <tr>
 
-                    <td>Pol</td>
+                    <td>Gender</td>
                     <td><input type="gender" required name="gender" #gender="ngModel" [(ngModel)]="user.gender"
                             [ngClass]="{'form-control':true,
                             'is-invalid': !gender?.valid && !gender?.touched,
                             'is-valid': gender?.valid && gender?.touched}" pattern="[a-z0-9._%+-]+\.[a-z]{2,3}$">
                     </td>
 
-                    <td *ngIf="gender?.errors?.required && gender?.touched"> Polje se mora popuniti</td>
-                    <td *ngIf="gender?.errors?.pattern && gender?.touched"> Email nije validan</td>
+                    <td *ngIf="gender?.errors?.required && gender?.touched"> The field must be filled</td>
+                    <td *ngIf="gender?.errors?.pattern && gender?.touched"> Format invalid</td>
                 </tr>
                 <tr>
-                <td><input type="submit" value="Potvrdi" class="btn btn-info"></td>
+                <td><input type="submit" value="Sign up" class="btn btn-info"></td>
                 </tr>
             </table>
         </form>
-    </div>
+   
+</div>
 </div>

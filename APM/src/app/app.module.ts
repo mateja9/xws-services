@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.services';
 import { BrowserModule } from '@angular/platform-browser';
 import { SignupComponent } from './login/signup.component';
+import { ProfilKorisnikaModule } from './korisnik/profil-korisnika.module';
 
 
 
@@ -23,6 +24,7 @@ import { SignupComponent } from './login/signup.component';
     WelcomeComponent,
     LoginComponent,
     SignupComponent,
+    
   
   ],
   imports: [
@@ -40,6 +42,7 @@ import { SignupComponent } from './login/signup.component';
 
     ]),
     FormsModule,
+    ProfilKorisnikaModule
     
   ],
   providers:[LoginService],

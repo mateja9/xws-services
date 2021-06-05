@@ -28,6 +28,7 @@ export class LoginService {
   public ulogujSe(loginZahtev: Login) {
     return this.http.post<Response>("/user/login", loginZahtev);
   }
+
   public IzlogujSe(request: Request) {
     return this.http.put("/user/logOut", request);
   }
