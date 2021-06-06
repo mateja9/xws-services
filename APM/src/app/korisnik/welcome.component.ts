@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { KorisnikService } from 'app/korisnik/korisnici.services';
-import { SearchUser } from 'app/korisnik/SearchUser';
-import { Korisnik } from '../login/Korisnik';
+import { ActivatedRoute, Router } from '@angular/router';
+import { KorisnikService } from 'app/services/korisnici.services';
+import { SearchUser } from 'app/model/SearchUser';
+import { Korisnik } from '../model/Korisnik';
 
-import { LoginService } from '../login/login.services';
+import { LoginService } from '../services/login.services';
 
 @Component({
   templateUrl: './welcome.component.html'
@@ -16,7 +16,7 @@ export class WelcomeComponent implements OnInit{
   request: Request;
   user: Korisnik;
 
-  constructor(private _router: Router, private loginService: LoginService, private userService: KorisnikService) {
+  constructor(private route: ActivatedRoute, private _router: Router, private loginService: LoginService, private userService: KorisnikService) {
     this.user = new Korisnik();
     this.searchParameters = new SearchUser();
   }

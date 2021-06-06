@@ -52,20 +52,20 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User updateUser(User updateDermatologist) {
+    public User updateUser(User updateUser) {
 
 
-        User forChange = getByEmail(updateDermatologist.getEmail());
+        User forChange = getByEmail(updateUser.getEmail());
 
-        forChange.setUsername(updateDermatologist.getUsername());
-        forChange.setName(updateDermatologist.getName());
-        forChange.setLastname(updateDermatologist.getLastname());
-        forChange.setEmail(updateDermatologist.getEmail());
-        forChange.setGender(updateDermatologist.getGender());
-        forChange.setWebsite(updateDermatologist.getWebsite());
-        forChange.setPassword(updateDermatologist.getPassword());
-        forChange.setPhoneNumber(updateDermatologist.getPhoneNumber());
-        forChange.setDateofb(updateDermatologist.getDateofb());
+        forChange.setUsername(updateUser.getUsername());
+        forChange.setName(updateUser.getName());
+        forChange.setLastname(updateUser.getLastname());
+        forChange.setEmail(updateUser.getEmail());
+        forChange.setGender(updateUser.getGender());
+        forChange.setWebsite(updateUser.getWebsite());
+        forChange.setPassword(updateUser.getPassword());
+        forChange.setPhoneNumber(updateUser.getPhoneNumber());
+        forChange.setDateofb(updateUser.getDateofb());
         userRepository.save(forChange);
 
         return forChange;
@@ -95,8 +95,8 @@ public class UserServiceImpl implements UserService{
             }
 
 
-            if (!searchParameters.getLastname().equals("all")) {
-                if (!p.getLastname().toLowerCase().contains(searchParameters.getLastname().toLowerCase())) {
+            if (!searchParameters.getName().equals("all")) {
+                if (!p.getName().toLowerCase().contains(searchParameters.getName().toLowerCase())) {
                     // and it is in the ret list
                     if (ret.contains(p)) {
                         // remove it from the ret list
@@ -121,7 +121,58 @@ public class UserServiceImpl implements UserService{
 
         return ret;
     }
+
+    public ArrayList<User> searchU(String username, String name, Long userId){
+
+        ArrayList<User> ret = new ArrayList<User>();
+
+        for (User u : getAllUsers(userId)){
+            ret.add(u);
+        }
+
+
+        for (User u : getAllUsers(userId)){
+
+            if (!u.getUsername().toLowerCase().contains(username.toLowerCase()) ||
+                    !u.getName().toLowerCase().equalsIgnoreCase(name.toLowerCase())) {
+                ret.remove(u);
+            }
+        }
+
+        System.out.println("RET : " + ret);
+        return ret;
     }
+    @Override
+    public List<User> getAllUsers(Long userId) {
+
+        ArrayList<User> ret = new ArrayList<User>();
+
+        List<User> users = userService.getAll();
+
+        for (User i: users) {
+
+            User user = userRepository.findById(i.getId()).orElseGet(null);
+
+            if(!ret.contains(user)) {
+                ret.add(user);
+            }
+
+        }
+
+        return ret;
+    }
+
+    public User getById(Long id){
+        return userRepository.findById(id).orElseGet(null);
+    }
+
+
+}
+
+
+
+
+
 
 
 

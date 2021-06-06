@@ -84,7 +84,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor='let k of allPharmacies'>
-                            <td>{{k.name}}</td>
+                            <td><a [routerLink]="[k.id]">{{k.name}}</a></td>
                             <td>{{k.lastname}}</td>
                             <td>{{k.email}}</td>
                             

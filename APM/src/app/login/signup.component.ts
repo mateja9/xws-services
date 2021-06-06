@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Korisnik } from './Korisnik';
-import { LoginService } from './login.services';
+import { Korisnik } from '../model/Korisnik';
+import { LoginService } from '../services/login.services';
 
 @Component({
 	selector: 'pm-signup',

@@ -4,7 +4,9 @@ import { ProfilKorisnikaComponent } from './profil-korisnika.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { KorisnikService } from './korisnici.services';
+import { KorisnikService } from '../services/korisnici.services';
+import { ProfilNeRKor } from 'app/korisnik/profilKor.component';
+import { profilKor } from './profilKor';
 
 
 @NgModule({
@@ -18,8 +20,9 @@ import { KorisnikService } from './korisnici.services';
 
     RouterModule.forChild([
       { path: 'korisnik', component: ProfilKorisnikaComponent },
+      { path: 'korisnik/profilKor/:id', component: ProfilNeRKor },
      
-     
+      { path: 'korisnik/profilKor', component: profilKor },
 
 
     ]),

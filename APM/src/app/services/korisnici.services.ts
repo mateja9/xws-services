@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Korisnik } from 'app/login/Korisnik';
-import { SearchUser } from './SearchUser';
+import { Korisnik } from 'app/model/Korisnik';
+import { SearchUser } from '../model/SearchUser';
 
 
 @Injectable()
@@ -25,5 +25,9 @@ export class KorisnikService {
   public searchUser(sp: SearchUser): Observable<Korisnik[]> {
     return this._http.post<Korisnik[]>("/user/searchUser", sp);
   }
+  public vratiKor(id:number):Observable<Korisnik>{
+    return this._http.get<Korisnik>("/getAll/"+id);
+}
+
     }
 

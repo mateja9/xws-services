@@ -1,9 +1,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Login } from './login';
-import { LoginService } from './login.services';
-import { Korisnik } from './Korisnik';
+import { Login } from '../model/login';
+import { LoginService } from '../services/login.services';
+import { Korisnik } from '../model/Korisnik';
 import { Observable } from 'rxjs';
 
 

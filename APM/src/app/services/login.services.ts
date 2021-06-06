@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Login } from './login';
-import { Korisnik } from './Korisnik';
+import { Login } from '../model/login';
+import { Korisnik } from '../model/Korisnik';
 import { map } from "rxjs/operators";
 
 

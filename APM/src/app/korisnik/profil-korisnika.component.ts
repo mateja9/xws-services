@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from 'app/login/login.services';
+import { LoginService } from 'app/services/login.services';
 
-import { Korisnik } from '../login/Korisnik';
-import { KorisnikService } from './korisnici.services';
+import { Korisnik } from '../model/Korisnik';
+import { KorisnikService } from '../services/korisnici.services';
 
 @Component({
   selector: 'pm-profil-korisnika',

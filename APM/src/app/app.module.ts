@@ -9,9 +9,9 @@ import {
   AgmCoreModule
 } from '@agm/core';
 
-import { WelcomeComponent } from './home/welcome.component';
+import { WelcomeComponent } from './korisnik/welcome.component';
 import { LoginComponent } from './login/login.component';
-import { LoginService } from './login/login.services';
+import { LoginService } from './services/login.services';
 import { BrowserModule } from '@angular/platform-browser';
 import { SignupComponent } from './login/signup.component';
 import { ProfilKorisnikaModule } from './korisnik/profil-korisnika.module';
