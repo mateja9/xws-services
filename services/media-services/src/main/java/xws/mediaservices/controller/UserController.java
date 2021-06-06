@@ -101,4 +101,30 @@ public class UserController {
         return userService.searchUser(searchParameters);
     }
 
+    @PostMapping(value = "/searchU/{username}")
+    public Object searchUser(@PathVariable("username") String username,
+                             @RequestBody String name, @Context HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("client");
+
+        return userService.searchU(username, name, user.getId());
+    }
+
+
+    //get by id
+    @GetMapping(value = "/getAll/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) throws Exception {
+
+        User user = userService.getById(id);
+
+        if(user!=null) {
+            LOGGER.info("USER-ID:{0}-returned, USER-ID:{1}", user.getId(), user.getName());
+        } else {
+            LOGGER.error("USER-ID:{0}-not returned, USER-ID:{1}", user.getId(), user.getName());
+        }
+
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+
 }
