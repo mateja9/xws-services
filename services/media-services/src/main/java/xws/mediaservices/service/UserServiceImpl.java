@@ -3,6 +3,7 @@ package xws.mediaservices.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import xws.mediaservices.dto.SearchUser;
 import xws.mediaservices.model.User;
 import xws.mediaservices.repository.UserRepository;
 
@@ -71,6 +72,56 @@ public class UserServiceImpl implements UserService{
 
     }
 
+    //NIJE ODRADJENA LOGIKA GDE SE PROVERAVA DA LI JE PROFIL JAVAN
+    public ArrayList<User> searchUser(SearchUser searchParameters){
+        ArrayList<User> ret = new ArrayList<User>();
 
 
-}
+        for (User p : userRepository.findAll())  {
+            ret.add(p);
+        }
+
+        for (User p : userRepository.findAll()) {
+
+
+            if (!searchParameters.getUsername().equals("all")) {
+                if (!p.getUsername().toLowerCase().contains(searchParameters.getUsername().toLowerCase())) {
+                    // and it is in the ret list
+                    if (ret.contains(p)) {
+                        // remove it from the ret list
+                        ret.remove(p);
+                    }
+                }
+            }
+
+
+            if (!searchParameters.getLastname().equals("all")) {
+                if (!p.getLastname().toLowerCase().contains(searchParameters.getLastname().toLowerCase())) {
+                    // and it is in the ret list
+                    if (ret.contains(p)) {
+                        // remove it from the ret list
+                        ret.remove(p);
+                    }
+                }
+            }
+
+            if (!searchParameters.getLastname().equals("all")) {
+                if (!p.getName().toLowerCase().contains(searchParameters.getLastname().toLowerCase())) {
+                    // and it is in the ret list
+                    if (ret.contains(p)) {
+                        // remove it from the ret list
+                        ret.remove(p);
+                    }
+                }
+            }
+
+        }
+
+        System.out.println("RET : " + ret);
+
+        return ret;
+    }
+    }
+
+
+

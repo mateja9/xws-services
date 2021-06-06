@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import xws.mediaservices.dto.SearchPost;
+import xws.mediaservices.dto.SearchUser;
 import xws.mediaservices.model.User;
 import xws.mediaservices.service.PostService;
 import xws.mediaservices.service.UserService;
@@ -51,7 +52,7 @@ public class UserController {
         }
     }
 
-    @GetMapping(value = "/getAllUsers")
+    @GetMapping(value = "/user/getAllUsers")
     public ResponseEntity<List<User>> getAllUsers() throws Exception {
 
         List<User> users=userService.getAll();
@@ -86,11 +87,18 @@ public class UserController {
         return d;
     }
 
-    @PostMapping(value = "/user/search")
+    @PostMapping(value = "/user/searchPost")
     public Object searchPharmacy(@RequestBody SearchPost searchParameters) {
 
         return postService.search(searchParameters);
     }
 
+    @PostMapping(value = "/user/searchUser")
+    public Object searchUser(@RequestBody SearchUser searchParameters, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        return userService.searchUser(searchParameters);
+    }
 
 }
