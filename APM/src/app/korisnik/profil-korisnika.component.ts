@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { LoginService } from 'app/services/login.services';
 
 import { Korisnik } from '../model/Korisnik';
-import { KorisnikService } from '../services/korisnici.services';
+import { KorisnikService } from '../services/korisnik.services';
 
 @Component({
   selector: 'pm-profil-korisnika',
@@ -11,14 +11,15 @@ import { KorisnikService } from '../services/korisnici.services';
   styleUrls: ['./profil-korisnika.component.css']
 })
 export class ProfilKorisnikaComponent implements OnInit {
+  korisnik :Korisnik;
+  updatedUser:Korisnik;
+  request:Request;
 
   constructor(private _router: Router,private loginService:LoginService,private userService: KorisnikService,) { 
     this.korisnik = new Korisnik();
     this.updatedUser = new Korisnik();
   }
-  korisnik :Korisnik;
-  updatedUser:Korisnik;
-  request:Request;
+
   
   ngOnInit(): void {
     this.loginService.getKorisnika().subscribe({
@@ -36,11 +37,10 @@ export class ProfilKorisnikaComponent implements OnInit {
 
   }
   edit() {
-    console.log("ueeeeeeeeeeeeeeee");
+
     console.log(this.korisnik);
     this.userService.update(this.korisnik).subscribe();
-    console.log("ueeeeeeeeeeeeeeee");
-    this.refresh();
+ //   this.refresh();
   }
   refresh(){
     window.location.reload();

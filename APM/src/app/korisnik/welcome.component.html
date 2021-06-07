@@ -51,7 +51,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <input type="text" value="" placeholder="Username" class="form-control" name="address"
-                            #address="ngModel" [(ngModel)]="searchParameters.username" />
+                            #address="ngModel" [(ngModel)]="searchParameters.email" />
                     </div>
                 </div>
 
@@ -76,6 +76,7 @@
             </div>
             <div class="card-content table-responsive table-full-width">
                 <table class="table">
+                 
                     <thead class="text-success">
                         <th>Name <i  (click)="sort('NAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
                         <th>Last name <i  (click)="sort('LASTNAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>

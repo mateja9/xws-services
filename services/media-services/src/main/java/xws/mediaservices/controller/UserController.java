@@ -95,9 +95,7 @@ public class UserController {
 
     @PostMapping(value = "/user/searchUser")
     public Object searchUser(@RequestBody SearchUser searchParameters, @Context HttpServletRequest request) {
-        if (authorize(request) == null) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+      
         return userService.searchUser(searchParameters);
     }
 
@@ -113,7 +111,7 @@ public class UserController {
 
 
     //get by id
-    @GetMapping(value = "/getAll/{id}")
+    @GetMapping(value = "/user/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) throws Exception {
 
         User user = userService.getById(id);

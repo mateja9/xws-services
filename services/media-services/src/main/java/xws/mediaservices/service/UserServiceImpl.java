@@ -84,8 +84,8 @@ public class UserServiceImpl implements UserService{
         for (User p : userRepository.findAll()) {
 
 
-            if (!searchParameters.getUsername().equals("all")) {
-                if (!p.getUsername().toLowerCase().contains(searchParameters.getUsername().toLowerCase())) {
+            if (!searchParameters.getEmail().equals("all")) {
+                if (!p.getEmail().toLowerCase().contains(searchParameters.getEmail().toLowerCase())) {
                     // and it is in the ret list
                     if (ret.contains(p)) {
                         // remove it from the ret list
@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService{
             }
 
             if (!searchParameters.getLastname().equals("all")) {
-                if (!p.getName().toLowerCase().contains(searchParameters.getLastname().toLowerCase())) {
+                if (!p.getLastname().toLowerCase().contains(searchParameters.getLastname().toLowerCase())) {
                     // and it is in the ret list
                     if (ret.contains(p)) {
                         // remove it from the ret list
