@@ -1,0 +1,114 @@
+<div class="wrapper" style="background-image: url(./assets/img/backg.png); margin-top: -30px; ">
+    <div>
+        <div class="sidebar" data-color="danger" data-background-color="white">
+            <div class="sidebar-background" ></div>
+            <div class="logo">
+                <a  class="simple-text">
+                    <div class="logo-img">
+                        <img src="/assets/img/logoxml.jpg" />
+                    </div>
+                   Nistagram
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/korisnik']" > <i class="material-icons">person</i>
+                            <p style="color: green; font-weight: 500;">My profile</p>
+                        </a>
+                    </li>
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/explore']" > <i class="material-icons">explore</i>
+                            <p style="color: green; font-weight: 500;">Explore Nistagram</p>
+                        </a>
+                    </li>
+                     <li routerLinkActive="active" class="nav-item">
+                        <a (click)="odjaviSe()"  class="nav-link sidebar-1" [routerLink]="['/welcome']"> <i
+                                class="material-icons">logout</i>
+                            <p style="color: green; font-weight: 500;">Log out</p>
+                        </a>
+                    </li>
+                   
+                  
+                </ul>
+            </div>
+        </div>
+  
+
+
+    <div style="margin-left:300px; margin-top:20px; padding:10px">
+        <!-- <h2>Welcome back </h2> -->
+        <h2>Nistagram homepage for {{korisnik.name}} {{korisnik.lastname}}</h2>
+
+     </div>    
+
+     <div style="margin-left:300px; margin-top:-auto; padding:60px;">
+        <h1>Find Users</h1>
+        <div class="row" style="margin-top: 50px;">
+            <form (ngSubmit)="searchUser()" #allergyForm="ngForm" >
+                <div class="row">
+    
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="text" value="" placeholder="Name" class="form-control" name="name"
+                                #name="ngModel" [(ngModel)]="searchParameters.name" />
+                        </div>
+                    </div>
+    
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="text" value="" placeholder="Last name" class="form-control" name="city" #city="ngModel"
+                                [(ngModel)]="searchParameters.lastname" />
+                        </div>
+                    </div>
+    
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="text" value="" placeholder="Username" class="form-control" name="address"
+                                #address="ngModel" [(ngModel)]="searchParameters.email" />
+                        </div>
+                    </div>
+    
+                    
+                    <div class="col-sm-3">
+                        <input type="submit" value="Search" mat-raised-button class="btn btn-success">
+                    </div>
+                    <form (ngSubmit)="refresh()" #allergyForm="ngForm">
+                        <div class="col-sm-3">
+                            <input type="submit" value="Refresh" mat-raised-button class="btn btn-success">
+                        </div>
+                    </form>
+                </div>
+               
+    
+            </form>
+    
+            <div class="card" style="margin-top: 150px;">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title">Users</h4>
+                    <p class="card-category">This is the list of all public users. You can search them above.</p>
+                </div>
+                <div class="card-content table-responsive table-full-width">
+                    <table class="table">
+                     
+                        <thead class="text-success">
+                            <th>Name <i  (click)="sort('NAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+                            <th>Last name <i  (click)="sort('LASTNAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+                            <th>Username <i  (click)="sort('USERNAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+                            
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let k of allPharmacies'>
+                                <td><a [routerLink]="[k.id]">{{k.name}}</a></td>
+                                <td>{{k.lastname}}</td>
+                                <td>{{k.email}}</td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+     </div>
+
+

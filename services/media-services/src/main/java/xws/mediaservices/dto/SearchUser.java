@@ -3,14 +3,14 @@ package xws.mediaservices.dto;
 public class SearchUser {
     private String name;
     private String lastname;
-    private String username;
+    private String email;
 
     public SearchUser(){ }
 
     public SearchUser(String name, String lastname, String username){
         this.name=name;
         this.lastname=lastname;
-        this.username=username;
+        this.email =username;
     }
 
     public String getName() {
@@ -29,11 +29,11 @@ public class SearchUser {
         this.lastname = lastname;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

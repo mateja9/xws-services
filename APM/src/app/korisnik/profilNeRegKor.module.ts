@@ -7,12 +7,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { KorisnikService } from '../services/korisnik.services';
 import { ProfilNeRegKorComponent } from 'app/korisnik/profilNeRegKor.component';
 import { profilKor } from './profilNeRegKor';
-import { ExploreNistagramComponent } from './exploreNistagram.component';
+import { WelcomeComponent } from './welcome.component';
+import { LoginService } from 'app/services/login.services';
 
 
 @NgModule({
-  declarations: [ProfilKorisnikaComponent,
-    ExploreNistagramComponent
+  declarations: [ProfilNeRegKorComponent,
+   // WelcomeComponent,
+  //  ProfilKorisnikaComponent
    ],
 
   imports: [
@@ -21,18 +23,20 @@ import { ExploreNistagramComponent } from './exploreNistagram.component';
     FormsModule,
 
     RouterModule.forChild([
-      { path: 'korisnik', component: ProfilKorisnikaComponent },
-      { path: 'profilNeRegKor/:id', component: ProfilNeRegKorComponent },
-      { path: 'profilNeRegKor', component: ProfilNeRegKorComponent },
-      { path: 'explore', component: ExploreNistagramComponent },
+   //   { path: 'korisnik', component: ProfilKorisnikaComponent },
+      { path: 'korisnik/profilKor', component: ProfilNeRegKorComponent },
+      { path: 'korisnik/profilKor/:id', component: ProfilNeRegKorComponent },
+     
+     
 
 
     ]),
     FormsModule
   ],
   providers: [
-    KorisnikService
+    KorisnikService,
+    LoginService
  
   ]
 })
-export class ProfilKorisnikaModule { }
+export class ProfilNeRegKorModule { }

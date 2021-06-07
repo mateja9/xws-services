@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { KorisnikService } from 'app/services/korisnici.services';
+import { KorisnikService } from 'app/services/korisnik.services';
 import { SearchUser } from 'app/model/SearchUser';
 import { Korisnik } from '../model/Korisnik';
 
@@ -23,11 +23,12 @@ export class WelcomeComponent implements OnInit{
 
   ngOnInit(): void {
     this.userService.getKorisnikeSve().subscribe({
-      next: pharmacies => {
-          this.allPharmacies = pharmacies;
-      }
-
-  });
+      next: pharmacies => { this.allPharmacies = pharmacies;
+          this.userService.vratiKor(this.user.id).subscribe({
+           next : us => { this.user = us;
+          
+      
+ 
     this.loginService.getKorisnika().subscribe({
       next: x => {
         this.user = x;
@@ -43,8 +44,16 @@ export class WelcomeComponent implements OnInit{
        
       }
     });
-    
   }
+});
+}
+
+})
+
+
+
+}
+  
   refresh(){
     window.location.reload();
   }
@@ -64,10 +73,10 @@ export class WelcomeComponent implements OnInit{
         sp.lastname = this.searchParameters.lastname;
     }
 
-    if(this.searchParameters.username == undefined){
-        sp.username = "all";
+    if(this.searchParameters.email == undefined){
+        sp.email = "all";
     } else {
-        sp.username = this.searchParameters.username;
+        sp.email = this.searchParameters.email;
     }
 
   

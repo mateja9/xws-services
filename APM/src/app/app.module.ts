@@ -15,6 +15,11 @@ import { LoginService } from './services/login.services';
 import { BrowserModule } from '@angular/platform-browser';
 import { SignupComponent } from './login/signup.component';
 import { ProfilKorisnikaModule } from './korisnik/profil-korisnika.module';
+import { ProfilNeRegKorModule } from './korisnik/profilNeRegKor.module';
+import { WelcomeModule } from './korisnik/welcome.module';
+import { ProfilNeRegKorComponent } from './korisnik/profilNeRegKor.component';
+import { ProfilKorisnikaComponent } from './korisnik/profil-korisnika.component';
+import { ExploreNistagramComponent } from './korisnik/exploreNistagram.component';
 
 
 
@@ -24,6 +29,8 @@ import { ProfilKorisnikaModule } from './korisnik/profil-korisnika.module';
     WelcomeComponent,
     LoginComponent,
     SignupComponent,
+    
+   
     
   
   ],
@@ -42,7 +49,9 @@ import { ProfilKorisnikaModule } from './korisnik/profil-korisnika.module';
 
     ]),
     FormsModule,
-    ProfilKorisnikaModule
+    ProfilKorisnikaModule,
+
+    ProfilNeRegKorModule
     
   ],
   providers:[LoginService],
