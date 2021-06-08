@@ -13,21 +13,11 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li  ng-click="func()" routerLinkActive="active" class="nav-item">
-                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/korisnik']" > <i class="material-icons">person</i>
-                            <p style="color: green; font-weight: 500;">My profile</p>
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/welcome']" > <i class="material-icons">person</i>
+                            <p style="color: green; font-weight: 500;">Back</p>
                         </a>
                     </li>
-                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
-                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/explore']" > <i class="material-icons">explore</i>
-                            <p style="color: green; font-weight: 500;">Explore Nistagram</p>
-                        </a>
-                    </li>
-                     <li routerLinkActive="active" class="nav-item">
-                        <a (click)="odjaviSe()"  class="nav-link sidebar-1" [routerLink]="['/welcome']"> <i
-                                class="material-icons">logout</i>
-                            <p style="color: green; font-weight: 500;">Log out</p>
-                        </a>
-                    </li>
+               
                    
                   
                 </ul>
@@ -39,26 +29,20 @@
 
     <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
     <!-- <h2>Welcome back </h2> -->
-    <h2>Welcome back {{korisnik.name}} {{korisnik.lastname}}</h2>
+    <h2>Profile name: {{korisnik.name}} {{korisnik.lastname}}</h2>
      
        
     <form (ngSubmit)="edit()" #loginForm="ngForm">
         <div class="row">
-            <div class="col-sm-3">
-                <h3>Username </h3>
-                <div class="form-group">
-                    <input type="text" value="" placeholder="E-mail" class="form-control" name="email"
-                        #email="ngModel" [(ngModel)]="korisnik.email"  />
-                </div>
-            </div>
+         
 
           
 
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <h3>Name </h3>
                 <div class="form-group">
                     <input type="text" value="" placeholder="First Name" class="form-control" name="firstName"
-                        #firstName="ngModel" [(ngModel)]="korisnik.name" />
+                        #firstName="ngModel" [(ngModel)]="korisnik.name" disabled/>
                 </div>
             </div>
 
@@ -66,64 +50,34 @@
                 <h3>Last name </h3>
                 <div class="form-group">
                     <input type="text" value="" placeholder="Last Name" class="form-control" name="lastName"
-                        #lastName="ngModel" [(ngModel)]="korisnik.lastname" />
+                        #lastName="ngModel" [(ngModel)]="korisnik.lastname" disabled/>
                 </div>
             </div>
-
-            <div class="col-sm-3">
-                <h3>Email </h3>
+            <div class="col-sm-2">
+                <h3>Username </h3>
                 <div class="form-group">
-                    <input type="text" value="" placeholder="Username" class="form-control" name="city" #city="ngModel"
-                        [(ngModel)]="korisnik.username" />
+                    <input type="text" value="" placeholder="E-mail" class="form-control" name="email"
+                        #email="ngModel" [(ngModel)]="korisnik.email" disabled />
                 </div>
             </div>
 
-            <div class="col-sm-3">
-
-                <h3>Phone number </h3>
-                <div class="form-group">
-                    <input type="text" value="" placeholder="Phone" class="form-control" name="pn"
-                        #pn="ngModel" [(ngModel)]="korisnik.phoneNumber" />
-                </div>
-            </div>
-
-            <div class="col-sm-3">
-
-                <h3>Gender </h3>
-                <div class="form-group">
-                    <input type="text" value="" placeholder="Gender" class="form-control" name="address"
-                        #address="ngModel" [(ngModel)]="korisnik.gender" />
-                </div>
-            </div>
-
-            <div class="col-sm-3">
+            <div class="col-sm-2">
 
                 <h3>Website </h3>
                 <div class="form-group">
                     <input type="text" value="" placeholder="Website" class="form-control" name="address1"
-                        #address1="ngModel" [(ngModel)]="korisnik.website" />
+                        #address1="ngModel" [(ngModel)]="korisnik.website" disabled />
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
 
                 <h3>Biography </h3>
                 <div class="form-group">
                     <input type="text" value="" placeholder="bio" class="form-control" name="bio"
-                        #bio="ngModel" [(ngModel)]="korisnik.bio" />
+                        #bio="ngModel" [(ngModel)]="korisnik.bio" disabled />
                 </div>
             </div>
-            <div class="col-sm-3">
-
-                <h3>Date of birth </h3>
-                <div class="form-group">
-                    <input type="text" value="" placeholder="bio1" class="form-control" name="bio1"
-                        #bio1="ngModel" [(ngModel)]="korisnik.dateofb" />
-                </div>
-            </div>
-
             
-
-          
 
         </div>
     </form>

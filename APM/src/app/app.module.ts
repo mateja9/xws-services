@@ -20,6 +20,8 @@ import { WelcomeModule } from './korisnik/welcome.module';
 import { ProfilNeRegKorComponent } from './korisnik/profilNeRegKor.component';
 import { ProfilKorisnikaComponent } from './korisnik/profil-korisnika.component';
 import { ExploreNistagramComponent } from './korisnik/exploreNistagram.component';
+import { Korisnik } from './model/Korisnik';
+import { KorisnikService } from './services/korisnik.services';
 
 
 
@@ -29,6 +31,9 @@ import { ExploreNistagramComponent } from './korisnik/exploreNistagram.component
     WelcomeComponent,
     LoginComponent,
     SignupComponent,
+    ProfilNeRegKorComponent,
+    ProfilKorisnikaComponent,
+ ExploreNistagramComponent,
     
    
     
@@ -41,20 +46,20 @@ import { ExploreNistagramComponent } from './korisnik/exploreNistagram.component
       { path: 'welcome', component: WelcomeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignupComponent },
-
+      { path: 'explore', component: ExploreNistagramComponent },
+     
+      { path: 'welcome/:id', component: ProfilNeRegKorComponent },
+      { path: 'korisnik', component: ProfilKorisnikaComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full'},
       
       // { path: 'homePage', component: HomeComponent }
 
     ]),
-    FormsModule,
-    ProfilKorisnikaModule,
-
-    ProfilNeRegKorModule
+    FormsModule
     
   ],
-  providers:[LoginService],
+  providers:[LoginService, KorisnikService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -10,13 +10,15 @@ import { profilKor } from './profilNeRegKor';
 import { WelcomeComponent } from './welcome.component';
 import { RouterModule } from '@angular/router';
 import { LoginService } from 'app/services/login.services';
+import { ExploreNistagramComponent } from './exploreNistagram.component';
 
 
 @NgModule({
   declarations: [
     WelcomeComponent, 
-   // ProfilKorisnikaComponent,
-   //ProfilNeRegKorComponent,
+    ProfilKorisnikaComponent,
+    ProfilNeRegKorComponent,
+   
    ],
 
    imports: [
@@ -25,8 +27,8 @@ import { LoginService } from 'app/services/login.services';
     FormsModule,
 
     RouterModule.forChild([
-      { path: 'korisnik', component: ProfilKorisnikaComponent },
-      { path: 'welcome/profilNeRegKor/:id', component: ProfilNeRegKorComponent },
+      
+     // { path: 'welcome/:id', component: ProfilNeRegKorComponent },
      
     //  { path: 'profilNeRegKor', component: ProfilNeRegKorComponent },
 
@@ -35,8 +37,9 @@ import { LoginService } from 'app/services/login.services';
     FormsModule
   ],
   providers: [
+    LoginService,
     KorisnikService,
-    LoginService
+  
  
   ]
 })
