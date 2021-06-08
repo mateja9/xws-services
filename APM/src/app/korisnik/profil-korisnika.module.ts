@@ -21,10 +21,11 @@ import { ExploreNistagramComponent } from './exploreNistagram.component';
     FormsModule,
 
     RouterModule.forChild([
+      { path: 'explore', component: ExploreNistagramComponent },
       { path: 'korisnik', component: ProfilKorisnikaComponent },
       { path: 'profilNeRegKor/:id', component: ProfilNeRegKorComponent },
       { path: 'profilNeRegKor', component: ProfilNeRegKorComponent },
-      { path: 'explore', component: ExploreNistagramComponent },
+      
 
 
     ]),
