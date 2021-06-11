@@ -1,0 +1,50 @@
+<div class="wrapper" style="background-image: url(./assets/img/backg.png); margin-top: -2px; ">
+    <div>
+        <div class="sidebar" data-color="danger" data-background-color="white" >
+            <div class="sidebar-background"></div>
+            <div class="logo">
+                <a  class="simple-text">
+                    <div class="logo-img">
+                        <img src="/assets/img/logoxml.jpg" />
+                    </div>
+                   NISTAGRAM
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/signup']" > <i class="material-icons">person_add</i>
+                            <p style="color: green; font-weight: 500;">Register</p>
+                        </a>
+                    </li>
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['/login']"> <i
+                                class="material-icons">person_pin</i>
+                            <p style="color: green; font-weight: 500;">Log in</p>
+                        </a>
+                    </li>
+                  
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div style="margin-left:300px; margin-top:50px; padding:200px;">
+        <div class="col">
+            <div class="alert alert-success alert-with-icon" data-notify="container">
+                <i class="material-icons" data-notify="icon">mail</i>
+                <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="material-icons">close</i>
+                </button>
+                <span data-notify="message" style="text-align: center;">The registration verification was sent to your email address. 
+                    Please confirm your registration there, so you can access your account.
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+
+    </div>

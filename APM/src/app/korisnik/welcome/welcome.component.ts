@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { KorisnikService } from 'app/services/korisnik.services';
 import { SearchUser } from 'app/model/SearchUser';
-import { Korisnik } from '../model/Korisnik';
+import { Korisnik } from 'app/model/Korisnik';
+import { LoginService } from 'app/services/login.services';
 
-import { LoginService } from '../services/login.services';
 
 @Component({
   templateUrl: './welcome.component.html'

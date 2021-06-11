@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Korisnik } from 'app/model/Korisnik';
 import { SearchUser } from 'app/model/SearchUser';
+import { KorisnikService } from 'app/services/korisnik.services';
 import { LoginService } from 'app/services/login.services';
 
-import { Korisnik } from '../model/Korisnik';
-import { KorisnikService } from '../services/korisnik.services';
+
 
 @Component({
  // selector: 'exploreNistagram',

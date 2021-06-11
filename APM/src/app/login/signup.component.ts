@@ -23,6 +23,7 @@ export class SignupComponent implements OnInit {
 	onSubmit() {
 
 		this.user.rola = "CLIENT";
+		this.router.navigate(["/registration-notice"]);
 		this.loginServices.save(this.user).subscribe(result => this.finish());
 	
 	}
@@ -40,7 +41,7 @@ export class SignupComponent implements OnInit {
 		this.user.website="";
 		this.user.bio="";
 		this.user.dateofb="";
-		this.router.navigate(["/homePage"]);
+		
 	}
   
 }
