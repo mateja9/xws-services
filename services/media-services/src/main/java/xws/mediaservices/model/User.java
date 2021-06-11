@@ -44,6 +44,9 @@ public class User {
     @Column(name = "DateofB", nullable = false)
     private String dateofb;
 
+    @Column(name = "PrviPutLogovan", nullable = false)
+    private boolean prviPutLogovan;
+
     public User() {
     }
 
@@ -143,7 +146,15 @@ public class User {
         this.gender = gender;
     }
 
-//    public User(String name, String lastname, String phoneNumber, String email, String username, String password, String rola, String gender ){
+    public boolean isPrviPutLogovan() {
+        return prviPutLogovan;
+    }
+
+    public void setPrviPutLogovan(boolean prviPutLogovan) {
+        this.prviPutLogovan = prviPutLogovan;
+    }
+
+    //    public User(String name, String lastname, String phoneNumber, String email, String username, String password, String rola, String gender ){
 //        this.name=name;
 //        this.lastname=lastname;
 //        this.phoneNumber=phoneNumber;
@@ -154,7 +165,9 @@ public class User {
 //        this.gender=gender;
 //    }
 
-    public User(String name, String lastname, String phoneNumber, String email, String username, String password, String rola, String gender,String website,String bio, String dateofb ){
+    public User(String name, String lastname, String phoneNumber, String email, String username,
+                String password, String rola, String gender,String website,String bio,
+                String dateofb, boolean prviPutLogovan ){
         this.name=name;
         this.lastname=lastname;
         this.phoneNumber=phoneNumber;
@@ -166,5 +179,6 @@ public class User {
         this.website=website;
         this.bio=bio;
         this.dateofb=dateofb;
+        this.prviPutLogovan = prviPutLogovan;
     }
 }

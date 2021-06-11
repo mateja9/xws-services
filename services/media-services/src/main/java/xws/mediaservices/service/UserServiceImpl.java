@@ -4,11 +4,14 @@ package xws.mediaservices.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xws.mediaservices.dto.SearchUser;
+import xws.mediaservices.model.PasswordResetToken;
 import xws.mediaservices.model.User;
+import xws.mediaservices.repository.PasswordTokenRepository;
 import xws.mediaservices.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -19,10 +22,15 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PasswordTokenRepository passwordTokenRepository;
+
     @Override
     public User addUser(User user) {
 
-        User newUser=new User(user.getName(), user.getLastname(),user.getPhoneNumber(),user.getEmail(),user.getUsername(),user.getPassword(),user.getRola(),user.getGender(), user.getWebsite(),user.getBio(),user.getDateofb());
+        User newUser=new User(user.getName(), user.getLastname(),user.getPhoneNumber(),user.getEmail(),
+                user.getUsername(),user.getPassword(),user.getRola(),user.getGender(),
+                user.getWebsite(),user.getBio(),user.getDateofb(), user.isPrviPutLogovan());
 
         newUser=userRepository.save(newUser);
         return newUser;
@@ -72,7 +80,23 @@ public class UserServiceImpl implements UserService{
 
     }
 
+    @Override
+    public void createPasswordResetTokenForUser(User user, String token) {
+        PasswordResetToken myToken = new PasswordResetToken(token, user);
+        passwordTokenRepository.save(myToken);
+    }
+
+    @Override
+    public User getUserByPasswordResetToken (String token) {
+
+        PasswordResetToken passToken = passwordTokenRepository.findByToken(token);
+        User user  = passToken.getUser();
+        return user;
+    }
+
+
     //NIJE ODRADJENA LOGIKA GDE SE PROVERAVA DA LI JE PROFIL JAVAN
+    @Override
     public ArrayList<User> searchUser(SearchUser searchParameters){
         ArrayList<User> ret = new ArrayList<User>();
 
@@ -122,6 +146,7 @@ public class UserServiceImpl implements UserService{
         return ret;
     }
 
+    @Override
     public ArrayList<User> searchU(String username, String name, Long userId){
 
         ArrayList<User> ret = new ArrayList<User>();
@@ -162,6 +187,7 @@ public class UserServiceImpl implements UserService{
         return ret;
     }
 
+    @Override
     public User getById(Long id){
         return userRepository.findById(id).orElseGet(null);
     }
