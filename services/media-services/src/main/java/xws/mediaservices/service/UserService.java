@@ -18,6 +18,8 @@ public interface UserService {
     public ArrayList<User> searchU(String username, String name, Long userId);
     public List<User> getAllUsers(Long userId);
     public User getById(Long id);
+    public void createPasswordResetTokenForUser(User user, String token);
+    public User getUserByPasswordResetToken (String token);
 
 
 }
