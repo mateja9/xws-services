@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProfilKorisnikaComponent } from './profil-korisnika.component';
+
 import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
-import { KorisnikService } from '../services/korisnik.services';
-import { ProfilNeRegKorComponent } from 'app/korisnik/profilNeRegKor.component';
-import { profilKor } from './profilNeRegKor';
+
+
 import { WelcomeComponent } from './welcome.component';
 import { RouterModule } from '@angular/router';
 import { LoginService } from 'app/services/login.services';
-import { ExploreNistagramComponent } from './exploreNistagram.component';
+import { ProfilKorisnikaComponent } from '../profil-korisnika/profil-korisnika.component';
+import { ProfilNeRegKorComponent } from '../profilNeRegKor/profilNeRegKor.component';
+import { KorisnikService } from 'app/services/korisnik.services';
+import { RegistrationNoticeComponent } from '../registration-notice/registration-notice.component';
 
 
 @NgModule({
@@ -18,6 +20,7 @@ import { ExploreNistagramComponent } from './exploreNistagram.component';
     WelcomeComponent, 
     ProfilKorisnikaComponent,
     ProfilNeRegKorComponent,
+  
    
    ],
 

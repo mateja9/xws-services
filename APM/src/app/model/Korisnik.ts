@@ -11,4 +11,5 @@ export class Korisnik {
     website: string;
     bio: string;
     dateofb: string;
+    prviPutLogovan:boolean;
 }

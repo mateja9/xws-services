@@ -4,10 +4,10 @@ import { ProfilKorisnikaComponent } from './profil-korisnika.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { KorisnikService } from '../services/korisnik.services';
-import { ProfilNeRegKorComponent } from 'app/korisnik/profilNeRegKor.component';
-import { profilKor } from './profilNeRegKor';
-import { ExploreNistagramComponent } from './exploreNistagram.component';
+
+import { ProfilNeRegKorComponent } from 'app/korisnik/profilNeRegKor/profilNeRegKor.component';
+import { ExploreNistagramComponent } from '../explore/exploreNistagram.component';
+import { KorisnikService } from 'app/services/korisnik.services';
 
 
 @NgModule({

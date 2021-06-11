@@ -9,19 +9,20 @@ import {
   AgmCoreModule
 } from '@agm/core';
 
-import { WelcomeComponent } from './korisnik/welcome.component';
+import { WelcomeComponent } from './korisnik/welcome/welcome.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './services/login.services';
 import { BrowserModule } from '@angular/platform-browser';
 import { SignupComponent } from './login/signup.component';
-import { ProfilKorisnikaModule } from './korisnik/profil-korisnika.module';
-import { ProfilNeRegKorModule } from './korisnik/profilNeRegKor.module';
-import { WelcomeModule } from './korisnik/welcome.module';
-import { ProfilNeRegKorComponent } from './korisnik/profilNeRegKor.component';
-import { ProfilKorisnikaComponent } from './korisnik/profil-korisnika.component';
-import { ExploreNistagramComponent } from './korisnik/exploreNistagram.component';
+import { ProfilKorisnikaModule } from './korisnik/profil-korisnika/profil-korisnika.module';
+import { ProfilNeRegKorModule } from './korisnik/profilNeRegKor/profilNeRegKor.module';
+import { WelcomeModule } from './korisnik/welcome/welcome.module';
+import { ProfilNeRegKorComponent } from './korisnik/profilNeRegKor/profilNeRegKor.component';
+import { ProfilKorisnikaComponent } from './korisnik/profil-korisnika/profil-korisnika.component';
+import { ExploreNistagramComponent } from './korisnik/explore/exploreNistagram.component';
 import { Korisnik } from './model/Korisnik';
 import { KorisnikService } from './services/korisnik.services';
+import { RegistrationNoticeComponent } from './korisnik/registration-notice/registration-notice.component';
 
 
 
@@ -33,7 +34,8 @@ import { KorisnikService } from './services/korisnik.services';
     SignupComponent,
     ProfilNeRegKorComponent,
     ProfilKorisnikaComponent,
- ExploreNistagramComponent,
+    ExploreNistagramComponent,
+    RegistrationNoticeComponent
     
    
     
@@ -47,7 +49,7 @@ import { KorisnikService } from './services/korisnik.services';
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignupComponent },
       { path: 'explore', component: ExploreNistagramComponent },
-     
+      { path: 'registration-notice', component: RegistrationNoticeComponent},
       { path: 'welcome/:id', component: ProfilNeRegKorComponent },
       { path: 'korisnik', component: ProfilKorisnikaComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
