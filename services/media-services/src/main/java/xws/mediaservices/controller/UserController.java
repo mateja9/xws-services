@@ -56,6 +56,12 @@ public class UserController {
     @PostMapping( value = "/user/addUser")
     public ResponseEntity<?> addUser(@RequestBody User client) throws Exception {
 
+        User existUser = userService.findByEmail(client.getEmail());
+
+        if (existUser != null ) {
+            return new ResponseEntity<>("This email already exist in database. Try to register with other email.",
+                    HttpStatus.METHOD_NOT_ALLOWED);
+        }
 
             User newUser = userService.addUser(client);
             newUser.setPrviPutLogovan(true);
@@ -192,6 +198,7 @@ public class UserController {
     @PostMapping("/user/resetPassword")
     public ResponseEntity<?> resetPassword(HttpServletRequest request,
                                          @RequestParam("email") String userEmail) {
+
         User user = userService.findByEmail(userEmail);
 
         if (user == null) {
@@ -213,7 +220,8 @@ public class UserController {
         mailMessage.setSubject("Reset password!");
         mailMessage.setFrom("BSEP.tim26@gmail.com");
         mailMessage.setText("If you want to reset your password, please click here : "
-                +"http://localhost:8080/api/user/changePassword?token="+token);
+                +"http://localhost:8080/updatePassword.html?token="+token);
+        //+"http://localhost:8080/api/user/changePassword?token="+token);
 
 
         emailService.sendEmail(mailMessage);
@@ -229,9 +237,9 @@ public class UserController {
 
             //return "redirect:" + redirectUrl;
 
-            return "redirect:/login.html?lang=";
+            return "redirect:/login.html";
         } else {
-            return "redirect:/updatePassword.html?lang=";
+            return "redirect:/updatePassword.html";
         }
     }
 
