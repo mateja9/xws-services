@@ -1,11 +1,11 @@
 package xws.mediaservices.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import xws.mediaservices.model.PasswordResetToken;
 import xws.mediaservices.model.User;
 import xws.mediaservices.repository.PasswordTokenRepository;
-import xws.mediaservices.repository.PostRepository;
 import xws.mediaservices.repository.UserRepository;
 
 import java.util.Calendar;
@@ -18,6 +18,8 @@ public class SecurityService {
     private PasswordTokenRepository passwordTokenRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public String validatePasswordResetToken(String token) {
         final PasswordResetToken passToken = passwordTokenRepository.findByToken(token);
@@ -37,7 +39,9 @@ public class SecurityService {
     }
 
     public void changeUserPassword(User user, String password) {
-        user.setPassword(password);
+
+        String pass = passwordEncoder.encode(password);
+        user.setPassword(pass);
         userRepository.save(user);
     }
 

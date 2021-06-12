@@ -69,6 +69,7 @@ public class UserServiceImpl implements UserService{
 
 
         User forChange = getByEmail(updateUser.getEmail());
+        String password = passwordEncoder.encode(updateUser.getPassword());
 
         forChange.setUsername(updateUser.getUsername());
         forChange.setName(updateUser.getName());
@@ -76,7 +77,7 @@ public class UserServiceImpl implements UserService{
         forChange.setEmail(updateUser.getEmail());
         forChange.setGender(updateUser.getGender());
         forChange.setWebsite(updateUser.getWebsite());
-        forChange.setPassword(updateUser.getPassword());
+        forChange.setPassword(password);
         forChange.setPhoneNumber(updateUser.getPhoneNumber());
         forChange.setDateofb(updateUser.getDateofb());
         userRepository.save(forChange);
