@@ -1,6 +1,7 @@
 package xws.mediaservices.util;
 
-import org.apache.commons.lang.StringUtils;
+
+import org.springframework.util.StringUtils;
 
 public class Validator {
 
