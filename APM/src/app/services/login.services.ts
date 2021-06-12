@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Login } from '../model/login';
+import { Login } from '../model/Login';
 import { Korisnik } from '../model/Korisnik';
 import { map } from "rxjs/operators";
+import { ResetP } from "app/model/ResetP";
 
 
 @Injectable()
@@ -32,5 +33,7 @@ export class LoginService {
   public IzlogujSe(request: Request) {
     return this.http.post("/user/logOut", request);
   }
-
+  public resetPassword(resetp: ResetP) {
+    return this.http.post("/user/resetPassword", resetp);
+  }
 }

@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Login } from '../model/login';
+import { Login } from '../model/Login';
 import { LoginService } from '../services/login.services';
 import { Korisnik } from '../model/Korisnik';
 import { Observable } from 'rxjs';
@@ -40,8 +40,14 @@ export class LoginComponent implements OnInit {
 
     }
 
+    refresh(){
 
+        console.log("Idi na stranicu za obnovu sifre");
+        this.router.navigate(["/forgotpassword"]);
+    }
+  
     login() {
+        console.log(this.loginZahtev);
         //this.korisnik.rola="CLIENT";
         this.odgovor = false;
     //this.korisnik.rola = "CLIENT";

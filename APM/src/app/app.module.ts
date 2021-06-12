@@ -23,6 +23,8 @@ import { ExploreNistagramComponent } from './korisnik/explore/exploreNistagram.c
 import { Korisnik } from './model/Korisnik';
 import { KorisnikService } from './services/korisnik.services';
 import { RegistrationNoticeComponent } from './korisnik/registration-notice/registration-notice.component';
+import { ForgotPasswordComponent } from './korisnik/forgotpassword/forgotpassword.component';
+
 
 
 
@@ -35,8 +37,8 @@ import { RegistrationNoticeComponent } from './korisnik/registration-notice/regi
     ProfilNeRegKorComponent,
     ProfilKorisnikaComponent,
     ExploreNistagramComponent,
-    RegistrationNoticeComponent
-    
+    RegistrationNoticeComponent,
+    ForgotPasswordComponent
    
     
   
@@ -52,6 +54,7 @@ import { RegistrationNoticeComponent } from './korisnik/registration-notice/regi
       { path: 'registration-notice', component: RegistrationNoticeComponent},
       { path: 'welcome/:id', component: ProfilNeRegKorComponent },
       { path: 'korisnik', component: ProfilKorisnikaComponent },
+      { path: 'forgotpassword', component: ForgotPasswordComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full'},
       
