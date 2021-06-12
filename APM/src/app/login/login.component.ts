@@ -28,34 +28,37 @@ export class LoginComponent implements OnInit {
         this.loginZahtev = new Login();
         
         this.korisnik = new Korisnik();
-       // this.korisnik.rola="CLIENT";
+      //  this.korisnik.rola="CLIENT";
         
 
     }
 
     ngOnInit() {
+      ///////  this.korisnik.rola="CLIENT";
         this.vratiKorisnika();
-      //  this.korisnik.rola="CLIENT";
+     
 
     }
 
 
     login() {
-        
+        //this.korisnik.rola="CLIENT";
         this.odgovor = false;
-      //  this.korisnik.rola = "CLIENT";
+    //this.korisnik.rola = "CLIENT";
         this.loginService.ulogujSe(this.loginZahtev).subscribe(result => this.vratiKorisnika(),
-            err => this.odgovor = true
+            err => this.alertError()
         );
 
     }
-
+    alertError() {
+        alert("Wrong password and/or e-mail. Please, try again.");
+    }
     vratiKorisnika() {
-      //  this.korisnik.rola = "CLIENT";
+      //this.korisnik.rola = "CLIENT";
          this.loginService.getKorisnika().subscribe({
             next: korisnik => {
                 this.korisnik = korisnik;
-                this.korisnik.rola = "CLIENT";
+             // this.korisnik.rola = "CLIENT";
                 
                 console.log('Prosao u login subscribe!')
 

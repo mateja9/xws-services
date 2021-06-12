@@ -15,6 +15,7 @@ export class SignupComponent implements OnInit {
 
 	constructor(private router: Router, private loginServices: LoginService) {
 		this.user = new Korisnik();
+		//this.user.rola = "CLIENT";
 	}
 
 	ngOnInit(): void {
@@ -22,14 +23,16 @@ export class SignupComponent implements OnInit {
 
 	onSubmit() {
 
-		this.user.rola = "CLIENT";
-		this.router.navigate(["/registration-notice"]);
+		//this.user.rola = "CLIENT";
+		this.router.navigate(["/login"]);
+	//	this.user.rola = "CLIENT";
 		this.loginServices.save(this.user).subscribe(result => this.finish());
 	
 	}
 
 	finish() {
-		alert("sacuvan korisnik " + this.user.name + "" + this.user.lastname)
+		this.user.rola = "CLIENT";
+		//alert("sacuvan korisnik " + this.user.name + "" + this.user.lastname)
 		this.user.name = "";
 		this.user.lastname = "";
         this.user.phoneNumer="";

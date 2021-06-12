@@ -55,13 +55,10 @@ public class UserController {
 
     @PostMapping( value = "/user/addUser")
     public ResponseEntity<?> addUser(@RequestBody User client) throws Exception {
-        User postojeci = userService.findByEmail(client.getEmail());
 
-        if (postojeci != null) {
-            return new ResponseEntity<>("User with this email already exists.", HttpStatus.METHOD_NOT_ALLOWED);
-        } else {
 
             User newUser = userService.addUser(client);
+            newUser.setPrviPutLogovan(true);
             if (newUser != null) {
                 LOGGER.info(MessageFormat.format("CLIENT -ID:{0}-created, CLIENT-EMAIL:{1}", newUser.getId(), newUser.getEmail()));
 
@@ -79,19 +76,20 @@ public class UserController {
                 mailMessage.setSubject("Complete Registration!");
                 mailMessage.setFrom("BSEP.tim26@gmail.com");
                 mailMessage.setText("To confirm your account, please click here : "
-                        +"http://localhost:8080/api/user/confirm-account?token="+confirmationToken.getConfirmationToken());
+                        +"http://localhost:8080/confirm-account?token="+confirmationToken.getConfirmationToken());
 
                 emailService.sendEmail(mailMessage);
 
+                return new ResponseEntity<>(newUser, HttpStatus.CREATED);
 
             } else {
-                LOGGER.error(MessageFormat.format("CLIENT-ID:{0}-not created, CLIENT-EMAIL:{1}", newUser.getId(), newUser.getEmail()));
+                return new ResponseEntity<String>("User with email is already registered", HttpStatus.METHOD_NOT_ALLOWED);
+
             }
 
 
-            return new ResponseEntity<>(newUser, HttpStatus.CREATED);
         }
-    }
+
 
 
     @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
@@ -104,7 +102,8 @@ public class UserController {
             User user = userRepository.findByEmail(token.getUserEntity().getEmail());
             user.setPrviPutLogovan(false);
             userRepository.save(user);
-            request.getSession().setAttribute("user", user);
+            request.getSession().setAttribute("client", user);
+
             return new ResponseEntity<String>("Registration successful", HttpStatus.CREATED);
         }
         else
@@ -140,7 +139,7 @@ public class UserController {
             return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
         }
         User dermatologist= userService.updateUser(updateDermatologist);
-        request.getSession().setAttribute("dermatologist", dermatologist);
+        request.getSession().setAttribute("client", dermatologist);
         return new ResponseEntity<User>(dermatologist, HttpStatus.CREATED);
     }
 
