@@ -57,7 +57,11 @@
             <!-- <td *ngIf="odgovor">Neisprvna email adresa ili password</td> -->
         </table>
     </form>
-    <div *ngIf="odgovor" style="color: red;"><b>Sorry, we were not able to find your account. Please try again.</b></div>
-   
+    <div *ngIf="odgovor" style="color: rgb(194, 117, 117);"><b>Sorry, we were not able to find your account. Please try again.</b></div>
+    <form (ngSubmit)="refresh()" #allergyForm="ngForm">
+        <div class="col-sm-6"  ><i class="material-icons">label_important</i>
+            <input class="btn btn info" type="submit" value="Forgot password">
+        </div>
+    </form>
 </div>
 </div>

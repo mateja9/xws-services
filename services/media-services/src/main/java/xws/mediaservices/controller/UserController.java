@@ -12,6 +12,8 @@ import xws.mediaservices.dto.PasswordDto;
 import xws.mediaservices.dto.SearchPost;
 import xws.mediaservices.dto.SearchUser;
 import xws.mediaservices.model.ConfirmationToken;
+import xws.mediaservices.model.LoginZahtev;
+import xws.mediaservices.model.ResetP;
 import xws.mediaservices.model.User;
 import xws.mediaservices.repository.ConfirmationTokenRepository;
 import xws.mediaservices.repository.UserRepository;
@@ -189,10 +191,9 @@ public class UserController {
 
 
 
-    @PostMapping("/user/resetPassword")
-    public ResponseEntity<?> resetPassword(HttpServletRequest request,
-                                         @RequestParam("email") String userEmail) {
-        User user = userService.findByEmail(userEmail);
+    @PostMapping(value = "/user/resetPassword")
+    public ResponseEntity<?> resetPassword(@RequestBody ResetP userEmail, @Context HttpServletRequest request) {
+        User user = userService.findByEmail(userEmail.getEmail());
 
         if (user == null) {
             return new ResponseEntity<>("User with this email doesn't exist", HttpStatus.METHOD_NOT_ALLOWED);
@@ -208,12 +209,12 @@ public class UserController {
         userService.createPasswordResetTokenForUser(user, token);
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(userEmail);
+        mailMessage.setTo(userEmail.getEmail());
 
         mailMessage.setSubject("Reset password!");
         mailMessage.setFrom("BSEP.tim26@gmail.com");
         mailMessage.setText("If you want to reset your password, please click here : "
-                +"http://localhost:8080/api/user/changePassword?token="+token);
+                +"http://localhost:8080/updatePassword.html?token="+token);
 
 
         emailService.sendEmail(mailMessage);
@@ -229,9 +230,9 @@ public class UserController {
 
             //return "redirect:" + redirectUrl;
 
-            return "redirect:/login.html?lang=";
+            return "http://localhost:8080/user/changePassword";
         } else {
-            return "redirect:/updatePassword.html?lang=";
+            return "redirect:/newpassword.html?lang=";
         }
     }
 
