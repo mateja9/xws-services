@@ -8,6 +8,7 @@ import java.util.Date;
 public class PasswordResetToken {
     private static final int EXPIRATION = 2592000;
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="token_id")
@@ -24,6 +25,16 @@ public class PasswordResetToken {
     private Date expiryDate;
 
     public PasswordResetToken(String token, User user, Date expiryDate) {
+        this.token = token;
+        this.user = user;
+        this.expiryDate = expiryDate;
+    }
+
+    public PasswordResetToken() {
+    }
+
+    public PasswordResetToken(Long id, String token, User user, Date expiryDate) {
+        this.id = id;
         this.token = token;
         this.user = user;
         this.expiryDate = expiryDate;
@@ -68,6 +79,11 @@ public class PasswordResetToken {
     public PasswordResetToken(String token, User user) {
         this.token = token;
         this.user = user;
-        expiryDate = new Date();
+        expiryDate = new Date(2022,01,01);
+     // expiryDate.setTime(2592000);
+
     }
+
+
+
 }
