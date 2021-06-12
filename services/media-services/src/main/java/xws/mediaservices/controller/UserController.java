@@ -237,7 +237,7 @@ public class UserController {
     public String showChangePasswordPage(@RequestParam("token") String token) {
 
         String result = securityService.validatePasswordResetToken(token);
-        if(result != null) {
+        if (result != null) {
 
             //return "redirect:" + redirectUrl;
 
@@ -247,20 +247,21 @@ public class UserController {
             return "redirect:/newpassword.html?lang=";
 
 
+        }
     }
-
 
     @PostMapping("/user/savePassword")
     public ResponseEntity savePassword(@Valid PasswordDto passwordDto) {
 
-        String result = securityService.validatePasswordResetToken(passwordDto.getToken());
-
-        if(result != null) {
-            return new ResponseEntity<>("Token is invalidate or expired", HttpStatus.NOT_ACCEPTABLE);
-        }
+//        String result = securityService.validatePasswordResetToken(passwordDto.getToken());
+//
+//        if(result == null) {
+//            return new ResponseEntity<>("Token is invalidate or expired", HttpStatus.NOT_ACCEPTABLE);
+//        }
 
         User user = userService.getUserByPasswordResetToken(passwordDto.getToken());
             securityService.changeUserPassword(user, passwordDto.getNewPassword());
             return new ResponseEntity<>("Password changed", HttpStatus.ACCEPTED);
         }
-}
+        }
+

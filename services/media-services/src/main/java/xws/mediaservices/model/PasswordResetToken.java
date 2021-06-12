@@ -6,7 +6,7 @@ import java.util.Date;
 @Entity
 @Table(name="passwordResetToken")
 public class PasswordResetToken {
-    private static final int EXPIRATION = 60 * 24;
+    private static final int EXPIRATION = 2592000;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +22,12 @@ public class PasswordResetToken {
 
     @Column(name="expiryDate")
     private Date expiryDate;
+
+    public PasswordResetToken(String token, User user, Date expiryDate) {
+        this.token = token;
+        this.user = user;
+        this.expiryDate = expiryDate;
+    }
 
     public static int getEXPIRATION() {
         return EXPIRATION;
