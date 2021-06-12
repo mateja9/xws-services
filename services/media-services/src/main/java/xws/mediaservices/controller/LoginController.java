@@ -10,20 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import xws.mediaservices.model.LoginZahtev;
-
 import xws.mediaservices.model.User;
 import xws.mediaservices.service.UserService;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
-import java.util.Arrays;
 import java.util.Collection;
-
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")

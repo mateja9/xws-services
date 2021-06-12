@@ -12,7 +12,6 @@ import xws.mediaservices.dto.PasswordDto;
 import xws.mediaservices.dto.SearchPost;
 import xws.mediaservices.dto.SearchUser;
 import xws.mediaservices.model.ConfirmationToken;
-import xws.mediaservices.model.LoginZahtev;
 import xws.mediaservices.model.ResetP;
 import xws.mediaservices.model.User;
 import xws.mediaservices.repository.ConfirmationTokenRepository;
@@ -233,6 +232,7 @@ public class UserController {
 
     }
 
+    /*
     @GetMapping("/user/changePassword")
     public String showChangePasswordPage(@RequestParam("token") String token) {
 
@@ -250,6 +250,9 @@ public class UserController {
         }
     }
 
+     */
+
+
     @PostMapping("/user/savePassword")
     public ResponseEntity savePassword(@Valid PasswordDto passwordDto) {
 
@@ -262,6 +265,6 @@ public class UserController {
         User user = userService.getUserByPasswordResetToken(passwordDto.getToken());
             securityService.changeUserPassword(user, passwordDto.getNewPassword());
             return new ResponseEntity<>("Password changed", HttpStatus.ACCEPTED);
-        }
-        }
+    }
+}
 
