@@ -1,6 +1,7 @@
 package xws.mediaservices.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="users")
@@ -10,37 +11,46 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name is mandatory")
     @Column(name = "Name", nullable = false)
     private String name;
 
+    @NotBlank(message = "Last name is mandatory")
     @Column(name = "Last_name", nullable = false)
     private String lastname;
 
+    @NotBlank(message = "Phone number is mandatory")
     @Column(name = "Phone_number", nullable = false)
     private String phoneNumber;
 
+    @NotBlank(message = "Email is mandatory")
     @Column(name = "Email", nullable = false)
     private String email;
 
+    @NotBlank(message = "Username is mandatory")
     @Column(name = "Username", nullable = false)
     private String username;
 
+    @NotBlank(message = "Password is mandatory")
     @Column(name = "Password", nullable = false)
     private String password;
-
 
     @Column(name = "Role", nullable = false)
     private String rola;
 
+    @NotBlank(message = "Gender is mandatory")
     @Column(name = "Gender", nullable = false)
     private String gender;
 
+    @NotBlank(message = "Website is mandatory")
     @Column(name = "Website", nullable = false)
     private String website;
 
+    @NotBlank(message = "Bio is mandatory")
     @Column(name = "Bio", nullable = false)
     private String bio;
 
+    @NotBlank(message = "DateofB is mandatory")
     @Column(name = "DateofB", nullable = false)
     private String dateofb;
 

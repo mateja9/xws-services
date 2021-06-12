@@ -256,11 +256,11 @@ public class UserController {
     @PostMapping("/user/savePassword")
     public ResponseEntity savePassword(@Valid PasswordDto passwordDto) {
 
-//        String result = securityService.validatePasswordResetToken(passwordDto.getToken());
-//
-//        if(result == null) {
-//            return new ResponseEntity<>("Token is invalidate or expired", HttpStatus.NOT_ACCEPTABLE);
-//        }
+       String result = securityService.validatePasswordResetToken(passwordDto.getToken());
+
+       if(result == null) {
+            return new ResponseEntity<>("Token is invalidate or expired", HttpStatus.NOT_ACCEPTABLE);
+        }
 
         User user = userService.getUserByPasswordResetToken(passwordDto.getToken());
             securityService.changeUserPassword(user, passwordDto.getNewPassword());

@@ -1,6 +1,5 @@
 package xws.mediaservices.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -9,6 +8,8 @@ import xws.mediaservices.model.PasswordResetToken;
 import xws.mediaservices.model.User;
 import xws.mediaservices.repository.PasswordTokenRepository;
 import xws.mediaservices.repository.UserRepository;
+import xws.mediaservices.util.Validator;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,10 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User addUser(User user) {
+
+        Validator.validateInputs(user.getName(),user.getLastname(),user.getPhoneNumber(),
+                user.getEmail(),user.getUsername(),user.getPassword(),user.getGender(),
+                user.getWebsite(),user.getBio(),user.getDateofb());
 
         String password = passwordEncoder.encode(user.getPassword());
 
@@ -67,6 +72,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public User updateUser(User updateUser) {
 
+
+        Validator.validateInputs(updateUser.getName(),updateUser.getLastname(),updateUser.getPhoneNumber(),
+                updateUser.getEmail(),updateUser.getUsername(),updateUser.getPassword(),updateUser.getGender(),
+                updateUser.getWebsite(),updateUser.getBio(),updateUser.getDateofb());
 
         User forChange = getByEmail(updateUser.getEmail());
         String password = passwordEncoder.encode(updateUser.getPassword());
