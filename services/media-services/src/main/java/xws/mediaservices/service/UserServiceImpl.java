@@ -2,16 +2,15 @@ package xws.mediaservices.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import xws.mediaservices.dto.SearchUser;
 import xws.mediaservices.model.PasswordResetToken;
 import xws.mediaservices.model.User;
 import xws.mediaservices.repository.PasswordTokenRepository;
 import xws.mediaservices.repository.UserRepository;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -25,11 +24,16 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private PasswordTokenRepository passwordTokenRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public User addUser(User user) {
 
+        String password = passwordEncoder.encode(user.getPassword());
+
         User newUser=new User(user.getName(), user.getLastname(),user.getPhoneNumber(),user.getEmail(),
-                user.getUsername(),user.getPassword(),user.getRola(),user.getGender(),
+                user.getUsername(),password,user.getRola(),user.getGender(),
                 user.getWebsite(),user.getBio(),user.getDateofb(), user.isPrviPutLogovan());
 
         newUser.setRola("CLIENT");

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import xws.mediaservices.model.LoginZahtev;
 
@@ -31,6 +32,8 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
@@ -45,7 +48,9 @@ public class LoginController {
 
         if (ak != null) {
 
-            if (zahtev.getPassword().equals(ak.getPassword())) {
+            boolean isPasswordMatch = passwordEncoder.matches(zahtev.getPassword(), ak.getPassword());
+
+            if (isPasswordMatch) {
                 if ( !ak.isPrviPutLogovan()){
 
                 HttpSession session = request.getSession();
@@ -53,10 +58,9 @@ public class LoginController {
                 LOGGER.info(MessageFormat.format("USER SESSION: USER-ID:{0}-session created, USER-EMAIL:{1}", ak.getId(), ak.getEmail()));
 
             }
+                return new ResponseEntity<User>(ak, HttpStatus.CREATED);
             }
-            return new ResponseEntity<User>(ak, HttpStatus.CREATED);
         }
-        else
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
 
@@ -106,21 +110,4 @@ public class LoginController {
         return ResponseEntity.status(200).build();
     }
 
-    //Metoda koja proverava da li je ostcen integritet poruke
-    private boolean checkIntegrity(String data, byte[] dataHash) {
-        byte[] newDataHash = hash(data);
-        return Arrays.equals(dataHash, newDataHash);
-    }
-
-    public byte[] hash(String data) {
-        //Kao hes funkcija koristi SHA-256
-        try {
-            MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
-            byte[] dataHash = sha256.digest(data.getBytes());
-            return dataHash;
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }
