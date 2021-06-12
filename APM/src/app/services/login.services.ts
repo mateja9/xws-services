@@ -30,7 +30,7 @@ export class LoginService {
   }
 
   public IzlogujSe(request: Request) {
-    return this.http.put("/user/logOut", request);
+    return this.http.post("/user/logOut", request);
   }
 
 }

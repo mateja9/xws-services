@@ -39,7 +39,7 @@ export class WelcomeComponent implements OnInit{
       
         if (this.user != null && this.user.rola == "CLIENT") {
         
-          this._router.navigate(["/korisnik"]);
+          this._router.navigate(["/login"]);
         }
        
       }

@@ -57,7 +57,7 @@
                     <td>Username</td>
                     <td><input type="email" required name="email" #email="ngModel" [(ngModel)]="user.email" [ngClass]="{'form-control':true,
                             'is-invalid': !email?.valid && !email?.touched,
-                            'is-valid': email?.valid && email?.touched}" pattern="[a-z0-9._%+-]\.[a-z]{2,3}$"></td>
+                            'is-valid': email?.valid && email?.touched}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></td>
 
                     <td *ngIf="email?.errors?.required && email?.touched"> The field must be filled</td>
                     <td *ngIf="email?.errors?.pattern && email?.touched"> Email is invalid</td>

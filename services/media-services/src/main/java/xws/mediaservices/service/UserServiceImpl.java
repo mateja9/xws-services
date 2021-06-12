@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService{
                 user.getUsername(),user.getPassword(),user.getRola(),user.getGender(),
                 user.getWebsite(),user.getBio(),user.getDateofb(), user.isPrviPutLogovan());
 
+        newUser.setRola("CLIENT");
         newUser=userRepository.save(newUser);
         return newUser;
     }

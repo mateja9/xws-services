@@ -46,13 +46,13 @@ public class LoginController {
         if (ak != null) {
 
             if (zahtev.getPassword().equals(ak.getPassword())) {
-
+                if ( !ak.isPrviPutLogovan()){
 
                 HttpSession session = request.getSession();
                 session.setAttribute("client", ak);
                 LOGGER.info(MessageFormat.format("USER SESSION: USER-ID:{0}-session created, USER-EMAIL:{1}", ak.getId(), ak.getEmail()));
 
-
+            }
             }
             return new ResponseEntity<User>(ak, HttpStatus.CREATED);
         }
@@ -97,7 +97,8 @@ public class LoginController {
         return null;
     }
 
-    @RequestMapping(method = PUT, value = "/user/logOut")
+
+    @PostMapping(value = "/user/logOut")
     public ResponseEntity logOut(@Context HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();

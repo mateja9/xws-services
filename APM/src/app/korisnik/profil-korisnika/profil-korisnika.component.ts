@@ -46,6 +46,7 @@ export class ProfilKorisnikaComponent implements OnInit {
     window.location.reload();
   }
   kraj() {
+  //  this.korisnik.rola="CLIENT";
     this._router.navigate(["/welcome"]);
   }
 
