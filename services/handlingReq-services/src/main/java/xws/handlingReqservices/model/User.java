@@ -42,7 +42,18 @@ public class User {
     @Column(name = "DateofB", nullable = false)
     private String dateofb;
 
+    @Column(name = "IsPrivate", nullable = false)
+    private boolean isPrivate = false;
+
     public User() {
+    }
+
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(boolean aPrivate) {
+        isPrivate = aPrivate;
     }
 
     public String getWebsite() {

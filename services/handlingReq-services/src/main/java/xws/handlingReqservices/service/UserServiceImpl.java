@@ -26,8 +26,12 @@ public class UserServiceImpl implements UserFollowService {
         newUserFollow.setUserFrom(userRepository.findById(userFollowDTO.getUserFrom()).get());
         newUserFollow.setUserTo(userTo);
 
+        if(userTo.isPrivate())
+            newUserFollow.setStatus(StatusFollowing.onWait);
+        else
+            newUserFollow.setStatus(StatusFollowing.accepted);
+
         newUserFollow.setActive(true);
-        newUserFollow.setStatus(StatusFollowing.accepted);
 
         newUserFollow = userFollowRepository.save(newUserFollow);
 
