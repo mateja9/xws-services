@@ -1,0 +1,49 @@
+<div class="wrapper" style="background-image: url(./assets/img/backg.png); margin-top: -30px; ">
+    <div>
+        <div class="sidebar" data-color="danger" data-background-color="white">
+            <div class="sidebar-background" ></div>
+            <div class="logo">
+                <a  class="simple-text">
+                    <div class="logo-img">
+                        <img src="/assets/img/logoxml.jpg" />
+                    </div>
+                   Nistagram
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/korisnik']" > <i class="material-icons">person</i>
+                            <p style="color: green; font-weight: 500;">My profile</p>
+                        </a>
+                    </li>
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/stories']" > <i class="material-icons">donut_large</i>
+                            <p style="color: green; font-weight: 500;">My stories</p>
+                        </a>
+                    </li>
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/explore']" > <i class="material-icons">explore</i>
+                            <p style="color: green; font-weight: 500;">Explore Nistagram</p>
+                        </a>
+                    </li>
+                     <li routerLinkActive="active" class="nav-item">
+                        <a (click)="odjaviSe()"  class="nav-link sidebar-1" [routerLink]="['/welcome']"> <i
+                                class="material-icons">logout</i>
+                            <p style="color: green; font-weight: 500;">Log out</p>
+                        </a>
+                    </li>
+                   
+                  
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+<div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
+<h2>My Stories</h2>
+
+</div>
+
+</div>
