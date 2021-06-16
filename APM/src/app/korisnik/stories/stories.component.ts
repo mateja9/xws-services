@@ -13,6 +13,9 @@ export class StoriesComponent implements OnInit {
     this.userService.getStories().subscribe({
       next: (stories) => {
         console.log("Dobavio sam storije");
+        stories.forEach((element) => {
+          console.log("ELEMENT " + element);
+        });
       },
     });
   }

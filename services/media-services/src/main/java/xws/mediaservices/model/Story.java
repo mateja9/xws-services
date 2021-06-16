@@ -25,14 +25,21 @@ public class Story{
     @Column(name = "EndTime", nullable = false)
     private LocalDateTime endTime;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
 
+    public Story() {
+    }
 
-    public Story(String pathOfContent, String tag, boolean isHighlited, LocalDateTime startTime, LocalDateTime endTime) {
+    public Story(Long id, String pathOfContent, String tag, boolean isHighlited, LocalDateTime startTime, LocalDateTime endTime, User user) {
+        this.id = id;
         this.pathOfContent = pathOfContent;
         this.tag = tag;
         this.isHighlited = isHighlited;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.user = user;
     }
 
     public Long getId() {

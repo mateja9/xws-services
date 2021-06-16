@@ -29,7 +29,7 @@ export class KorisnikService {
     return this._http.get<Korisnik>("/user/" + id);
   }
 
-  public getStories(): Observable<Story> {
-    return this._http.get<Story>("/media/stories");
+  public getStories(): Observable<Story[]> {
+    return this._http.get<Story[]>("/media/stories");
   }
 }

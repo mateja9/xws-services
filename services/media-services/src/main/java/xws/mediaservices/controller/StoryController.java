@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,8 +37,10 @@ public class StoryController {
     public ResponseEntity<List<Story>> getUserStories(@Context HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
         User d = (User) session.getAttribute("client");
+        System.out.println("GET STORIES");
         System.out.println("USER: " + d.getEmail());
+        System.out.println("STORIES: " + d.getStories());
 
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+        return new ResponseEntity<>(new ArrayList<>(d.getStories()), HttpStatus.OK);
     }
 }
