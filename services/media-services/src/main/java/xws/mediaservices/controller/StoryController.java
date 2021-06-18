@@ -1,28 +1,33 @@
 package xws.mediaservices.controller;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xws.mediaservices.model.Story;
 import xws.mediaservices.model.User;
+import xws.mediaservices.repository.StoryRepository;
 import xws.mediaservices.repository.UserRepository;
 import xws.mediaservices.service.StoryService;
 import xws.mediaservices.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.ws.rs.core.Context;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileStore;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,16 +46,33 @@ public class StoryController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private StoryRepository storyRepository;
+
+    @Value("${media.storage}")
+    private String storageDirectoryPath;
+
     Logger LOGGER = LoggerFactory.getLogger(StoryController.class);
+
+    @RequestMapping(value = "/media/file/{filename}", method = RequestMethod.GET)
+    public void getImageAsByteArray(@PathVariable("filename") String filename, HttpServletResponse response) throws IOException {
+
+        Path path = Paths.get(storageDirectoryPath, filename);
+        InputStream in = Files.newInputStream(path);
+        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+        IOUtils.copy(in, response.getOutputStream());
+    }
 
     @GetMapping(value = "/media/stories")
     public ResponseEntity<List<Story>> getUserStories(@Context HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("client");
+        User sessionUser = (User) session.getAttribute("client");
         System.out.println("GET STORIES");
+        System.out.println("SESSION-USER: " + sessionUser.getEmail());
+
+        User user = userRepository.findByEmail(sessionUser.getEmail());
         System.out.println("USER: " + user.getEmail());
         System.out.println("STORIES: " + user.getStories());
-
         return new ResponseEntity<>(new ArrayList<>(user.getStories()), HttpStatus.OK);
     }
 

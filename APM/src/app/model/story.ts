@@ -2,6 +2,6 @@ export class Story {
     id: number;
     is_highlighted: boolean;
     start_time: Date;
-    path:string;
+    pathOfContent:string;
     tag:string;
 }

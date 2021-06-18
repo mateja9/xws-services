@@ -63,11 +63,20 @@
 <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
 <h2>My Stories</h2>
 
-
+<table class="table">
+                 
+    <!-- <thead class="text-success">
+        <th>Name <i  (click)="sort('NAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+        <th>Last name <i  (click)="sort('LASTNAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+        <th>Username <i  (click)="sort('USERNAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+        
+    </thead> -->
+    <tbody>
+        <tr *ngFor='let s of stories'>
+            <td><img src="media/file/{{s.pathOfContent}}"></td>
+        </tr>
+    </tbody>
+</table>
 
 
 </div>
-
-
-
-

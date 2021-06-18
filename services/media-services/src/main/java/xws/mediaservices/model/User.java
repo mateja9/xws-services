@@ -1,5 +1,7 @@
 package xws.mediaservices.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
@@ -60,6 +62,7 @@ public class User {
     private boolean prviPutLogovan;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private Set<Story> stories = new HashSet<Story>();
 
     public User() {

@@ -2,11 +2,13 @@ package xws.mediaservices.service;
 
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import xws.mediaservices.model.Story;
 import xws.mediaservices.model.User;
 import xws.mediaservices.repository.StoryRepository;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -27,17 +29,19 @@ public class StoryServiceImpl implements StoryService {
         return null;
     }
 
+    @Value("${media.storage}")
+    private String storageDirectoryPath;
+
     @Override
     public Story createStory(InputStream file, String ext, boolean onlyCloseFriends, User user) {
         System.out.println("SERVICE CREATE STORY");
 
         String filename = saveFile(file, ext);
-        String path = "/Users/shyft/Desktop/" + filename;
 
         Story story = new Story();
         story.setStartTime(LocalDateTime.now());
         story.setEndTime(LocalDateTime.now().plusDays(1));
-        story.setPathOfContent(path);
+        story.setPathOfContent(filename);
         story.setOnlyCloseFriends(onlyCloseFriends);
         story.setHighlited(false);
         story.setUser(user);
@@ -49,8 +53,11 @@ public class StoryServiceImpl implements StoryService {
 
     private String saveFile(InputStream file, String ext) {
         String filename = UUID.randomUUID().toString() + "." + ext;
+
+        Path storageDirectory = Paths.get(storageDirectoryPath);
+        System.out.println("PATH: " + storageDirectory.toAbsolutePath());
         System.out.println("FILE: " + filename);
-        Path dest = Paths.get("/Users/shyft/Desktop/" + filename);
+        Path dest = Paths.get(storageDirectory + File.separator + filename);
         try {
             Files.copy(file, dest, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {

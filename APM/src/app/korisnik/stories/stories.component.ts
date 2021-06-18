@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { KorisnikService } from "app/services/korisnik.services";
+import { Story } from "app/model/story";
 
 @Component({
   selector: "app-stories",
@@ -7,6 +8,8 @@ import { KorisnikService } from "app/services/korisnik.services";
   styleUrls: ["./stories.component.css"],
 })
 export class StoriesComponent implements OnInit {
+
+  stories : Story[] = [];
 
   selectedFile: File = null;
   fileName = "";
@@ -21,8 +24,9 @@ export class StoriesComponent implements OnInit {
     this.userService.getStories().subscribe({
       next: (stories) => {
         console.log("Dobavio sam storije");
-        stories.forEach((element) => {
-          console.log("ELEMENT " + element);
+        this.stories = stories;
+        stories.forEach((s) => {
+          console.log("STORY " + s);
         });
       },
     });
@@ -42,6 +46,17 @@ export class StoriesComponent implements OnInit {
     this.userService.createStory(fd).subscribe(
       (data) => {
         console.log("STORY IS POSTED.");
+
+        this.userService.getStories().subscribe({
+          next: (stories) => {
+            console.log("Dobavio sam storije");
+            stories.forEach((element) => {
+              this.stories = stories;
+              console.log("ELEMENT " + element);
+            });
+          },
+        });
+
       },
       error => {
         console.log("CREATE STORY ERROR: " + error.errorMessage);
