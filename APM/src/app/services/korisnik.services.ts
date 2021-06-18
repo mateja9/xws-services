@@ -32,4 +32,8 @@ export class KorisnikService {
   public getStories(): Observable<Story[]> {
     return this._http.get<Story[]>("/media/stories");
   }
+
+  public createStory(data : FormData) {
+    return this._http.post("/media/stories", data, {responseType: 'text'});
+  }
 }

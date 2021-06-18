@@ -13,11 +13,14 @@ public class Story{
     @Column(name = "PathOfContent", nullable = false)
     private String pathOfContent;
 
-    @Column(name = "Tag", nullable = false)
+    @Column(name = "Tag")
     private String tag;
 
     @Column(name = "IsHighlited", nullable = false)
     private boolean isHighlited;
+
+    @Column(name = "OnlyCloseFriends", nullable = false)
+    private boolean onlyCloseFriends;
 
     @Column(name = "StartTime", nullable = false)
     private LocalDateTime startTime;
@@ -30,16 +33,6 @@ public class Story{
     private User user;
 
     public Story() {
-    }
-
-    public Story(Long id, String pathOfContent, String tag, boolean isHighlited, LocalDateTime startTime, LocalDateTime endTime, User user) {
-        this.id = id;
-        this.pathOfContent = pathOfContent;
-        this.tag = tag;
-        this.isHighlited = isHighlited;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.user = user;
     }
 
     public Long getId() {
@@ -88,5 +81,21 @@ public class Story{
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    public boolean isOnlyCloseFriends() {
+        return onlyCloseFriends;
+    }
+
+    public void setOnlyCloseFriends(boolean onlyCloseFriends) {
+        this.onlyCloseFriends = onlyCloseFriends;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

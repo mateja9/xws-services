@@ -23,6 +23,7 @@
                         </a>
                     </li>
                     <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+
                         <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/explore']" > <i class="material-icons">explore</i>
                             <p style="color: green; font-weight: 500;">Explore Nistagram</p>
                         </a>
@@ -42,8 +43,31 @@
 
 
 <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
+<h2>Create Stories</h2>
+
+<form (ngSubmit)="createStory()" #storyForm="ngForm">
+    <p>Only for close friends</p>
+    <input type="radio" id="close-no" name="close" value="yes" [(ngModel)]="close">
+    <label for="close-no">Yes</label><br>
+    <input type="radio" id="close-yes" name="close" value="no" checked="true" [(ngModel)]="close">
+    <label for="close-yes">No</label><br>
+
+    <p></p>
+    <input style="display: none" type="file" (change)="onFileSelected($event)" accept=".jpg, .png, .mp4" #fileInput>
+    <button (click)="fileInput.click()">Select Image</button>
+    <p></p>
+    <input type="submit" value="Publish Story" class="btn btn-info">
+</form>
+</div>
+
+<div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
 <h2>My Stories</h2>
 
-</div>
+
+
 
 </div>
+
+
+
+
