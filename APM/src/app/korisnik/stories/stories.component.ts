@@ -14,9 +14,8 @@ export class StoriesComponent implements OnInit {
   selectedFile: File = null;
   fileName = "";
   fileExtension = "";
-  public closeFriends;
-  public onlyCloseFriends : string;
-  public close = "no";
+  public onlyCloseFriends = "no";
+  public highlighted = "no";
 
   constructor(private userService: KorisnikService) {}
 
@@ -41,7 +40,8 @@ export class StoriesComponent implements OnInit {
     }
 
     fd.append('file', this.selectedFile,  this.selectedFile.name);
-    fd.append('onlyCloseFriends', this.close);
+    fd.append('onlyCloseFriends', this.onlyCloseFriends);
+    fd.append('highlighted', this.highlighted);
 
     this.userService.createStory(fd).subscribe(
       (data) => {

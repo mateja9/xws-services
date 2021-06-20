@@ -8,5 +8,5 @@ import java.io.InputStream;
 public interface StoryService {
     Story findById(Long id);
 
-    Story createStory(InputStream file, String ext, boolean closeFriends, User user);
+    Story createStory(InputStream file, String ext, boolean closeFriends, Boolean highlighted, User user);
 }

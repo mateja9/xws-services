@@ -1,7 +1,11 @@
 package xws.mediaservices.model;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Period;
 
 @Entity
 public class Story{
@@ -97,5 +101,10 @@ public class Story{
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isVisible() {
+        Duration dt = Duration.between(startTime, LocalDateTime.now());
+        return dt.getSeconds() < 3600;
     }
 }

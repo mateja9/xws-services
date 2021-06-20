@@ -47,10 +47,17 @@
 
 <form (ngSubmit)="createStory()" #storyForm="ngForm">
     <p>Only for close friends</p>
-    <input type="radio" id="close-no" name="close" value="yes" [(ngModel)]="close">
+    <input type="radio" id="close-no" name="close" value="yes" [(ngModel)]="onlyCloseFriends">
     <label for="close-no">Yes</label><br>
-    <input type="radio" id="close-yes" name="close" value="no" checked="true" [(ngModel)]="close">
+    <input type="radio" id="close-yes" name="close" value="no" checked="true" [(ngModel)]="onlyCloseFriends">
     <label for="close-yes">No</label><br>
+
+    <p></p>
+    <p>Highlighted?</p>
+    <input type="radio" id="highlighted-no" name="highlighted" value="yes" [(ngModel)]="highlighted">
+    <label for="highlighted-no">Yes</label><br>
+    <input type="radio" id="highlighted-yes" name="highlighted" value="no" checked="true" [(ngModel)]="highlighted">
+    <label for="highlighted-yes">No</label><br>
 
     <p></p>
     <input style="display: none" type="file" (change)="onFileSelected($event)" accept=".jpg, .png, .mp4" #fileInput>

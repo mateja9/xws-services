@@ -83,9 +83,13 @@ public class StoryController {
 
         Part partImage = request.getPart("file");
         Part partCloseFriends = request.getPart("onlyCloseFriends");
+        Part partHighlighted = request.getPart("highlighted");
 
         String onlyCloseFriendsString = getPartAsString(partCloseFriends);
         Boolean onlyCloseFriends = onlyCloseFriendsString.equals("yes");
+
+        String highlightedString = getPartAsString(partHighlighted);
+        Boolean highlighted = highlightedString.equals("yes");
 
         System.out.println("CREATE STORY");
         System.out.println("USER: " + user.getEmail());
@@ -100,14 +104,14 @@ public class StoryController {
         }
 
         InputStream inputStream = partImage.getInputStream();
-        Story story = storyService.createStory(inputStream, extension, onlyCloseFriends, user);
+        Story story = storyService.createStory(inputStream, extension, onlyCloseFriends, highlighted, user);
 
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 
-    private String getPartAsString(Part partCloseFriends) throws IOException {
+    private String getPartAsString(Part part) throws IOException {
         String result;
-        InputStream is = partCloseFriends.getInputStream();
+        InputStream is = part.getInputStream();
 
         String text = new BufferedReader(
                 new InputStreamReader(is, StandardCharsets.UTF_8)).lines()

@@ -1,6 +1,5 @@
 package xws.mediaservices.service;
 
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -33,7 +32,7 @@ public class StoryServiceImpl implements StoryService {
     private String storageDirectoryPath;
 
     @Override
-    public Story createStory(InputStream file, String ext, boolean onlyCloseFriends, User user) {
+    public Story createStory(InputStream file, String ext, boolean onlyCloseFriends, Boolean highlighted, User user) {
         System.out.println("SERVICE CREATE STORY");
 
         String filename = saveFile(file, ext);
@@ -43,7 +42,7 @@ public class StoryServiceImpl implements StoryService {
         story.setEndTime(LocalDateTime.now().plusDays(1));
         story.setPathOfContent(filename);
         story.setOnlyCloseFriends(onlyCloseFriends);
-        story.setHighlited(false);
+        story.setHighlited(highlighted);
         story.setUser(user);
 
         storyRepository.save(story);
