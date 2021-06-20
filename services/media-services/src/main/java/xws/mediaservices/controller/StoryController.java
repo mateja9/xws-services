@@ -28,9 +28,7 @@ import java.nio.file.FileStore;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -72,8 +70,17 @@ public class StoryController {
 
         User user = userRepository.findByEmail(sessionUser.getEmail());
         System.out.println("USER: " + user.getEmail());
-        System.out.println("STORIES: " + user.getStories());
-        return new ResponseEntity<>(new ArrayList<>(user.getStories()), HttpStatus.OK);
+        Set<Story> storiesSet = user.getStories();
+        List<Story> stories = new ArrayList<>(storiesSet);
+        stories.sort(new Comparator<Story>() {
+            @Override
+            public int compare(Story o1, Story o2) {
+                return o2.getStartTime().compareTo(o1.getStartTime());
+            }
+        });
+
+        System.out.println("STORIES: " + stories);
+        return new ResponseEntity<>(new ArrayList<>(stories), HttpStatus.OK);
     }
 
     @PostMapping(value = "/media/stories", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
