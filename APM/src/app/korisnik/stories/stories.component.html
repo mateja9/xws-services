@@ -1,0 +1,97 @@
+<div class="wrapper" style="background-image: url(./assets/img/backg.png); margin-top: -30px; ">
+    <div>
+        <div class="sidebar" data-color="danger" data-background-color="white">
+            <div class="sidebar-background" ></div>
+            <div class="logo">
+                <a  class="simple-text">
+                    <div class="logo-img">
+                        <img src="/assets/img/logoxml.jpg" />
+                    </div>
+                   Nistagram
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/korisnik']" > <i class="material-icons">person</i>
+                            <p style="color: green; font-weight: 500;">My profile</p>
+                        </a>
+                    </li>
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/stories']" > <i class="material-icons">donut_large</i>
+                            <p style="color: green; font-weight: 500;">My stories</p>
+                        </a>
+                    </li>
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/explore']" > <i class="material-icons">explore</i>
+                            <p style="color: green; font-weight: 500;">Explore Nistagram</p>
+                        </a>
+                    </li>
+                     <li routerLinkActive="active" class="nav-item">
+                        <a (click)="odjaviSe()"  class="nav-link sidebar-1" [routerLink]="['/welcome']"> <i
+                                class="material-icons">logout</i>
+                            <p style="color: green; font-weight: 500;">Log out</p>
+                        </a>
+                    </li>
+                   
+                  
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+<div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
+<h2>Create Stories</h2>
+
+<form (ngSubmit)="createStory()" #storyForm="ngForm">
+    <p>Only for close friends</p>
+    <input type="radio" id="close-no" name="close" value="yes" [(ngModel)]="onlyCloseFriends">
+    <label for="close-no">Yes</label><br>
+    <input type="radio" id="close-yes" name="close" value="no" checked="true" [(ngModel)]="onlyCloseFriends">
+    <label for="close-yes">No</label><br>
+
+    <p></p>
+    <p>Highlighted?</p>
+    <input type="radio" id="highlighted-no" name="highlighted" value="yes" [(ngModel)]="highlighted">
+    <label for="highlighted-no">Yes</label><br>
+    <input type="radio" id="highlighted-yes" name="highlighted" value="no" checked="true" [(ngModel)]="highlighted">
+    <label for="highlighted-yes">No</label><br>
+
+    <p></p>
+    <input style="display: none" type="file" (change)="onFileSelected($event)" accept=".jpg, .png, .mp4" #fileInput>
+    <button (click)="fileInput.click()">Select Image</button>
+    <p></p>
+    <input type="submit" value="Publish Story" class="btn btn-info">
+</form>
+</div>
+
+<div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
+<h2>My Stories</h2>
+
+<table class="table">
+                 
+    <!-- <thead class="text-success">
+        <th>Name <i  (click)="sort('NAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+        <th>Last name <i  (click)="sort('LASTNAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+        <th>Username <i  (click)="sort('USERNAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+        
+    </thead> -->
+    <tbody>
+        <tr *ngFor='let s of stories'>
+            <td>
+                <div *ngIf="s.isVideo; else notVideo">
+                   <video width="640" height="480" controls><source src="media/file/{{s.pathOfContent}}"></video>
+                </div>
+
+                <ng-template #notVideo>
+                  <img width="640" height="480" style="object-fit: contain" src="media/file/{{s.pathOfContent}}">
+                </ng-template>
+        </td>
+        </tr>
+    </tbody>
+</table>
+
+
+</div>

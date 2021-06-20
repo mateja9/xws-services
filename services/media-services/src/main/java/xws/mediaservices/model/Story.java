@@ -1,7 +1,11 @@
 package xws.mediaservices.model;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Period;
 
 @Entity
 public class Story{
@@ -13,11 +17,14 @@ public class Story{
     @Column(name = "PathOfContent", nullable = false)
     private String pathOfContent;
 
-    @Column(name = "Tag", nullable = false)
+    @Column(name = "Tag")
     private String tag;
 
     @Column(name = "IsHighlited", nullable = false)
     private boolean isHighlited;
+
+    @Column(name = "OnlyCloseFriends", nullable = false)
+    private boolean onlyCloseFriends;
 
     @Column(name = "StartTime", nullable = false)
     private LocalDateTime startTime;
@@ -25,14 +32,11 @@ public class Story{
     @Column(name = "EndTime", nullable = false)
     private LocalDateTime endTime;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-
-    public Story(String pathOfContent, String tag, boolean isHighlited, LocalDateTime startTime, LocalDateTime endTime) {
-        this.pathOfContent = pathOfContent;
-        this.tag = tag;
-        this.isHighlited = isHighlited;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public Story() {
     }
 
     public Long getId() {
@@ -81,5 +85,26 @@ public class Story{
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    public boolean isOnlyCloseFriends() {
+        return onlyCloseFriends;
+    }
+
+    public void setOnlyCloseFriends(boolean onlyCloseFriends) {
+        this.onlyCloseFriends = onlyCloseFriends;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public boolean isVisible() {
+        Duration dt = Duration.between(startTime, LocalDateTime.now());
+        return dt.getSeconds() < 3600;
     }
 }

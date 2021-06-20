@@ -1,7 +1,11 @@
 package xws.mediaservices.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -56,6 +60,10 @@ public class User {
 
     @Column(name = "PrviPutLogovan", nullable = false)
     private boolean prviPutLogovan;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
+    private Set<Story> stories = new HashSet<Story>();
 
     public User() {
     }
@@ -164,6 +172,14 @@ public class User {
         this.prviPutLogovan = prviPutLogovan;
     }
 
+    public Set<Story> getStories() {
+        return stories;
+    }
+
+    public void setStories(Set<Story> stories) {
+        this.stories = stories;
+    }
+
     //    public User(String name, String lastname, String phoneNumber, String email, String username, String password, String rola, String gender ){
 //        this.name=name;
 //        this.lastname=lastname;
@@ -175,20 +191,19 @@ public class User {
 //        this.gender=gender;
 //    }
 
-    public User(String name, String lastname, String phoneNumber, String email, String username,
-                String password, String rola, String gender,String website,String bio,
-                String dateofb, boolean prviPutLogovan ){
-        this.name=name;
-        this.lastname=lastname;
-        this.phoneNumber=phoneNumber;
-        this.email=email;
-        this.username=username;
-        this.password=password;
-        this.rola=rola;
-        this.gender=gender;
-        this.website=website;
-        this.bio=bio;
-        this.dateofb=dateofb;
+
+    public User(String name, String lastname, String phoneNumber, String email, String username, String password, String rola, String gender, String website, String bio, String dateofb, boolean prviPutLogovan) {
+        this.name = name;
+        this.lastname = lastname;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.rola = rola;
+        this.gender = gender;
+        this.website = website;
+        this.bio = bio;
+        this.dateofb = dateofb;
         this.prviPutLogovan = prviPutLogovan;
     }
 }

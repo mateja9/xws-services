@@ -18,6 +18,11 @@
                         </a>
                     </li>
                     <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/stories']" > <i class="material-icons">donut_large</i>
+                            <p style="color: green; font-weight: 500;">My stories</p>
+                        </a>
+                    </li>
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
                         <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/explore']" > <i class="material-icons">explore</i>
                             <p style="color: green; font-weight: 500;">Explore Nistagram</p>
                         </a>
