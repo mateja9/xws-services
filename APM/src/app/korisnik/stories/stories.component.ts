@@ -25,6 +25,7 @@ export class StoriesComponent implements OnInit {
         console.log("Dobavio sam storije");
         this.stories = stories;
         stories.forEach((s) => {
+          s.isVideo = s.pathOfContent.endsWith("mp4");
           console.log("STORY " + s);
         });
       },
@@ -41,7 +42,7 @@ export class StoriesComponent implements OnInit {
 
     fd.append('file', this.selectedFile,  this.selectedFile.name);
     fd.append('onlyCloseFriends', this.onlyCloseFriends);
-    fd.append('highlighted', this.highlighted);
+    fd.append('highlighted', this.highlighted); 
 
     this.userService.createStory(fd).subscribe(
       (data) => {

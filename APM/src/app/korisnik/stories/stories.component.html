@@ -80,7 +80,15 @@
     </thead> -->
     <tbody>
         <tr *ngFor='let s of stories'>
-            <td><img src="media/file/{{s.pathOfContent}}"></td>
+            <td>
+                <div *ngIf="s.isVideo; else notVideo">
+                   <video width="640" height="480" controls><source src="media/file/{{s.pathOfContent}}"></video>
+                </div>
+
+                <ng-template #notVideo>
+                  <img width="640" height="480" style="object-fit: contain" src="media/file/{{s.pathOfContent}}">
+                </ng-template>
+        </td>
         </tr>
     </tbody>
 </table>

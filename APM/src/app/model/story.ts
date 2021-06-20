@@ -4,4 +4,5 @@ export class Story {
     start_time: Date;
     pathOfContent:string;
     tag:string;
+    isVideo:boolean
 }
