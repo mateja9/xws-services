@@ -103,8 +103,8 @@ public class Story{
         this.user = user;
     }
 
-    public boolean isVisible() {
+    public boolean isPubliclyVisible() {
         Duration dt = Duration.between(startTime, LocalDateTime.now());
-        return dt.getSeconds() < 3600;
+        return dt.getSeconds() < 86400;
     }
 }

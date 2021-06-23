@@ -83,7 +83,30 @@
     </form>
 </div>
 <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
-<h2> Profile pictures and stories</h2>
+<h2>Profile pictures and stories</h2>
+
+<table class="table">
+                 
+    <!-- <thead class="text-success">
+        <th>Name <i  (click)="sort('NAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+        <th>Last name <i  (click)="sort('LASTNAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+        <th>Username <i  (click)="sort('USERNAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+        
+    </thead> -->
+    <tbody>
+        <tr *ngFor='let s of stories'>
+            <td>
+                <div *ngIf="s.isVideo; else notVideo">
+                   <video width="640" height="480" controls><source src="media/file/{{s.pathOfContent}}"></video>
+                </div>
+
+                <ng-template #notVideo>
+                  <img width="640" height="480" style="object-fit: contain" src="media/file/{{s.pathOfContent}}">
+                </ng-template>
+        </td>
+        </tr>
+    </tbody>
+</table>
 
 </div>
 </div>

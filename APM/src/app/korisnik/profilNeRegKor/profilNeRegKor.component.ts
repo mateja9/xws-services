@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Korisnik } from 'app/model/Korisnik';
 import { KorisnikService } from 'app/services/korisnik.services';
 import { LoginService } from 'app/services/login.services';
-
+import { Story } from "app/model/story";
 
 
 @Component({
@@ -18,6 +18,7 @@ export class ProfilNeRegKorComponent implements OnInit {
     id: number;
     request:Request;
     errorMessage = '';
+    stories : Story[] = [];
 
   constructor(private httpClient: HttpClient,private route: ActivatedRoute, private router: Router, private userService: KorisnikService) { 
     this.korisnik = new Korisnik();
@@ -37,8 +38,25 @@ export class ProfilNeRegKorComponent implements OnInit {
   }
   getUsers(id: number) {
     this.userService.vratiKor(id).subscribe(
-        korisnik => this.korisnik= korisnik,
-      error => this.errorMessage = <any>error
+        korisnik => {
+          this.korisnik = korisnik
+          console.log("IMAM USERA!");
+
+          this.userService.getPublicStories(korisnik.id).subscribe({
+          next: (stories) => {
+            console.log("Dobavio sam storije");
+            stories.forEach((element) => {
+              this.stories = stories;
+              console.log("ELEMENT " + element);
+            });
+          },
+        });
+
+        },
+      error => {
+        this.errorMessage = <any>error
+        console.log(this.errorMessage);
+      }
     );
 }
   
