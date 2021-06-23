@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import xws.mediaservices.model.Story;
 import xws.mediaservices.model.User;
@@ -24,7 +23,6 @@ import javax.servlet.http.Part;
 import javax.ws.rs.core.Context;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.FileStore;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -59,6 +57,35 @@ public class StoryController {
         InputStream in = Files.newInputStream(path);
         response.setContentType(MediaType.IMAGE_JPEG_VALUE);
         IOUtils.copy(in, response.getOutputStream());
+    }
+
+    @GetMapping(value = "/user/{userId}/publicStories")
+    public ResponseEntity<List<Story>> getPublicUserStories(@PathVariable("userId") String userIdString) throws Exception {
+        Long userId;
+        try {
+            userId = Long.valueOf(userIdString);
+        }catch(Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+        }
+
+        User user = userRepository.findById(userId).get();
+        System.out.println("USER: " + user.getEmail());
+        Set<Story> storiesSet = user.getStories();
+        List<Story> stories = new ArrayList<>(storiesSet);
+
+        List<Story> publicStories = stories.stream()
+                .filter(story -> story.isHighlited() || story.isPubliclyVisible())
+                .collect(Collectors.toList());
+
+        publicStories.sort(new Comparator<Story>() {
+            @Override
+            public int compare(Story o1, Story o2) {
+                return o2.getStartTime().compareTo(o1.getStartTime());
+            }
+        });
+
+        return new ResponseEntity<>(new ArrayList<>(publicStories), HttpStatus.OK);
     }
 
     @GetMapping(value = "/media/stories")

@@ -33,6 +33,10 @@ export class KorisnikService {
     return this._http.get<Story[]>("/media/stories");
   }
 
+  public getPublicStories(userId: number): Observable<Story[]> {
+    return this._http.get<Story[]>("/user/" + userId +"/publicStories");
+  }
+
   public createStory(data : FormData) {
     return this._http.post("/media/stories", data, {responseType: 'text'});
   }

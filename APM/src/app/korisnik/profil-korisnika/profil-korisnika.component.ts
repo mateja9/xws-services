@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Korisnik } from 'app/model/Korisnik';
 import { KorisnikService } from 'app/services/korisnik.services';
 import { LoginService } from 'app/services/login.services';
+import { Story } from "app/model/story";
 
 
 @Component({
@@ -14,6 +15,7 @@ export class ProfilKorisnikaComponent implements OnInit {
   korisnik :Korisnik;
   updatedUser:Korisnik;
   request:Request;
+  stories : Story[] = [];
 
   constructor(private _router: Router,private loginService:LoginService,private userService: KorisnikService,) { 
     this.korisnik = new Korisnik();
@@ -32,6 +34,17 @@ export class ProfilKorisnikaComponent implements OnInit {
         if (this.korisnik != null && this.korisnik.rola != "CLIENT") {
           this.loginService.IzlogujSe(this.request).subscribe(result => this.kraj());
         }
+
+        this.userService.getPublicStories(korisnik.id).subscribe({
+          next: (stories) => {
+            console.log("Dobavio sam storije");
+            stories.forEach((element) => {
+              this.stories = stories;
+              console.log("ELEMENT " + element);
+            });
+          },
+        });
+
       }
     });
 
