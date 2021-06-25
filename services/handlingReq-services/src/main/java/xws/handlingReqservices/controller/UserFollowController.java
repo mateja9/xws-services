@@ -26,4 +26,10 @@ public class UserFollowController {
     {
         return new ResponseEntity<UserFollow>(userFollowService.unfollow(id), HttpStatus.OK);
     }
+
+    @PutMapping(value = "/userFollow/accept/{id}")
+    public ResponseEntity<UserFollow> acceptFollow(@PathVariable Long id)
+    {
+        return new ResponseEntity<UserFollow>(userFollowService.accept(id), HttpStatus.OK);
+    }
 }

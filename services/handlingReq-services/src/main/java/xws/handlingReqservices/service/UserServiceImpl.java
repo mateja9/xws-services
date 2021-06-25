@@ -58,4 +58,21 @@ public class UserServiceImpl implements UserFollowService {
 
         return userFollow;
     }
+
+    @Override
+    public UserFollow accept(Long id) {
+        Optional<UserFollow> follow = userFollowRepository.findById(id);
+
+        if(!follow.isPresent()) {
+            return null;
+        }
+
+        UserFollow userFollow = follow.get();
+        userFollow.setActive(true);
+        userFollow.setStatus(StatusFollowing.accepted);
+
+        userFollowRepository.save(userFollow);
+
+        return userFollow;
+    }
 }
