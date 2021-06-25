@@ -7,5 +7,7 @@ public interface UserFollowService {
 
     UserFollow createUserFollow(UserFollowDTO userFollowDTO);
 
+    UserFollow accept(Long id);
+
     UserFollow unfollow(Long id);
 }
