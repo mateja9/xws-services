@@ -4,16 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xws.handlingReqservices.dto.UserFollowDTO;
 import xws.handlingReqservices.model.UserFollow;
 import xws.handlingReqservices.service.UserFollowService;
 
 @RestController
-@RequestMapping(produces =  MediaType.APPLICATION_JSON_VALUE)
 public class UserFollowController {
 
     @Autowired
@@ -25,4 +21,9 @@ public class UserFollowController {
         return new ResponseEntity<UserFollow>(userFollowService.createUserFollow(followRequestDTO), HttpStatus.OK);
     }
 
+    @PutMapping(value = "/userFollow/unfollow/{id}")
+    public ResponseEntity<UserFollow> unfollow(@PathVariable Long id)
+    {
+        return new ResponseEntity<UserFollow>(userFollowService.unfollow(id), HttpStatus.OK);
+    }
 }

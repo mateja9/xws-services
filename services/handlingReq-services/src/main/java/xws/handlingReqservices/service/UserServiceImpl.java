@@ -8,6 +8,9 @@ import xws.handlingReqservices.model.User;
 import xws.handlingReqservices.model.UserFollow;
 import xws.handlingReqservices.repository.UserFollowRepository;
 import xws.handlingReqservices.repository.UserRepository;
+
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserFollowService {
 
@@ -36,5 +39,23 @@ public class UserServiceImpl implements UserFollowService {
         newUserFollow = userFollowRepository.save(newUserFollow);
 
         return newUserFollow;
+    }
+
+    @Override
+    public UserFollow unfollow(Long id) {
+        Optional<UserFollow> follow = userFollowRepository.findById(id);
+
+        if(!follow.isPresent()) {
+            return null;
+        }
+
+        UserFollow userFollow = follow.get();
+        userFollow.setActive(false);
+        userFollow.setStatus(StatusFollowing.rejected);
+
+        userFollowRepository.save(userFollow);
+
+
+        return userFollow;
     }
 }
