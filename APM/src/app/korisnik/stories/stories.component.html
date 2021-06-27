@@ -45,7 +45,9 @@
 <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
 <h2>Create Stories</h2>
 
+
 <form (ngSubmit)="createStory()" #storyForm="ngForm">
+    
     <p>Only for close friends</p>
     <input type="radio" id="close-no" name="close" value="yes" [(ngModel)]="onlyCloseFriends">
     <label for="close-no">Yes</label><br>

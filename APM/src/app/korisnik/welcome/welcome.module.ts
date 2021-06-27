@@ -31,9 +31,6 @@ import { RegistrationNoticeComponent } from '../registration-notice/registration
 
     RouterModule.forChild([
       
-     // { path: 'welcome/:id', component: ProfilNeRegKorComponent },
-     
-    //  { path: 'profilNeRegKor', component: ProfilNeRegKorComponent },
 
 
     ]),
