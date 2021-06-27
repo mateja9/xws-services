@@ -97,5 +97,41 @@
     </div>
 
 </div>
+<div class="wrapper" style="background-image: url(./assets/img/backg.png); margin-top: -30px; ">
+    <div style="margin-left:300px; margin-top:-auto; padding:60px;">
+        <h1>Search</h1>
+    <div class="row" style="margin-top: 50px;">
+        <form (ngSubmit)="searchUser()" #allergyForm="ngForm" >
+            <div class="row">
+             
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Tag" class="form-control" name="name"
+                            #name="ngModel" [(ngModel)]="searchParameters.name" />
+                    </div>
+                </div>
 
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Location" class="form-control" name="city" #city="ngModel"
+                            [(ngModel)]="searchParameters.lastname" />
+                    </div>
+                </div>
+
+            
+                
+                <div class="col-sm-3">
+                    <input type="submit" value="Search" mat-raised-button class="btn btn-success">
+                </div>
+                <form (ngSubmit)="refresh()" #allergyForm="ngForm">
+                    <div class="col-sm-3">
+                        <input type="submit" value="Refresh" mat-raised-button class="btn btn-success">
+                    </div>
+                </form>
+            </div>
+           
+
+        </form>
+        </div></div>
+       
 </div>

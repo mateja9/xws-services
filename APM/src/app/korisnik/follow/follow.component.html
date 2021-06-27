@@ -1,0 +1,143 @@
+<div class="wrapper" style="background-image: url(./assets/img/backg.png); margin-top: -30px; ">
+    <div>
+        <div class="sidebar" data-color="danger" data-background-color="white">
+            <div class="sidebar-background" ></div>
+            <div class="logo">
+                <a  class="simple-text">
+                    <div class="logo-img">
+                        <img src="/assets/img/logoxml.jpg" />
+                    </div>
+                   Nistagram
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/korisnik']" > <i class="material-icons">person</i>
+                            <p style="color: green; font-weight: 500;">My profile</p>
+                        </a>
+                    </li>
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/stories']" > <i class="material-icons">donut_large</i>
+                            <p style="color: green; font-weight: 500;">My stories</p>
+                        </a>
+                    </li>
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/explore']" > <i class="material-icons">explore</i>
+                            <p style="color: green; font-weight: 500;">Explore Nistagram</p>
+                        </a>
+                    </li>
+                     <li routerLinkActive="active" class="nav-item">
+                        <a (click)="odjaviSe()"  class="nav-link sidebar-1" [routerLink]="['/welcome']"> <i
+                                class="material-icons">logout</i>
+                            <p style="color: green; font-weight: 500;">Log out</p>
+                        </a>
+                    </li>
+                   
+                  
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+  
+    <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
+        <!-- <h2>Welcome back </h2> -->
+        <h2>Profile name: {{korisnik.name}} {{korisnik.lastname}}</h2>
+         
+           
+        <form (ngSubmit)="follow()" #loginForm="ngForm">
+            <div class="row">
+             
+    
+              
+    
+                <div class="col-sm-2">
+                    <h3>Name </h3>
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="First Name" class="form-control" name="firstName"
+                            #firstName="ngModel" [(ngModel)]="korisnik.name" disabled/>
+                    </div>
+                </div>
+    
+                <div class="col-sm-3">
+                    <h3>Last name </h3>
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Last Name" class="form-control" name="lastName"
+                            #lastName="ngModel" [(ngModel)]="korisnik.lastname" disabled/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <h3>Username </h3>
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="E-mail" class="form-control" name="email"
+                            #email="ngModel" [(ngModel)]="korisnik.email" disabled />
+                    </div>
+                </div>
+    
+                <div class="col-sm-2">
+    
+                    <h3>Website </h3>
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Website" class="form-control" name="address1"
+                            #address1="ngModel" [(ngModel)]="korisnik.website" disabled />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+    
+                    <h3>Biography </h3>
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="bio" class="form-control" name="bio"
+                            #bio="ngModel" [(ngModel)]="korisnik.bio" disabled />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+    
+                    <h3>Followers </h3>
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="bio" class="form-control" name="bio"
+                            #bio="ngModel" [(ngModel)]="korisnik.bio" disabled />
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+    
+                    <h3>Following </h3>
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="bio" class="form-control" name="bio"
+                            #bio="ngModel" [(ngModel)]="korisnik.bio" disabled />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <h3>Follow profile</h3>
+                    <input type="submit" value="Follow" mat-raised-button class="btn btn-success">
+                </div>
+    
+    
+            </div>
+        </form>
+    </div>
+<div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
+<h2>My public stories</h2>
+
+<table class="table">
+                
+    <tbody>
+        <tr *ngFor='let s of stories'>
+            <td>
+                <div *ngIf="s.isVideo; else notVideo">
+                   <video width="640" height="480" controls><source src="media/file/{{s.pathOfContent}}"></video>
+                </div>
+
+                <ng-template #notVideo>
+                  <img width="640" height="480" style="object-fit: contain" src="media/file/{{s.pathOfContent}}">
+                </ng-template>
+        </td>
+        </tr>
+    </tbody>
+</table>
+
+</div>
+</div>
