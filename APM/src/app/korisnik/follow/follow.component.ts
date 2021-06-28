@@ -5,6 +5,7 @@ import { KorisnikService } from 'app/services/korisnik.services';
 import { LoginService } from 'app/services/login.services';
 import { Story } from "app/model/story";
 import { HttpClient } from '@angular/common/http';
+import { Post } from "app/model/post";
 
 
 @Component({
@@ -19,10 +20,12 @@ export class FollowComponent implements OnInit {
       request:Request;
       errorMessage = '';
       stories : Story[] = [];
+      posts : Post[] = [];
   
     constructor(private httpClient: HttpClient,private route: ActivatedRoute, private router: Router, private userService: KorisnikService) { 
       this.korisnik = new Korisnik();
-   
+
+  
     }
    
     
@@ -47,6 +50,16 @@ export class FollowComponent implements OnInit {
               console.log("Dobavio sam storije");
               stories.forEach((element) => {
                 this.stories = stories;
+                console.log("ELEMENT " + element);
+              });
+            },
+          });
+
+          this.userService.getPublicPosts(korisnik.id).subscribe({
+            next: (posts) => {
+              console.log("Dobavio sam postove");
+              posts.forEach((element) => {
+                this.posts = posts;
                 console.log("ELEMENT " + element);
               });
             },

@@ -5,11 +5,13 @@ import { Observable } from "rxjs";
 import { Korisnik } from "app/model/Korisnik";
 import { Story } from "app/model/story";
 import { SearchUser } from "../model/SearchUser";
+import { Post } from "app/model/post";
 
 @Injectable()
 export class KorisnikService {
   adapter: any;
   constructor(private _http: HttpClient) {}
+  
 
   public getKorisnika(): Observable<Korisnik> {
     return this._http.get<Korisnik>("/user/login");
@@ -29,6 +31,8 @@ export class KorisnikService {
     return this._http.get<Korisnik>("/user/" + id);
   }
 
+
+
   public getStories(): Observable<Story[]> {
     return this._http.get<Story[]>("/media/stories");
   }
@@ -40,4 +44,20 @@ export class KorisnikService {
   public createStory(data : FormData) {
     return this._http.post("/media/stories", data, {responseType: 'text'});
   }
+
+
+
+  public getPosts(): Observable<Post[]> {
+    return this._http.get<Post[]>("/media/posts");
+  }
+  public getPublicPosts(userId: number): Observable<Post[]> {
+    return this._http.get<Post[]>("/user/" + userId +"/publicPosts");
+  }
+
+  public createPost(data : FormData) {
+    return this._http.post("/media/createPost", data, {responseType: 'text'});
+  }
+
+
+
 }
