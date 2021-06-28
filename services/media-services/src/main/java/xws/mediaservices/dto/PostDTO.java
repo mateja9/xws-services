@@ -3,24 +3,26 @@ package xws.mediaservices.dto;
 import java.util.List;
 
 public class PostDTO {
-    private List<String> tags;
+    private String tags;
     private String location;
     private String description;
 
-    public PostDTO(List<String> tags, String location, String description) {
+    public PostDTO(String tags, String location, String description) {
         super();
         this.tags = tags;
         this.location = location;
         this.description = description;
     }
 
-    public List<String> getTags() {
 
+    public String getTags() {
         return tags;
     }
-    public void setTags(List<String> tags) {
+
+    public void setTags(String tags) {
         this.tags = tags;
     }
+
     public String getLocation() {
 
         return location;
@@ -41,3 +43,4 @@ public class PostDTO {
 
 
 }
+

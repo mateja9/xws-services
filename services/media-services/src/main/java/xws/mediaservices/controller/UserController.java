@@ -232,27 +232,6 @@ public class UserController {
 
     }
 
-    /*
-    @GetMapping("/user/changePassword")
-    public String showChangePasswordPage(@RequestParam("token") String token) {
-
-        String result = securityService.validatePasswordResetToken(token);
-        if (result != null) {
-
-            //return "redirect:" + redirectUrl;
-
-
-            return "http://localhost:8080/user/changePassword";
-        } else {
-            return "redirect:/newpassword.html?lang=";
-
-
-        }
-    }
-
-     */
-
-
     @PostMapping("/user/savePassword")
     public ResponseEntity savePassword(@Valid PasswordDto passwordDto) {
 

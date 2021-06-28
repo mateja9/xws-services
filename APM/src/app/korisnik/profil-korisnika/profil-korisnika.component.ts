@@ -4,6 +4,7 @@ import { Korisnik } from 'app/model/Korisnik';
 import { KorisnikService } from 'app/services/korisnik.services';
 import { LoginService } from 'app/services/login.services';
 import { Story } from "app/model/story";
+import { Post } from "app/model/post";
 
 
 @Component({
@@ -16,6 +17,7 @@ export class ProfilKorisnikaComponent implements OnInit {
   updatedUser:Korisnik;
   request:Request;
   stories : Story[] = [];
+  posts : Post[] = [];
 
   constructor(private _router: Router,private loginService:LoginService,private userService: KorisnikService,) { 
     this.korisnik = new Korisnik();
@@ -44,6 +46,17 @@ export class ProfilKorisnikaComponent implements OnInit {
             });
           },
         });
+
+        this.userService.getPublicPosts(korisnik.id).subscribe({
+          next: (posts) => {
+            console.log("Dobavio sam postove");
+            posts.forEach((element) => {
+              this.posts = posts;
+              console.log("ELEMENT " + element);
+            });
+          },
+        });
+
 
       }
     });

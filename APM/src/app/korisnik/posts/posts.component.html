@@ -48,34 +48,30 @@
 
 
 <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
-<h2>Create Stories</h2>
+<h2>Create Post</h2>
 
 
-<form (ngSubmit)="createStory()" #storyForm="ngForm">
+<form (ngSubmit)="createPost()" #PostForm="ngForm">
     
-    <p>Only for close friends</p>
-    <input type="radio" id="close-no" name="close" value="yes" [(ngModel)]="onlyCloseFriends">
-    <label for="close-no">Yes</label><br>
-    <input type="radio" id="close-yes" name="close" value="no" checked="true" [(ngModel)]="onlyCloseFriends">
-    <label for="close-yes">No</label><br>
-
-    <p></p>
-    <p>Highlighted?</p>
-    <input type="radio" id="highlighted-no" name="highlighted" value="yes" [(ngModel)]="highlighted">
-    <label for="highlighted-no">Yes</label><br>
-    <input type="radio" id="highlighted-yes" name="highlighted" value="no" checked="true" [(ngModel)]="highlighted">
-    <label for="highlighted-yes">No</label><br>
+    <p>Add location</p>
+    <input type="text" id="location" name="location" [(ngModel)]="location">
+    <br><br>
+    <p>Add tags</p>
+    <input type="text" id="tag" name="tag" [(ngModel)]="tag">
+    <br><br>
+    <p>Add description</p>
+    <input type="text" id="description" name="description" [(ngModel)]="description">
 
     <p></p>
     <input style="display: none" type="file" (change)="onFileSelected($event)" accept=".jpg, .png, .mp4" #fileInput>
     <button (click)="fileInput.click()">Select Image</button>
     <p></p>
-    <input type="submit" value="Publish Story" class="btn btn-info">
+    <input type="submit" value="Publish Post" class="btn btn-info">
 </form>
 </div>
 
 <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
-<h2>My Stories</h2>
+<h2>My Posts</h2>
 
 <table class="table">
                  
@@ -86,14 +82,28 @@
         
     </thead> -->
     <tbody>
-        <tr *ngFor='let s of stories'>
+        <tr *ngFor='let p of posts'>
             <td>
-                <div *ngIf="s.isVideo; else notVideo">
-                   <video width="640" height="480" controls><source src="media/file/{{s.pathOfContent}}"></video>
+                <div *ngIf="p.isVideo; else notVideo">
+                   <video width="640" height="480" controls><source src="media/file/{{p.pathOfContent}}"></video>
+                   <br>
+                   <div>
+                     <h3>Location: {{p.location}}</h3>
+                     <h3>Description: {{p.description}}</h3>
+                     <h3>Tags: {{p.tags}}</h3>
+                 </div>
+                   <br><br>
                 </div>
 
                 <ng-template #notVideo>
-                  <img width="640" height="480" style="object-fit: contain" src="media/file/{{s.pathOfContent}}">
+                  <img width="640" height="480" style="object-fit: contain" src="media/file/{{p.pathOfContent}}">
+                  <br>
+                  <div>
+                    <h3>Location: {{p.location}}</h3>
+                    <h3>Description: {{p.description}}</h3>
+                    <h3>Tags: {{p.tags}}</h3>
+                </div>
+                  <br><br>
                 </ng-template>
         </td>
         </tr>

@@ -26,6 +26,7 @@ import { RegistrationNoticeComponent } from './korisnik/registration-notice/regi
 import { ForgotPasswordComponent } from './korisnik/forgotpassword/forgotpassword.component';
 import { StoriesComponent } from './korisnik/stories/stories.component';
 import { FollowComponent } from './korisnik/follow/follow.component';
+import { PostsComponent } from './korisnik/posts/posts.components';
 
 
 
@@ -41,7 +42,8 @@ import { FollowComponent } from './korisnik/follow/follow.component';
     RegistrationNoticeComponent,
     ForgotPasswordComponent,
     StoriesComponent,
-    FollowComponent
+    FollowComponent,
+    PostsComponent
    
     
   
@@ -59,6 +61,7 @@ import { FollowComponent } from './korisnik/follow/follow.component';
       { path: 'explore/:id', component: FollowComponent },
       { path: 'korisnik', component: ProfilKorisnikaComponent },
       { path: 'stories', component: StoriesComponent },
+      { path: 'posts', component: PostsComponent },
       { path: 'forgotpassword', component: ForgotPasswordComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full'},

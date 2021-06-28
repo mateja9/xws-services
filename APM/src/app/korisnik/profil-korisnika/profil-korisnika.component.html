@@ -23,6 +23,11 @@
                         </a>
                     </li>
                     <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/posts']" > <i class="material-icons">donut_large</i>
+                            <p style="color: green; font-weight: 500;">My posts</p>
+                        </a>
+                    </li>
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
                         <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/explore']" > <i class="material-icons">explore</i>
                             <p style="color: green; font-weight: 500;">Explore Nistagram</p>
                         </a>
@@ -155,6 +160,43 @@
         </tr>
     </tbody>
 </table>
+
+<h2>My public posts</h2>
+
+<table class="table">
+                
+    <tbody>
+        <tr *ngFor='let p of posts'>
+            <td>
+                <div *ngIf="p.isVideo; else notVideo">
+                   <video width="640" height="480" controls><source src="media/file/{{p.pathOfContent}}"></video>
+                   <br>
+                   <div>
+                    <h3>Location: {{p.location}} </h3>
+                    <h3>Description: {{p.description}}</h3>
+                    <h3>Tags: {{p.tags}}</h3> 
+                    </div> 
+                    <br><br> 
+                </div>
+
+                
+                <ng-template #notVideo>
+                  <img width="640" height="480" style="object-fit: contain" src="media/file/{{p.pathOfContent}}">
+                  <br>
+                  <div>
+                    <h3>Location: {{p.location}}</h3>
+                    <h3>Description: {{p.description}}</h3>
+                    <h3>Tags: {{p.tags}}</h3>
+                </div>
+                  <br><br>
+                </ng-template>
+        </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
 
 </div>
 </div>

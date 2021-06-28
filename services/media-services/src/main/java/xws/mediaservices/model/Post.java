@@ -1,6 +1,7 @@
 package xws.mediaservices.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,21 +12,23 @@ public class Post{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "username")
     private String username;
 
     @Column(name = "paths")
     @ElementCollection(targetClass=String.class, fetch = FetchType.LAZY)
     private Set<String> path = new HashSet<String>();
 
-    @Column(name = "tags")
-    @ElementCollection(targetClass=String.class, fetch = FetchType.LAZY)
-    private Set<String> tags = new HashSet<String>();
+    @Column(name = "PathOfContent", nullable = false)
+    private String pathOfContent;
 
-    @Column(name = "Description", nullable = false)
+    @Column(name = "tags")
+    private String tags;
+
+    @Column(name = "Description")
     private String description;
 
-    @Column(name = "Location", nullable = false)
+    @Column(name = "Location")
     private String location;
 
     @Column(name = "NumberOfLikes", nullable = false)
@@ -37,10 +40,25 @@ public class Post{
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Comment> comments = new HashSet<Comment>();
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column(name = "StartTime", nullable = false)
+    private LocalDateTime startTime;
+
+    public String getPathOfContent() {
+        return pathOfContent;
+    }
+
+    public void setPathOfContent(String pathOfContent) {
+        this.pathOfContent = pathOfContent;
+    }
+
     public Post() {
     }
 
-    public Post(String username, Set<String> path, Set<String> tags, String description, String location,
+    public Post(String username, Set<String> path, String tags, String description, String location,
                 int numberOfLikes, int numberOfDislikes, Set<Comment> comments) {
         this.username = username;
         this.path = path;
@@ -50,6 +68,14 @@ public class Post{
         this.numberOfLikes = numberOfLikes;
         this.numberOfDislikes = numberOfDislikes;
         this.comments = comments;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -76,11 +102,11 @@ public class Post{
         this.path = path;
     }
 
-    public Set<String> getTags() {
+    public String getTags() {
         return tags;
     }
 
-    public void setTags(Set<String> tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
 
@@ -116,6 +142,14 @@ public class Post{
         this.numberOfDislikes = numberOfDislikes;
     }
 
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
     public Set<Comment> getComments() {
         return comments;
     }
@@ -123,5 +157,7 @@ public class Post{
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
+
+
 }
 
