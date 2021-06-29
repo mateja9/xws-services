@@ -17,6 +17,7 @@ export class PostsComponent implements OnInit {
   location = "";
   description = "";
   tag = "";
+  comment = "";
 
   public onlyCloseFriends = "no";
   public highlighted = "no";
@@ -30,10 +31,21 @@ export class PostsComponent implements OnInit {
         this.posts = posts;
         posts.forEach((p) => {
           p.isVideo = p.pathOfContent.endsWith("mp4");
-          console.log("POST " + p);
+          console.log(p);
         });
       },
     });
+  }
+
+  addComment(id, userId) {
+    let fd = {
+      postId: id,
+      autorId: userId,
+      content: this.comment
+    };
+    this.userService.createComment(fd).subscribe((data) => {
+      console.log(data);
+    })
   }
 
   createPost() {

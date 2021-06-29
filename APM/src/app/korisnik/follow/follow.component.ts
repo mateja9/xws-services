@@ -21,13 +21,26 @@ export class FollowComponent implements OnInit {
       errorMessage = '';
       stories : Story[] = [];
       posts : Post[] = [];
+      user: Korisnik;
   
-    constructor(private httpClient: HttpClient,private route: ActivatedRoute, private router: Router, private userService: KorisnikService) { 
+    constructor(private httpClient: HttpClient,private route: ActivatedRoute,
+      private loginService: LoginService,
+       private router: Router, private userService: KorisnikService) { 
       this.korisnik = new Korisnik();
 
   
     }
-   
+
+    
+    showFollow(): boolean {
+
+      if(!this.user || !this.korisnik) {
+        return false;
+      }
+
+
+      return this.user.id != this.korisnik.id;
+    }
     
     ngOnInit(): void {
       
@@ -38,6 +51,11 @@ export class FollowComponent implements OnInit {
   
       }
   
+      this.loginService.getKorisnika().subscribe({
+        next: x => {
+          this.user = x;
+        }
+      });
     }
     getUsers(id: number) {
       this.userService.vratiKor(id).subscribe(

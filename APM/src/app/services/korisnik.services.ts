@@ -58,6 +58,12 @@ export class KorisnikService {
     return this._http.post("/media/createPost", data, {responseType: 'text'});
   }
 
+  public getComments(postId: number) : Observable<Comment[]> {
+    return this._http.get<Comment[]>("/media/comment/" + postId);
+  }
 
+  public createComment(data) {
+    return this._http.post("/media/comment/createComment", data);
+  }
 
 }
