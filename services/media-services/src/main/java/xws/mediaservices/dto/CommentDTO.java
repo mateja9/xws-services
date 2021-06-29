@@ -1,28 +1,10 @@
-package xws.mediaservices.model;
+package xws.mediaservices.dto;
 
-import javax.persistence.*;
-
-@Entity
-public class Comment {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CommentDTO {
     private Long id;
-    @Column(name = "Content", nullable = false)
     private String content;
-    @Column(name = "AutorId", nullable = false)
     private Long autorId;
-    @Column(name="postId", nullable = false)
     Long postId;
-
-    public Comment(String content, Long autorId) {
-        this.content = content;
-        this.autorId = autorId;
-    }
-
-    public Comment() {
-
-    }
 
     public Long getId() {
         return id;
