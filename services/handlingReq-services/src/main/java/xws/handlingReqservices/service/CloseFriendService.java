@@ -8,4 +8,6 @@ import xws.handlingReqservices.model.UserFollow;
 public interface CloseFriendService {
     UserCloseFriend add(CloseFriendDTO closeFriendDTO);
 
+    UserCloseFriend checkIsCloseFriend(CloseFriendDTO closeFriendDTO);
+
 }

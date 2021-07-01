@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
                 
                 console.log('Prosao u login subscribe!')
 
-               
+                localStorage.setItem('currentUserId', this.korisnik !== null ? this.korisnik.id.toString() : '');
                  if (this.korisnik.rola == "CLIENT") {
                      
                     this.router.navigate(["/korisnik"]);

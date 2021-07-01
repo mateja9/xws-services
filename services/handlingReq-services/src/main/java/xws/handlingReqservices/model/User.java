@@ -2,47 +2,34 @@ package xws.handlingReqservices.model;
 
 import javax.persistence.*;
 
-@Entity
+/*@Entity*/
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
-    @Column(name = "Name", nullable = false)
     private String name;
 
-    @Column(name = "Last_name", nullable = false)
     private String lastname;
 
-    @Column(name = "Phone_number", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "Email", nullable = false)
     private String email;
 
-    @Column(name = "Username", nullable = false)
     private String username;
 
-    @Column(name = "Password", nullable = false)
     private String password;
 
 
-    @Column(name = "Role", nullable = false)
     private String rola;
 
-    @Column(name = "Gender", nullable = false)
     private String gender;
 
-    @Column(name = "Website", nullable = false)
     private String website;
 
-    @Column(name = "Bio", nullable = false)
     private String bio;
 
-    @Column(name = "DateofB", nullable = false)
     private String dateofb;
 
-    @Column(name = "IsPrivate", nullable = false)
     private boolean isPrivate = false;
 
     public User() {

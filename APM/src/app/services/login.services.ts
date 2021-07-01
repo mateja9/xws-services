@@ -31,6 +31,7 @@ export class LoginService {
   }
 
   public IzlogujSe(request: Request) {
+    localStorage.removeItem("currentUserId");
     return this.http.post("/user/logOut", request);
   }
   public resetPassword(resetp: ResetP) {
