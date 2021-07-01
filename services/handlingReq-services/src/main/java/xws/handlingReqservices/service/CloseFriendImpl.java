@@ -2,11 +2,11 @@ package xws.handlingReqservices.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import xws.handlingReqservices.dto.CloseFriendDTO;
-import xws.handlingReqservices.model.User;
 import xws.handlingReqservices.model.UserCloseFriend;
+import xws.handlingReqservices.model.UserFollow;
 import xws.handlingReqservices.repository.CloseFriendRepository;
-import xws.handlingReqservices.repository.UserRepository;
 
 @Service
 public class CloseFriendImpl implements  CloseFriendService{
@@ -15,20 +15,27 @@ public class CloseFriendImpl implements  CloseFriendService{
     private CloseFriendRepository closeFriendRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private RestTemplate restTemplate;
 
     @Override
     public UserCloseFriend add(CloseFriendDTO closeFriendDTO) {
         UserCloseFriend newUserCloseFriend = new UserCloseFriend();
 
-        User closeFriend = userRepository.findById(closeFriendDTO.getCloseFriend()).get();
-
-        newUserCloseFriend.setUser(userRepository.findById(closeFriendDTO.getUser()).get());
-        newUserCloseFriend.setCloseFriend(closeFriend);
+        newUserCloseFriend.setUser(closeFriendDTO.getUser());
+        newUserCloseFriend.setCloseFriend(closeFriendDTO.getCloseFriend());
 
         newUserCloseFriend.setActive(true);
 
-        return newUserCloseFriend;
+        return closeFriendRepository.save(newUserCloseFriend);
+    }
 
+    @Override
+    public UserCloseFriend checkIsCloseFriend(CloseFriendDTO closeFriendDTO) {
+        for(UserCloseFriend uf : closeFriendRepository.findAll()) {
+            if(uf.getUser() == closeFriendDTO.getUser() && uf.getCloseFriend() == closeFriendDTO.getCloseFriend()) {
+                return uf;
+            }
+        }
+        return  null;
     }
 }

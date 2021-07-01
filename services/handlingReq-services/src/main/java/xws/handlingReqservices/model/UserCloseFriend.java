@@ -8,11 +8,11 @@ public class UserCloseFriend {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private User user;
+    @Column
+    private Long user;
 
-    @ManyToOne
-    private User closeFriend;
+    @Column
+    private Long closeFriend;
 
     @Column(name="isActive", nullable = false)
     private boolean isActive;
@@ -25,19 +25,19 @@ public class UserCloseFriend {
         this.id = id;
     }
 
-    public User getUser() {
+    public Long getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Long user) {
         this.user = user;
     }
 
-    public User getCloseFriend() {
+    public Long getCloseFriend() {
         return closeFriend;
     }
 
-    public void setCloseFriend(User closeFriend) {
+    public void setCloseFriend(Long closeFriend) {
         this.closeFriend = closeFriend;
     }
 

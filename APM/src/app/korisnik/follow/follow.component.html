@@ -103,8 +103,7 @@
     
                     <h3>Followers </h3>
                     <div class="form-group">
-                        <input type="text" value="" placeholder="bio" class="form-control" name="bio"
-                            #bio="ngModel" [(ngModel)]="korisnik.bio" disabled />
+                        <input type="text" [(ngModel)]="followersNumber" class="form-control" disabled  name="followers" />
                     </div>
                 </div>
 
@@ -112,20 +111,29 @@
     
                     <h3>Following </h3>
                     <div class="form-group">
-                        <input type="text" value="" placeholder="bio" class="form-control" name="bio"
-                            #bio="ngModel" [(ngModel)]="korisnik.bio" disabled />
+                        <input type="text" [(ngModel)]="followingsNumber" class="form-control" disabled name="followings" />
                     </div>
                 </div>
                 <div *ngIf="showFollow()" class="col-sm-3">
                     <h3>Follow profile</h3>
-                    <input type="submit" value="Follow" mat-raised-button class="btn btn-success">
+                    <button mat-raised-button class="btn btn-success" (click)="onClickFollowProfile()">
+                        {{ followBtnValue == 'FOL' ? "Follow" : "Unfollow" }}
+                        </button>
+                </div>
+
+                <div *ngIf="showCloseFriends()" class="col-sm-3">
+                    <h3>Add to close friends</h3>
+                    <button mat-raised-button class="btn btn-success" [disabled]="closeFriendsBtnValue !== 'ATF'" (click)="onClickAddToCloseFriends()">
+                        {{ closeFriendsBtnValue == 'ATF' ? "Add to close friends" : "Close friend" }}
+                        </button>
                 </div>
     
     
             </div>
         </form>
     </div>
-<div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
+
+<div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)" *ngIf="userFollow !== undefined && userFollow !== null && (userFollow.status === 'accepted')">
 <h2>My public stories</h2>
 
 <table class="table">
