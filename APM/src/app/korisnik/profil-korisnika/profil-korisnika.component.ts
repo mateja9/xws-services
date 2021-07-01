@@ -4,6 +4,7 @@ import { Korisnik } from 'app/model/Korisnik';
 import { KorisnikService } from 'app/services/korisnik.services';
 import { LoginService } from 'app/services/login.services';
 import { Story } from "app/model/story";
+import { StoryGroup } from "app/model/story";
 import { Post } from "app/model/post";
 
 
@@ -17,6 +18,7 @@ export class ProfilKorisnikaComponent implements OnInit {
   updatedUser:Korisnik;
   request:Request;
   stories : Story[] = [];
+  storyGroups: StoryGroup[] = [];
   posts : Post[] = [];
 
   constructor(private _router: Router,private loginService:LoginService,private userService: KorisnikService,) { 
@@ -39,10 +41,9 @@ export class ProfilKorisnikaComponent implements OnInit {
 
         this.userService.getPublicStories(korisnik.id).subscribe({
           next: (stories) => {
-            console.log("Dobavio sam storije");
             stories.forEach((element) => {
               this.stories = stories;
-              console.log("ELEMENT " + element);
+              this.createStoryGroups();
             });
           },
         });
@@ -78,5 +79,27 @@ export class ProfilKorisnikaComponent implements OnInit {
 
   odjaviSe() {
     this.loginService.IzlogujSe(this.request).subscribe(result => this.kraj());
+  }
+
+  createStoryGroups() {
+    this.storyGroups = [];
+
+    this.stories.forEach((s) => {
+      s.isVideo = s.pathOfContent.endsWith("mp4");
+    });
+
+    for (let i = 0; i < this.stories.length; i += 3) {
+      const group = new StoryGroup();
+      group.story1 = this.stories[i];
+      if(i+1 < this.stories.length) {
+        group.story2 = this.stories[i+1];
+      }
+      
+      if(i+2 < this.stories.length) {
+        group.story3 = this.stories[i+2];
+      }
+      
+      this.storyGroups.push(group);
+    }
   }
 }

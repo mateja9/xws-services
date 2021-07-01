@@ -6,3 +6,10 @@ export class Story {
     tag:string;
     isVideo:boolean
 }
+
+export class StoryGroup {
+    story1: Story;
+    story2: Story;
+    story3: Story;
+    name = "ASD";
+}
