@@ -41,6 +41,10 @@ export class KorisnikService {
     return this._http.get<Story[]>("/user/" + userId +"/publicStories");
   }
 
+  public getHighlightStories(userId: number): Observable<Story[]> {
+    return this._http.get<Story[]>("/user/" + userId +"/highlightStories");
+  }
+
   public createStory(data : FormData) {
     return this._http.post("/media/stories", data, {responseType: 'text'});
   }
@@ -50,6 +54,7 @@ export class KorisnikService {
   public getPosts(): Observable<Post[]> {
     return this._http.get<Post[]>("/media/posts");
   }
+
   public getPublicPosts(userId: number): Observable<Post[]> {
     return this._http.get<Post[]>("/user/" + userId +"/publicPosts");
   }

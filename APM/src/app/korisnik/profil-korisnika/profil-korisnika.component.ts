@@ -17,8 +17,8 @@ export class ProfilKorisnikaComponent implements OnInit {
   korisnik :Korisnik;
   updatedUser:Korisnik;
   request:Request;
-  stories : Story[] = [];
-  storyGroups: StoryGroup[] = [];
+  publicStoryGroups: StoryGroup[] = [];
+  highlightStoryGroups: StoryGroup[] = [];
   posts : Post[] = [];
 
   constructor(private _router: Router,private loginService:LoginService,private userService: KorisnikService,) { 
@@ -42,8 +42,15 @@ export class ProfilKorisnikaComponent implements OnInit {
         this.userService.getPublicStories(korisnik.id).subscribe({
           next: (stories) => {
             stories.forEach((element) => {
-              this.stories = stories;
-              this.createStoryGroups();
+              this.publicStoryGroups = this.createStoryGroups(stories);
+            });
+          },
+        });
+
+        this.userService.getHighlightStories(korisnik.id).subscribe({
+          next: (stories) => {
+            stories.forEach((element) => {
+              this.highlightStoryGroups = this.createStoryGroups(stories);
             });
           },
         });
@@ -81,25 +88,26 @@ export class ProfilKorisnikaComponent implements OnInit {
     this.loginService.IzlogujSe(this.request).subscribe(result => this.kraj());
   }
 
-  createStoryGroups() {
-    this.storyGroups = [];
+  createStoryGroups(stories:Story[]): StoryGroup[] {
+    var storyGroups = [];
 
-    this.stories.forEach((s) => {
+    stories.forEach((s) => {
       s.isVideo = s.pathOfContent.endsWith("mp4");
     });
 
-    for (let i = 0; i < this.stories.length; i += 3) {
+    for (let i = 0; i < stories.length; i += 3) {
       const group = new StoryGroup();
-      group.story1 = this.stories[i];
-      if(i+1 < this.stories.length) {
-        group.story2 = this.stories[i+1];
+      group.story1 = stories[i];
+      if(i+1 < stories.length) {
+        group.story2 = stories[i+1];
       }
       
-      if(i+2 < this.stories.length) {
-        group.story3 = this.stories[i+2];
+      if(i+2 < stories.length) {
+        group.story3 = stories[i+2];
       }
       
-      this.storyGroups.push(group);
+      storyGroups.push(group);
     }
+    return storyGroups;
   }
 }

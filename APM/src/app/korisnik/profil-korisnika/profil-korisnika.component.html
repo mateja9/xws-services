@@ -1,4 +1,4 @@
-<div class="wrapper" style="background-image: url(./assets/img/backg.png); margin-top: -30px; ">
+<div class="wrapper" style="background-image: url(./assets/img/backg.png); margin-top: -60px; ">
     <div>
         <div class="sidebar" data-color="danger" data-background-color="white">
             <div class="sidebar-background" ></div>
@@ -46,6 +46,49 @@
     </div>
 
 
+
+    <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
+
+    <h2>My highlights</h2>
+
+    <table class="table">
+        <tbody>
+            <tr *ngFor='let s of highlightStoryGroups'>
+                <td>
+                    <div *ngIf="s.story1.isVideo; else notVideo">
+                       <video width="384" height="288" controls><source src="media/file/{{s.story1.pathOfContent}}"></video>
+                    </div>
+
+                    <ng-template #notVideo>
+                      <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story1.pathOfContent}}">
+                    </ng-template>
+                </td>
+                <td>
+                    <div *ngIf="s.story2">
+                        <div *ngIf="s.story2.isVideo; else notVideo">
+                           <video width="384" height="288" controls><source src="media/file/{{s.story2.pathOfContent}}"></video>
+                        </div>
+
+                        <ng-template #notVideo>
+                          <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story2.pathOfContent}}">
+                        </ng-template>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="s.story3">
+                        <div *ngIf="s.story3.isVideo; else notVideo">
+                           <video width="384" height="288" controls><source src="media/file/{{s.story3.pathOfContent}}"></video>
+                        </div>
+
+                        <ng-template #notVideo>
+                          <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story3.pathOfContent}}">
+                        </ng-template>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
 
     <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
     <!-- <h2>Welcome back </h2> -->
@@ -141,12 +184,13 @@
         </div>
     </form>
 </div>
+
 <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
 <h2>My public stories</h2>
 
 <table class="table">
     <tbody>
-        <tr *ngFor='let s of storyGroups'>
+        <tr *ngFor='let s of publicStoryGroups'>
             <td>
                 <div *ngIf="s.story1.isVideo; else notVideo">
                    <video width="384" height="288" controls><source src="media/file/{{s.story1.pathOfContent}}"></video>

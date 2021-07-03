@@ -75,7 +75,7 @@ public class StoryController {
         List<Story> stories = new ArrayList<>(storiesSet);
 
         List<Story> publicStories = stories.stream()
-                .filter(story -> story.isHighlited() || story.isPubliclyVisible())
+                .filter(story -> story.isPubliclyVisible())
                 .collect(Collectors.toList());
 
         publicStories.sort(new Comparator<Story>() {
@@ -86,6 +86,35 @@ public class StoryController {
         });
 
         return new ResponseEntity<>(new ArrayList<>(publicStories), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/user/{userId}/highlightStories")
+    public ResponseEntity<List<Story>> getHighlightUserStories(@PathVariable("userId") String userIdString) throws Exception {
+        Long userId;
+        try {
+            userId = Long.valueOf(userIdString);
+        }catch(Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+        }
+
+        User user = userRepository.findById(userId).get();
+        System.out.println("USER: " + user.getEmail());
+        Set<Story> storiesSet = user.getStories();
+        List<Story> stories = new ArrayList<>(storiesSet);
+
+        List<Story> highlightStories = stories.stream()
+                .filter(story -> story.isHighlited())
+                .collect(Collectors.toList());
+
+        highlightStories.sort(new Comparator<Story>() {
+            @Override
+            public int compare(Story o1, Story o2) {
+                return o2.getStartTime().compareTo(o1.getStartTime());
+            }
+        });
+
+        return new ResponseEntity<>(new ArrayList<>(highlightStories), HttpStatus.OK);
     }
 
     @GetMapping(value = "/media/stories")
