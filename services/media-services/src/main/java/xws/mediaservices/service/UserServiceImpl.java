@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService{
 
         User newUser=new User(user.getName(), user.getLastname(),user.getPhoneNumber(),user.getEmail(),
                 user.getUsername(),password,user.getRola(),user.getGender(),
-                user.getWebsite(),user.getBio(),user.getDateofb(), user.isPrviPutLogovan());
+                user.getWebsite(),user.getBio(),user.getDateofb(), user.isPrviPutLogovan(), user.isPrivate());
 
         newUser.setRola("CLIENT");
         newUser=userRepository.save(newUser);
@@ -89,6 +89,7 @@ public class UserServiceImpl implements UserService{
         forChange.setPassword(password);
         forChange.setPhoneNumber(updateUser.getPhoneNumber());
         forChange.setDateofb(updateUser.getDateofb());
+        forChange.setPrivate(updateUser.isPrivate());
         userRepository.save(forChange);
 
         return forChange;
