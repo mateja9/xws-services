@@ -61,6 +61,9 @@ public class User {
     @Column(name = "PrviPutLogovan", nullable = false)
     private boolean prviPutLogovan;
 
+    @Column(name = "isPrivate", nullable = false)
+    private boolean isPrivate;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     @JsonIgnore
     private Set<Story> stories = new HashSet<Story>();
@@ -68,6 +71,14 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     @JsonIgnore
     private Set<Post> posts = new HashSet<Post>();
+
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(boolean aPrivate) {
+        isPrivate = aPrivate;
+    }
 
     public User() {
     }
@@ -192,7 +203,8 @@ public class User {
         this.posts = posts;
     }
 
-    public User(String name, String lastname, String phoneNumber, String email, String username, String password, String rola, String gender, String website, String bio, String dateofb, boolean prviPutLogovan) {
+    public User(String name, String lastname, String phoneNumber, String email, String username, String password, String rola,
+                String gender, String website, String bio, String dateofb, boolean prviPutLogovan, boolean isPrivate) {
         this.name = name;
         this.lastname = lastname;
         this.phoneNumber = phoneNumber;
@@ -205,5 +217,6 @@ public class User {
         this.bio = bio;
         this.dateofb = dateofb;
         this.prviPutLogovan = prviPutLogovan;
+        this.isPrivate = isPrivate;
     }
 }

@@ -12,4 +12,5 @@ export class Korisnik {
     bio: string;
     dateofb: string;
     prviPutLogovan:boolean;
+    isPrivate: boolean;
 }

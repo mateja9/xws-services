@@ -44,6 +44,7 @@ export class SignupComponent implements OnInit {
 		this.user.website="";
 		this.user.bio="";
 		this.user.dateofb="";
+		this.user.isPrivate=true;
 		
 	}
   
