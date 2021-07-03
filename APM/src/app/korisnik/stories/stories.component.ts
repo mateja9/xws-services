@@ -18,6 +18,7 @@ export class StoriesComponent implements OnInit {
   fileExtension = "";
   public onlyCloseFriends = "no";
   public highlighted = "no";
+  public tag = "";
 
   constructor(private userService: KorisnikService) {}
 
@@ -45,6 +46,7 @@ export class StoriesComponent implements OnInit {
     fd.append('file', this.selectedFile,  this.selectedFile.name);
     fd.append('onlyCloseFriends', this.onlyCloseFriends);
     fd.append('highlighted', this.highlighted); 
+    fd.append('tag', this.tag);
 
     this.userService.createStory(fd).subscribe(
       (data) => {

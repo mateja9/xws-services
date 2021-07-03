@@ -32,7 +32,7 @@ public class StoryServiceImpl implements StoryService {
     private String storageDirectoryPath;
 
     @Override
-    public Story createStory(InputStream file, String ext, boolean onlyCloseFriends, Boolean highlighted, User user) {
+    public Story createStory(InputStream file, String ext, boolean onlyCloseFriends, Boolean highlighted, String tags, User user) {
         System.out.println("SERVICE CREATE STORY");
 
         String filename = saveFile(file, ext);
@@ -43,6 +43,7 @@ public class StoryServiceImpl implements StoryService {
         story.setPathOfContent(filename);
         story.setOnlyCloseFriends(onlyCloseFriends);
         story.setHighlited(highlighted);
+        story.setTag(tags);
         story.setUser(user);
 
         storyRepository.save(story);

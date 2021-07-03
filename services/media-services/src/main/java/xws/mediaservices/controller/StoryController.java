@@ -147,12 +147,15 @@ public class StoryController {
         Part partImage = request.getPart("file");
         Part partCloseFriends = request.getPart("onlyCloseFriends");
         Part partHighlighted = request.getPart("highlighted");
+        Part partTag = request.getPart("tag");
 
         String onlyCloseFriendsString = getPartAsString(partCloseFriends);
         Boolean onlyCloseFriends = onlyCloseFriendsString.equals("yes");
 
         String highlightedString = getPartAsString(partHighlighted);
         Boolean highlighted = highlightedString.equals("yes");
+
+        String tags = getPartAsString(partHighlighted);
 
         System.out.println("CREATE STORY");
         System.out.println("USER: " + user.getEmail());
@@ -167,7 +170,7 @@ public class StoryController {
         }
 
         InputStream inputStream = partImage.getInputStream();
-        Story story = storyService.createStory(inputStream, extension, onlyCloseFriends, highlighted, user);
+        Story story = storyService.createStory(inputStream, extension, onlyCloseFriends, highlighted, tags, user);
 
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }

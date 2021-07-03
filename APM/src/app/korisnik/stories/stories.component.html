@@ -48,7 +48,7 @@
 
 
 <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
-<h2>Create Stories</h2>
+<h2>Create Story</h2>
 
 
 <form (ngSubmit)="createStory()" #storyForm="ngForm">
@@ -65,6 +65,10 @@
     <label for="highlighted-no">Yes</label><br>
     <input type="radio" id="highlighted-yes" name="highlighted" value="no" checked="true" [(ngModel)]="highlighted">
     <label for="highlighted-yes">No</label><br>
+
+    <p></p>
+    <p>Add tags</p>
+    <input type="text" id="tag" name="tag" [(ngModel)]="tag">
 
     <p></p>
     <input style="display: none" type="file" (change)="onFileSelected($event)" accept=".jpg, .png, .mp4" #fileInput>
