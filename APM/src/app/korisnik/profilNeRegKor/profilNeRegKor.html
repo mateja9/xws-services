@@ -25,6 +25,48 @@
         </div>
     </div>
 
+    <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
+
+    <h2>My highlights</h2>
+
+    <table class="table">
+        <tbody>
+            <tr *ngFor='let s of highlightStoryGroups'>
+                <td>
+                    <div *ngIf="s.story1.isVideo; else notVideo">
+                       <video width="384" height="288" controls><source src="media/file/{{s.story1.pathOfContent}}"></video>
+                    </div>
+
+                    <ng-template #notVideo>
+                      <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story1.pathOfContent}}">
+                    </ng-template>
+                </td>
+                <td>
+                    <div *ngIf="s.story2">
+                        <div *ngIf="s.story2.isVideo; else notVideo">
+                           <video width="384" height="288" controls><source src="media/file/{{s.story2.pathOfContent}}"></video>
+                        </div>
+
+                        <ng-template #notVideo>
+                          <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story2.pathOfContent}}">
+                        </ng-template>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="s.story3">
+                        <div *ngIf="s.story3.isVideo; else notVideo">
+                           <video width="384" height="288" controls><source src="media/file/{{s.story3.pathOfContent}}"></video>
+                        </div>
+
+                        <ng-template #notVideo>
+                          <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story3.pathOfContent}}">
+                        </ng-template>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
 
 
     <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
@@ -86,18 +128,39 @@
 <h2>Profile pictures and stories</h2>
 
 <table class="table">
-                 
     <tbody>
-        <tr *ngFor='let s of stories'>
+        <tr *ngFor='let s of publicStoryGroups'>
             <td>
-                <div *ngIf="s.isVideo; else notVideo">
-                   <video width="640" height="480" controls><source src="media/file/{{s.pathOfContent}}"></video>
+                <div *ngIf="s.story1.isVideo; else notVideo">
+                   <video width="384" height="288" controls><source src="media/file/{{s.story1.pathOfContent}}"></video>
                 </div>
 
                 <ng-template #notVideo>
-                  <img width="640" height="480" style="object-fit: contain" src="media/file/{{s.pathOfContent}}">
+                  <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story1.pathOfContent}}">
                 </ng-template>
-        </td>
+            </td>
+            <td>
+                <div *ngIf="s.story2">
+                    <div *ngIf="s.story2.isVideo; else notVideo">
+                       <video width="384" height="288" controls><source src="media/file/{{s.story2.pathOfContent}}"></video>
+                    </div>
+
+                    <ng-template #notVideo>
+                      <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story2.pathOfContent}}">
+                    </ng-template>
+                </div>
+            </td>
+            <td>
+                <div *ngIf="s.story3">
+                    <div *ngIf="s.story3.isVideo; else notVideo">
+                       <video width="384" height="288" controls><source src="media/file/{{s.story3.pathOfContent}}"></video>
+                    </div>
+
+                    <ng-template #notVideo>
+                      <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story3.pathOfContent}}">
+                    </ng-template>
+                </div>
+            </td>
         </tr>
     </tbody>
 </table>

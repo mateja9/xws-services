@@ -5,6 +5,7 @@ import { Korisnik } from 'app/model/Korisnik';
 import { KorisnikService } from 'app/services/korisnik.services';
 import { LoginService } from 'app/services/login.services';
 import { Story } from "app/model/story";
+import { StoryGroup } from "app/model/story";
 
 
 @Component({
@@ -18,7 +19,8 @@ export class ProfilNeRegKorComponent implements OnInit {
     id: number;
     request:Request;
     errorMessage = '';
-    stories : Story[] = [];
+    publicStoryGroups: StoryGroup[] = [];
+    highlightStoryGroups: StoryGroup[] = [];
 
   constructor(private httpClient: HttpClient,private route: ActivatedRoute, private router: Router, private userService: KorisnikService) { 
     this.korisnik = new Korisnik();
@@ -40,17 +42,22 @@ export class ProfilNeRegKorComponent implements OnInit {
     this.userService.vratiKor(id).subscribe(
         korisnik => {
           this.korisnik = korisnik
-          console.log("IMAM USERA!");
 
           this.userService.getPublicStories(korisnik.id).subscribe({
-          next: (stories) => {
-            console.log("Dobavio sam storije");
-            stories.forEach((element) => {
-              this.stories = stories;
-              console.log("ELEMENT " + element);
-            });
-          },
-        });
+            next: (stories) => {
+              stories.forEach((element) => {
+                this.publicStoryGroups = this.createStoryGroups(stories);
+              });
+            },
+          });
+
+          this.userService.getHighlightStories(korisnik.id).subscribe({
+            next: (stories) => {
+              stories.forEach((element) => {
+                this.highlightStoryGroups = this.createStoryGroups(stories);
+              });
+            },
+          });
 
         },
       error => {
@@ -64,5 +71,26 @@ export class ProfilNeRegKorComponent implements OnInit {
     window.location.reload();
   }
  
+  createStoryGroups(stories:Story[]): StoryGroup[] {
+    var storyGroups = [];
 
+    stories.forEach((s) => {
+      s.isVideo = s.pathOfContent.endsWith("mp4");
+    });
+
+    for (let i = 0; i < stories.length; i += 3) {
+      const group = new StoryGroup();
+      group.story1 = stories[i];
+      if(i+1 < stories.length) {
+        group.story2 = stories[i+1];
+      }
+      
+      if(i+2 < stories.length) {
+        group.story3 = stories[i+2];
+      }
+      
+      storyGroups.push(group);
+    }
+    return storyGroups;
+  }
 }
