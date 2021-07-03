@@ -1,14 +1,17 @@
 package xws.handlingReqservices.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import xws.handlingReqservices.dto.UserFollowDTO;
 import xws.handlingReqservices.model.StatusFollowing;
 import xws.handlingReqservices.model.User;
 import xws.handlingReqservices.model.UserFollow;
 import xws.handlingReqservices.repository.UserFollowRepository;
-import xws.handlingReqservices.repository.UserRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,16 +21,17 @@ public class UserServiceImpl implements UserFollowService {
     private UserFollowRepository userFollowRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private RestTemplate restTemplate;
 
     @Override
     public UserFollow createUserFollow(UserFollowDTO userFollowDTO) {
         UserFollow newUserFollow = new UserFollow();
 
-        User userTo = userRepository.findById(userFollowDTO.getUserTo()).get();
+        User userTo = restTemplate.exchange("/user/" + userFollowDTO.getUserTo(), HttpMethod.GET,
+                null, User.class).getBody();
 
-        newUserFollow.setUserFrom(userRepository.findById(userFollowDTO.getUserFrom()).get());
-        newUserFollow.setUserTo(userTo);
+        newUserFollow.setUserFrom(userFollowDTO.getUserFrom());
+        newUserFollow.setUserTo(userFollowDTO.getUserTo());
 
         if(userTo.isPrivate())
             newUserFollow.setStatus(StatusFollowing.onWait);
@@ -74,5 +78,27 @@ public class UserServiceImpl implements UserFollowService {
         userFollowRepository.save(userFollow);
 
         return userFollow;
+    }
+
+    @Override
+    public UserFollow checkIsFollow(UserFollowDTO followRequestDTO) {
+        for(UserFollow uf : userFollowRepository.findAll()) {
+            if(uf.getUserFrom() == followRequestDTO.getUserFrom() && uf.getUserTo() == followRequestDTO.getUserTo() && uf.getStatus() == StatusFollowing.accepted && uf.isActive()) {
+              return uf;
+            }
+        }
+        return  null;
+    }
+
+    @Override
+    public List<Integer> getFollowersAndFollowing(Long userId) {
+        Integer countFollowers = userFollowRepository.countFollowers(userId);
+        Integer countFollowings = userFollowRepository.countFollowings(userId);
+
+        List<Integer> retVal = new ArrayList<>();
+        retVal.add(countFollowers);
+        retVal.add(countFollowings);
+
+        return retVal;
     }
 }

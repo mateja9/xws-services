@@ -10,7 +10,7 @@
         "logLevel":"debug"
     },
     "/handlingreq/*":{
-        "target":"http://localhost:8080",
+        "target":"http://localhost:8500",
         "secure":false,
         "logLevel":"debug"
     }

@@ -8,17 +8,17 @@ public class UserFollow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private User userFrom;
+    @Column
+    private Long userFromId;
 
-    @ManyToOne
-    private User userTo;
+    @Column
+    private Long userToId;
 
     @Column(name="isActive", nullable = false)
     private boolean isActive;
 
     @Column(name="status", nullable = false)
-    private Enum<StatusFollowing> status;
+    private StatusFollowing status;
 
     public Long getId() {
         return id;
@@ -28,20 +28,20 @@ public class UserFollow {
         this.id = id;
     }
 
-    public User getUserFrom() {
-        return userFrom;
+    public Long getUserFrom() {
+        return userFromId;
     }
 
-    public void setUserFrom(User usernameFrom) {
-        this.userFrom = usernameFrom;
+    public void setUserFrom(Long usernameFrom) {
+        this.userFromId = usernameFrom;
     }
 
-    public User getUserTo() {
-        return userTo;
+    public Long getUserTo() {
+        return userToId;
     }
 
-    public void setUserTo(User userTo) {
-        this.userTo = userTo;
+    public void setUserTo(Long userTo) {
+        this.userToId = userTo;
     }
 
     public boolean isActive() {
@@ -52,11 +52,11 @@ public class UserFollow {
         isActive = active;
     }
 
-    public Enum<StatusFollowing> getStatus() {
+    public StatusFollowing getStatus() {
         return status;
     }
 
-    public void setStatus(Enum<StatusFollowing> status) {
+    public void setStatus(StatusFollowing status) {
         this.status = status;
     }
 }

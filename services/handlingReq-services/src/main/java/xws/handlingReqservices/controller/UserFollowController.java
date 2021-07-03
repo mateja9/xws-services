@@ -9,7 +9,10 @@ import xws.handlingReqservices.dto.UserFollowDTO;
 import xws.handlingReqservices.model.UserFollow;
 import xws.handlingReqservices.service.UserFollowService;
 
+import java.util.List;
+
 @RestController
+@CrossOrigin(value = "http://localhost:4200")
 public class UserFollowController {
 
     @Autowired
@@ -21,7 +24,7 @@ public class UserFollowController {
         return new ResponseEntity<UserFollow>(userFollowService.createUserFollow(followRequestDTO), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/userFollow/unfollow/{id}")
+    @GetMapping(value = "/userFollow/unfollow/{id}")
     public ResponseEntity<UserFollow> unfollow(@PathVariable Long id)
     {
         return new ResponseEntity<UserFollow>(userFollowService.unfollow(id), HttpStatus.OK);
@@ -31,5 +34,17 @@ public class UserFollowController {
     public ResponseEntity<UserFollow> acceptFollow(@PathVariable Long id)
     {
         return new ResponseEntity<UserFollow>(userFollowService.accept(id), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/userFollow/checkIsFollow")
+    public ResponseEntity<UserFollow> checkIsFollow(@RequestBody UserFollowDTO followRequestDTO)
+    {
+        return new ResponseEntity<UserFollow>(userFollowService.checkIsFollow(followRequestDTO), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/userFollow/getFollowersAndFollowing/{userId}")
+    public ResponseEntity<List<Integer>> getFollowersAndFollowing(@PathVariable Long userId)
+    {
+        return new ResponseEntity<List<Integer>>(userFollowService.getFollowersAndFollowing(userId), HttpStatus.OK);
     }
 }

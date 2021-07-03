@@ -66,4 +66,28 @@ export class KorisnikService {
     return this._http.post("/media/comment/createComment", data);
   }
 
+  public followProfile(dto) {
+    return this._http.post<any>("http://localhost:8500/userFollow/createUserFollow", dto);
+  }
+
+  public checkIsFollow(dto) {
+    return this._http.post<any>("http://localhost:8500/userFollow/checkIsFollow", dto);
+  }
+
+  public unfollow(id) {
+    return this._http.get<any>("http://localhost:8500/userFollow/unfollow/" + id);
+  }
+
+  public getFollowersAndFollowing(id) {
+    return this._http.get<any>("http://localhost:8500/userFollow/getFollowersAndFollowing/" + id);
+  }
+
+  public onClickAddToCloseFriends(dto) {
+    return this._http.post<any>("http://localhost:8500/closeFriend/add", dto);
+  }
+
+  public checkIsCloseFriend(dto) {
+    return this._http.post<any>("http://localhost:8500/closeFriend/checkIsCloseFriend", dto);
+  }
+
 }

@@ -22,6 +22,13 @@ export class FollowComponent implements OnInit {
       stories : Story[] = [];
       posts : Post[] = [];
       user: Korisnik;
+
+    userFollow: any;
+    followBtnValue: string = 'FOL';
+    followersNumber: string;
+    followingsNumber: string;
+
+    closeFriendsBtnValue: string = 'ATF';
   
     constructor(private httpClient: HttpClient,private route: ActivatedRoute,
       private loginService: LoginService,
@@ -33,12 +40,16 @@ export class FollowComponent implements OnInit {
 
     
     showFollow(): boolean {
-
       if(!this.user || !this.korisnik) {
         return false;
       }
+      return this.user.id != this.korisnik.id;
+    }
 
-
+    showCloseFriends(): boolean {
+      if(!this.user || !this.korisnik) {
+        return false;
+      }
       return this.user.id != this.korisnik.id;
     }
     
@@ -57,11 +68,42 @@ export class FollowComponent implements OnInit {
         }
       });
     }
+
+    checkIsFollow() {
+      let userFrom = localStorage.getItem('currentUserId');
+
+      let dto = new Object();
+      dto['userFrom'] = userFrom;
+      dto['userTo'] = this.korisnik.id;
+      this.userService.checkIsFollow(dto).subscribe(res => {
+        console.log(res);
+        this.userFollow = res;
+        if(res != null && res.status === 'accepted') {
+          this.followBtnValue = 'UNF';
+        } else {
+          this.followBtnValue = 'FOL';
+        }
+      })
+    }
+
+    getFollowersAndFollowing() {
+      let id = this.korisnik.id;
+      this.userService.getFollowersAndFollowing(id).subscribe(res => {
+        console.log(res);
+        this.followersNumber = res[0];
+        this.followingsNumber = res[1];
+        
+      })
+    }
+
     getUsers(id: number) {
       this.userService.vratiKor(id).subscribe(
           korisnik => {
             this.korisnik = korisnik
             console.log("IMAM USERA!");
+            this.checkIsFollow();
+            this.getFollowersAndFollowing();
+            this.checkIsCloseFriend();
   
             this.userService.getPublicStories(korisnik.id).subscribe({
             next: (stories) => {
@@ -93,6 +135,65 @@ export class FollowComponent implements OnInit {
     
     refresh(){
       window.location.reload();
+    }
+
+    onClickFollowProfile() {
+      if(this.followBtnValue === 'UNF') {
+        this.userService.unfollow(this.userFollow.id).subscribe(res => {
+          console.log(res);
+          this.followBtnValue = 'FOL';
+          this.userFollow = res;
+          this.getFollowersAndFollowing();
+        })
+      } else {
+        let userFrom = localStorage.getItem('currentUserId');
+
+        let dto = new Object();
+        dto['userFrom'] = userFrom;
+        dto['userTo'] = this.korisnik.id;
+        this.userService.followProfile(dto).subscribe(res => {
+          console.log(res);
+          this.userFollow = res;
+          if(res != null && res.status === 'accepted') {
+            this.followBtnValue = 'UNF';
+          } else {
+            this.followBtnValue = 'FOL';
+          }
+          this.getFollowersAndFollowing();
+        })
+      }
+    }
+
+    onClickAddToCloseFriends() {
+      let userFrom = localStorage.getItem('currentUserId');
+
+        let dto = new Object();
+        dto['user'] = userFrom;
+        dto['closeFriend'] = this.korisnik.id.toString();
+      this.userService.onClickAddToCloseFriends(dto).subscribe(res => {
+        console.log(res);
+        if(res != null && res.closeFriend === this.korisnik.id) {
+          this.closeFriendsBtnValue = 'DTF';
+        } else {
+          this.closeFriendsBtnValue = 'ATF';
+        }
+      })
+    }
+
+    checkIsCloseFriend() {
+      let userFrom = localStorage.getItem('currentUserId');
+
+        let dto = new Object();
+        dto['user'] = userFrom;
+        dto['closeFriend'] = this.korisnik.id.toString();
+      this.userService.checkIsCloseFriend(dto).subscribe(res => {
+        console.log(res);
+        if(res != null && res.closeFriend === this.korisnik.id) {
+          this.closeFriendsBtnValue = 'DTF';
+        } else {
+          this.closeFriendsBtnValue = 'ATF';
+        }
+      })
     }
    
 }
