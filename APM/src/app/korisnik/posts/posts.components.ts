@@ -10,7 +10,9 @@ import { Post } from "app/model/post";
 export class PostsComponent implements OnInit {
 
   posts : Post[] = [];
-
+  id: number;
+  postId:number;
+  allComments: Comment[]=[];
   selectedFile: File = null;
   fileName = "";
   fileExtension = "";
@@ -27,18 +29,32 @@ export class PostsComponent implements OnInit {
   constructor(private userService: KorisnikService) {}
 
   ngOnInit(): void {
+    
     this.userService.getPosts().subscribe({
       next: (posts) => {
+        this.vratiListuKom();
+        this.addLike(this.id, this.numberOfLikes);
+         this.addDislike(this.id, this.numberOfLikes);
         console.log("Dobavio sam postove");
         this.posts = posts;
         posts.forEach((p) => {
           p.isVideo = p.pathOfContent.endsWith("mp4");
+         this.addLike(this.id, this.numberOfLikes);
+         this.addDislike(this.id, this.numberOfLikes);
           console.log(p);
         });
       },
+      
     });
   }
 
+  vratiListuKom(){
+    console.log("Vrati listu kom");
+    
+    this.userService.getComments(this.postId).subscribe(x => this.allComments = x);
+    console.log(this.allComments);
+  }
+  
   addComment(id, userId) {
     let fd = {
       postId: id,
@@ -51,11 +67,15 @@ export class PostsComponent implements OnInit {
   }
 
   addLike(id, numberOfLikes){
-    this.userService.addLike(id, numberOfLikes+1)
+    console.log("like???")
+    this.userService.addLike(id, numberOfLikes+1);
+    console.log("prosao 61lin")
   }
 
   addDislike(id, numberOfDislikes){
-    this.userService.addDislike(id, numberOfDislikes+1)
+
+    console.log("dislike???")
+    this.userService.addDislike(id, numberOfDislikes+1);
   }
 
 

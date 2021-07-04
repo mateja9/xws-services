@@ -114,9 +114,10 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th> <button type="button" name="comment" [(ngModel)]="comment" onclick="addLike(p.id, p.numberOfLikes)">Like</button> </th>
-                                            <th> <button type="button" onclick="addDislike(p.id, p.numberOfDislikes)">Dislike</button> </th>
-                                            <th> <button type="button" onclick="addToFavourite(p.id)">Favourite</button> </th>
+                                         
+                                              <th> <button (click)="addLike(p.id, p.numberOfLikes)">Like</button></th>
+                                            <th> <button type="button" click="addDislike(p.id, p.numberOfDislikes)">Dislike</button> </th>
+                                            <th> <button type="button" click="addToFavourite(p.id)">Favourite</button> </th>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -147,9 +148,9 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <th> <button type="button" onclick="addLike(p.id, p.numberOfLikes)">Like</button> </th>
-                                                <th> <button type="button" onclick="addDislike(p.id, p.numberOfDislikes)">Dislike</button> </th>
-                                                <th> <button type="button" onclick="addToFavourite(p.id)">Favourite</button> </th>
+                                                <th> <button type="button" (click)="addLike(p.id, p.numberOfLikes)">Like</button> </th>
+                                                <th> <button type="button" (click)="addDislike(p.id, p.numberOfDislikes)">Dislike</button> </th>
+                                                <th> <button type="button" (click)="addToFavourite(p.id)">Favourite</button> </th>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -176,8 +177,8 @@
                                                             class="material-icons">sort</i></th>
                                                 </thead>
                                                 <tbody>
-                                                    <tr *ngFor='let k of allPharmacies'>
-                                                        <td><a [routerLink]="[k.id]">{{k.Username}}</a></td>
+                                                    <tr *ngFor='let k of allComments'>
+                                                        <td><a [routerLink]="[k.id]">{{k.autorId}}</a></td>
                                                         <td>{{k.content}}</td>
                                                     </tr>
                                                 </tbody>
