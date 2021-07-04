@@ -9,15 +9,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import xws.mediaservices.dto.PostDTO;
+import xws.mediaservices.dto.PostLikesDislikes;
 import xws.mediaservices.model.Post;;
 import xws.mediaservices.model.User;
+import xws.mediaservices.repository.PostRepository;
 import xws.mediaservices.repository.UserRepository;
 import xws.mediaservices.service.PostService;
+import xws.mediaservices.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -35,10 +39,19 @@ public class PostController {
 
     @Autowired
     PostService postService;
+
+    @Autowired
+    PostRepository postRepository;
+
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserService userService;
+
     @Value("${media.storage}")
     private String storageDirectoryPath;
+
 
     @PostMapping(value="media/createPost")
     ResponseEntity<String> createPost (@Context HttpServletRequest request) throws Exception {
@@ -137,6 +150,57 @@ public class PostController {
                 .collect(Collectors.joining("\n"));
 
         return text.trim();
+    }
+
+/*    @GetMapping(value = "/media/posts/{postId}")
+    public ResponseEntity<List<Integer>> getLikesAndDislikes(@PathVariable("postId") Long postId)
+    {
+        return new ResponseEntity<List<Integer>>(postService.getLikesAndDislikes(postId), HttpStatus.OK);
+    }*/
+
+    @PutMapping(value = "/media/posts/like/{postId}")
+    public ResponseEntity<String> addLike (@PathVariable("postId") Long postId, @RequestBody int like)
+    {
+        postService.addLike(postId, like);
+        return new ResponseEntity<String>("Accepted", HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping(value = "/media/posts/dislike/{postId}")
+    public ResponseEntity<String> addDislike(@PathVariable("postId") Long postId, @RequestBody int dislike)
+    {
+        postService.addDislike(postId, dislike);
+        return new ResponseEntity<String>("Accepted", HttpStatus.ACCEPTED);
+    }
+
+
+    @GetMapping(value = "/media/posts/favourites")
+    public ResponseEntity<List<Post>> getFavouritePosts(@Context HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+        User sessionUser = (User) session.getAttribute("client");
+        System.out.println("GET POSTS");
+        System.out.println("SESSION-USER: " + sessionUser.getEmail());
+
+        User user = userRepository.findByEmail(sessionUser.getEmail());
+        System.out.println("USER: " + user.getEmail());
+
+        Set<Post> postsSet = user.getFavouritePosts();
+        List<Post> posts = new ArrayList<>(postsSet);
+        posts.sort(new Comparator<Post>() {
+            @Override
+            public int compare(Post o1, Post o2) {
+                return o2.getStartTime().compareTo(o1.getStartTime());
+            }
+        });
+
+        System.out.println("POSTS: " + posts);
+        return new ResponseEntity<>(new ArrayList<>(posts), HttpStatus.OK);
+    }
+
+    @PostMapping(value="media/post/addToFavourite/{userId}")
+    public ResponseEntity<String> addToFavourite (@PathVariable("userId") Long userId, @RequestBody long postId){
+
+        postService.addToFavourite(userId,postId);
+        return new ResponseEntity<String>("Accepted", HttpStatus.ACCEPTED);
     }
 
 }

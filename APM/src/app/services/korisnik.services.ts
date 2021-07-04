@@ -7,8 +7,9 @@ import { Story } from "app/model/story";
 import { SearchUser } from "../model/SearchUser";
 import { Post } from "app/model/post";
 
+
 @Injectable()
-export class KorisnikService {
+export class KorisnikService{
   adapter: any;
   constructor(private _http: HttpClient) {}
   
@@ -55,6 +56,14 @@ export class KorisnikService {
     return this._http.get<Post[]>("/media/posts");
   }
 
+  public getFavouritePosts(): Observable<Post[]> {
+    return this._http.get<Post[]>("/media/posts/favourites/");
+  }////////////////
+
+  public addToFavourite(userId:number, postId: number) {
+    return this._http.post("/media/post/addToFavourite" + userId, postId, {responseType: 'text'});
+  }
+
   public getPublicPosts(userId: number): Observable<Post[]> {
     return this._http.get<Post[]>("/user/" + userId +"/publicPosts");
   }
@@ -63,12 +72,21 @@ export class KorisnikService {
     return this._http.post("/media/createPost", data, {responseType: 'text'});
   }
 
+
+  public addLike(postId:number, likes:number) {
+    return this._http.put("/media/posts/like/" + postId, likes);
+  }
+
+  public addDislike (postId:number, dislikes:number){
+    return this._http.put("/media/posts/dislike/" + postId, dislikes);
+  }
+
   public getComments(postId: number) : Observable<Comment[]> {
-    return this._http.get<Comment[]>("/media/comment/" + postId);
+    return this._http.get<Comment[]>("/media/post/comment/" + postId);
   }
 
   public createComment(data) {
-    return this._http.post("/media/comment/createComment", data);
+    return this._http.post("/media/post/comment/createComment", data);
   }
 
   public followProfile(dto) {

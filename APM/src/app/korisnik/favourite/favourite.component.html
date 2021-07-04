@@ -30,14 +30,12 @@
                             <p style="color: green; font-weight: 500;">My posts</p>
                         </a>
                     </li>
-
                     <li ng-click="func()" routerLinkActive="active" class="nav-item">
                         <a ng-click="func()" class="nav-link sidebar-1" [routerLink]="['/favourite']"> <i
                                 class="material-icons">donut_large</i>
                             <p style="color: green; font-weight: 500;">My favourites</p>
                         </a>
                     </li>
-
 
                     <li ng-click="func()" routerLinkActive="active" class="nav-item">
 
@@ -61,31 +59,7 @@
 
 
     <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
-        <h2>Create Post</h2>
-
-
-        <form (ngSubmit)="createPost()" #PostForm="ngForm">
-
-            <p>Add location</p>
-            <input type="text" id="location" name="location" [(ngModel)]="location">
-            <br><br>
-            <p>Add tags</p>
-            <input type="text" id="tag" name="tag" [(ngModel)]="tag">
-            <br><br>
-            <p>Add description</p>
-            <input type="text" id="description" name="description" [(ngModel)]="description">
-
-            <p></p>
-            <input style="display: none" type="file" (change)="onFileSelected($event)" accept=".jpg, .png, .mp4"
-                #fileInput>
-            <button (click)="fileInput.click()">Select Image</button>
-            <p></p>
-            <input type="submit" value="Publish Post" class="btn btn-info">
-        </form>
-    </div>
-
-    <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
-        <h2>My Posts</h2>
+        <h2>My favourite Posts</h2>
 
         <table class="table">
 

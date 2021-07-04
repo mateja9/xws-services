@@ -72,6 +72,11 @@ public class User {
     @JsonIgnore
     private Set<Post> posts = new HashSet<Post>();
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
+    private Set<Post> favouritePosts = new HashSet<Post>();
+
+
     public boolean isPrivate() {
         return isPrivate;
     }
@@ -201,6 +206,14 @@ public class User {
 
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
+    }
+
+    public Set<Post> getFavouritePosts() {
+        return favouritePosts;
+    }
+
+    public void setFavouritePosts(Set<Post> favouritePosts) {
+        this.favouritePosts = favouritePosts;
     }
 
     public User(String name, String lastname, String phoneNumber, String email, String username, String password, String rola,

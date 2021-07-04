@@ -3,11 +3,11 @@ import { KorisnikService } from "app/services/korisnik.services";
 import { Post } from "app/model/post";
 
 @Component({
-  selector: "app-posts",
-  templateUrl: "./posts.component.html",
-  styleUrls: ["./posts.component.css"],
+  selector: "app-favourite",
+  templateUrl: "./favourite.component.html",
+  styleUrls: ["./favourite.component.css"],
 })
-export class PostsComponent implements OnInit {
+export class FavouriteComponent implements OnInit {
 
   posts : Post[] = [];
 
@@ -27,7 +27,7 @@ export class PostsComponent implements OnInit {
   constructor(private userService: KorisnikService) {}
 
   ngOnInit(): void {
-    this.userService.getPosts().subscribe({
+    this.userService.getFavouritePosts().subscribe({
       next: (posts) => {
         console.log("Dobavio sam postove");
         this.posts = posts;

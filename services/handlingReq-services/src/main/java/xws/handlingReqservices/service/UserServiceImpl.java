@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserFollowService {
     public UserFollow createUserFollow(UserFollowDTO userFollowDTO) {
         UserFollow newUserFollow = new UserFollow();
 
+        //osoba koju treba da zapratim
         User userTo = restTemplate.exchange("/user/" + userFollowDTO.getUserTo(), HttpMethod.GET,
                 null, User.class).getBody();
 

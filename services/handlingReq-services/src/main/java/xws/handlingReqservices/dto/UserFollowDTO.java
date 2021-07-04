@@ -1,8 +1,8 @@
 package xws.handlingReqservices.dto;
 
 public class UserFollowDTO {
-    private Long userFrom;
-    private Long userTo;
+    private Long userFrom; // ja
+    private Long userTo; //na koga sam kliknuo da ga pratim
 
     public Long getUserFrom() {
         return userFrom;
