@@ -22,10 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class PostServiceImpl implements PostService{
@@ -58,11 +55,12 @@ public class PostServiceImpl implements PostService{
         post.setNumberOfLikes(0);
         Set<Comment> comments = new HashSet<>();
         post.setComments(comments);
-
         postRepository.save(post);
 
         return post;
     }
+
+
 
     private String saveFile(InputStream file, String ext) {
         String filename = UUID.randomUUID().toString() + "." + ext;
@@ -114,6 +112,55 @@ public class PostServiceImpl implements PostService{
 
         return ret;
     }
+
+
+
+    @Override
+    public void addLike(long postId, int like) {
+        Post post = postRepository.findById(postId).orElse(null);
+        post.setNumberOfLikes(like);
+        postRepository.save(post);
+    }
+
+    @Override
+    public void addDislike (long postId, int dislike) {
+        Post post = postRepository.findById(postId).orElse(null);
+        post.setNumberOfDislikes(dislike);
+        postRepository.save(post);
+    }
+
+    @Override
+    public void addToFavourite(long userId, long postId) {
+
+        User user = userRepository.findById(userId).orElse(null);
+        Post newPost = postRepository.findById(postId).orElse(null);
+        Set<Post> posts = user.getFavouritePosts();
+        posts.add(newPost);
+        user.setFavouritePosts(posts);
+    }
+
+
+        /*
+    @Override
+    public List<Integer> getLikesAndDislikes(long idPost) {
+
+        List<Integer> ret = new ArrayList<>();
+        Post post = postRepository.findById(idPost).orElse(null);
+        ret.add(post.getNumberOfLikes());
+        ret.add(post.getNumberOfDislikes());
+
+        return ret;
+    }
+
+   @Override
+    public void addLikesAndDislikes(long postId, int likes, int dislikes) {
+        Post post = postRepository.findById(postId).orElse(null);
+        post.setNumberOfLikes(likes);
+        post.setNumberOfDislikes(dislikes);
+        postRepository.save(post);
+    }*/
+
+
 
 /*
     @Override

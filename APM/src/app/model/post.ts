@@ -5,5 +5,7 @@ export class Post {
     tag:string;
     location:string;
     descriprion:string;
-    isVideo:boolean;  
+    isVideo:boolean;
+    numberOfLikes: number;
+    numberofDislikes: number;  
 }

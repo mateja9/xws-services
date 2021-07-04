@@ -27,6 +27,8 @@ import { ForgotPasswordComponent } from './korisnik/forgotpassword/forgotpasswor
 import { StoriesComponent } from './korisnik/stories/stories.component';
 import { FollowComponent } from './korisnik/follow/follow.component';
 import { PostsComponent } from './korisnik/posts/posts.components';
+import { FavouriteComponent } from './korisnik/favourite/favourite.component';
+
 
 
 
@@ -43,10 +45,12 @@ import { PostsComponent } from './korisnik/posts/posts.components';
     ForgotPasswordComponent,
     StoriesComponent,
     FollowComponent,
-    PostsComponent
-   
-    
-  
+    PostsComponent,
+    FavouriteComponent
+
+
+
+
   ],
   imports: [
     BrowserModule,
@@ -56,23 +60,24 @@ import { PostsComponent } from './korisnik/posts/posts.components';
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignupComponent },
       { path: 'explore', component: ExploreNistagramComponent },
-      { path: 'registration-notice', component: RegistrationNoticeComponent},
+      { path: 'registration-notice', component: RegistrationNoticeComponent },
       { path: 'welcome/:id', component: ProfilNeRegKorComponent },
       { path: 'explore/:id', component: FollowComponent },
       { path: 'korisnik', component: ProfilKorisnikaComponent },
       { path: 'stories', component: StoriesComponent },
       { path: 'posts', component: PostsComponent },
+      { path: 'favourite', component: FavouriteComponent},
       { path: 'forgotpassword', component: ForgotPasswordComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-      { path: '**', redirectTo: 'welcome', pathMatch: 'full'},
-      
+      { path: '**', redirectTo: 'welcome', pathMatch: 'full' },
+
       // { path: 'homePage', component: HomeComponent }
 
     ]),
     FormsModule
-    
+
   ],
-  providers:[LoginService, KorisnikService],
+  providers: [LoginService, KorisnikService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

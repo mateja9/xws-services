@@ -16,15 +16,15 @@ public class  CommentController {
     @Autowired
     private CommentService commentService;
 
-    @PostMapping(value = "/media/comment/createComment")
+    @PostMapping(value = "/media/post/comment/createComment")
     public ResponseEntity<Comment> createComment(@RequestBody CommentDTO commentDTO) {
 
         return new ResponseEntity<Comment>(commentService.createComment(commentDTO), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/media/comment/{postId}")
+    @GetMapping(value = "/media/post/comment/{postId}")
     public ResponseEntity<List<Comment>> getForPost(@PathVariable Long postId) {
 
-        return new ResponseEntity<List<Comment>>(commentService.getComentsForPost(postId), HttpStatus.OK);
+        return new ResponseEntity<List<Comment>>(commentService.getCommentsForPost(postId), HttpStatus.OK);
     }
 }
