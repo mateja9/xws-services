@@ -20,8 +20,9 @@ export class PostsComponent implements OnInit {
   description = "";
   tag = "";
   comment = "";
-  numberOfLikes = 0;
-  numberOfDislikes = 0;
+  username = "";
+  numberOfLikes:number;
+  numberOfDislikes:number;
 
   public onlyCloseFriends = "no";
   public highlighted = "no";
@@ -32,15 +33,15 @@ export class PostsComponent implements OnInit {
     
     this.userService.getPosts().subscribe({
       next: (posts) => {
-        this.vratiListuKom();
-        this.addLike(this.id, this.numberOfLikes);
-         this.addDislike(this.id, this.numberOfLikes);
+        //this.vratiListuKom();
+        //this.addLike(this.id, this.numberOfLikes);
+         //this.addDislike(this.id, this.numberOfLikes);
         console.log("Dobavio sam postove");
         this.posts = posts;
         posts.forEach((p) => {
           p.isVideo = p.pathOfContent.endsWith("mp4");
-         this.addLike(this.id, this.numberOfLikes);
-         this.addDislike(this.id, this.numberOfLikes);
+        // this.addLike(this.id, this.numberOfLikes);
+        // this.addDislike(this.id, this.numberOfLikes);
           console.log(p);
         });
       },
@@ -48,18 +49,21 @@ export class PostsComponent implements OnInit {
     });
   }
 
-  vratiListuKom(){
-    console.log("Vrati listu kom");
+  vratiListuKom(postId: number){
+    console.log("Vrati listu komentara  "+ postId);
+    //this.postId nije Id posta koji mi treba, pokazuje undefined, 
+    //napravio sam dugme pa ce za svaki post da posalje njegov id i prikaze komentare
     
-    this.userService.getComments(this.postId).subscribe(x => this.allComments = x);
+    this.userService.getComments(postId).subscribe(x => this.allComments = x);
     console.log(this.allComments);
   }
   
-  addComment(id, userId) {
+  addComment(id, userId, username) {
     let fd = {
       postId: id,
       autorId: userId,
-      content: this.comment
+      content: this.comment,
+      username: username
     };
     this.userService.createComment(fd).subscribe((data) => {
       console.log(data);
@@ -67,15 +71,13 @@ export class PostsComponent implements OnInit {
   }
 
   addLike(id, numberOfLikes){
-    console.log("like???")
-    this.userService.addLike(id, numberOfLikes+1);
-    console.log("prosao 61lin")
+    console.log("Like u post.ts, Id:" + id + ", brojLajkova:" + numberOfLikes);
+    this.userService.addLike(id, numberOfLikes);
+    console.log("Post.ts, prosao poziv servisa.");
   }
 
   addDislike(id, numberOfDislikes){
-
-    console.log("dislike???")
-    this.userService.addDislike(id, numberOfDislikes+1);
+    this.userService.addDislike(id, numberOfDislikes);
   }
 
 
@@ -88,7 +90,7 @@ export class PostsComponent implements OnInit {
     }
 
     fd.append('file', this.selectedFile,  this.selectedFile.name);
-    fd.append('location', this.location)
+    fd.append('location', this.location);
     fd.append('description', this.description);
     fd.append('tag', this.tag);
 

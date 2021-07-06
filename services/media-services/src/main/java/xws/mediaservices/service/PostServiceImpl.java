@@ -118,14 +118,14 @@ public class PostServiceImpl implements PostService{
     @Override
     public void addLike(long postId, int like) {
         Post post = postRepository.findById(postId).orElse(null);
-        post.setNumberOfLikes(like);
+        post.setNumberOfLikes(like+1);
         postRepository.save(post);
     }
 
     @Override
     public void addDislike (long postId, int dislike) {
         Post post = postRepository.findById(postId).orElse(null);
-        post.setNumberOfDislikes(dislike);
+        post.setNumberOfDislikes(dislike+1);
         postRepository.save(post);
     }
 

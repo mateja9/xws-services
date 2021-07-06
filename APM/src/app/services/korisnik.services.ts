@@ -72,13 +72,19 @@ export class KorisnikService{
     return this._http.post("/media/createPost", data, {responseType: 'text'});
   }
 
-
-  public addLike(postId:number, likes:number) {
-    return this._http.put("/media/posts/like/" + postId, likes);
+  public addDislike (postId:number, dislikes:number){
+    return this._http.get("/media/posts/dislike/" + postId + "/" + dislikes);
   }
 
-  public addDislike (postId:number, dislikes:number){
-    return this._http.put("/media/posts/dislike/" + postId, dislikes);
+
+  public addLike (postId:number, likes:number){
+    console.log("U servisu, postID: "+postId+", broj lajkova: "+likes); //ispisuje
+      return this._http.get("/media/posts/like" + postId + "/" + likes);
+    //putanja je ista, kopirao sam i celu putanju iz postmena koja radi, sa sve onim localhost8080/media... i opet nece
+    //linija iznad ne komunicira sa bekom, probao sam i put i post i get,
+    // u postmanu kada posaljem na tu adresu sve radi normalno, ostavio sam na kraju get jer tako mogu da 
+    //saljem 2 parametra bez tela, u postmanu salje i logika radi, upise ga u bazu i prikaze na frontu
+    //probao sam da stavim kod get i any i string, na beku i response String i void i nece i isto i kad je i put i post
   }
 
   public getComments(postId: number) : Observable<Comment[]> {

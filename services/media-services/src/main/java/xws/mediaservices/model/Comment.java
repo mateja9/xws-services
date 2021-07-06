@@ -13,7 +13,9 @@ public class Comment {
     @Column(name = "AutorId", nullable = false)
     private Long autorId;
     @Column(name="postId", nullable = false)
-    Long postId;
+    private Long postId;
+    @Column(name="username", nullable = false)
+    private String username;
 
     public Comment(String content, Long autorId) {
         this.content = content;
@@ -54,5 +56,13 @@ public class Comment {
 
     public void setPostId(Long postId) {
         this.postId = postId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
