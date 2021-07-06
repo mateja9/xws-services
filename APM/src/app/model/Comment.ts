@@ -3,4 +3,5 @@ export class Comment {
     content: string;
     autorId: number;
     postId: number;
+    username: string;
 }

@@ -158,18 +158,22 @@ public class PostController {
         return new ResponseEntity<List<Integer>>(postService.getLikesAndDislikes(postId), HttpStatus.OK);
     }*/
 
-    @PutMapping(value = "/media/posts/like/{postId}")
-    public ResponseEntity<String> addLike (@PathVariable("postId") Long postId, @RequestBody int like)
+    @GetMapping(value = "/media/posts/like/{postId}/{likes}")
+    public void addLike (@PathVariable("postId") long postId, @PathVariable("likes") int likes)
     {
-        postService.addLike(postId, like);
-        return new ResponseEntity<String>("Accepted", HttpStatus.ACCEPTED);
+        System.out.println("usao");
+        postService.addLike(postId, likes);
+        System.out.println("usao2");
+        //return new ResponseEntity<String>("Accepted", HttpStatus.ACCEPTED);
     }
 
-    @PutMapping(value = "/media/posts/dislike/{postId}")
-    public ResponseEntity<String> addDislike(@PathVariable("postId") Long postId, @RequestBody int dislike)
+    @GetMapping(value = "/media/posts/dislike/{postId}/{dislikes}")
+    public void addDislike(@PathVariable("postId") long postId, @PathVariable("dislikes") int dislikes)
     {
-        postService.addDislike(postId, dislike);
-        return new ResponseEntity<String>("Accepted", HttpStatus.ACCEPTED);
+        System.out.println("usao3");
+        postService.addDislike(postId, dislikes);
+        System.out.println("usao4");
+        //return new ResponseEntity<String>("Accepted", HttpStatus.ACCEPTED);
     }
 
 

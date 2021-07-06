@@ -51,7 +51,7 @@ export class FavouriteComponent implements OnInit {
   }
 
   addLike(id, numberOfLikes){
-    this.userService.addLike(id, numberOfLikes+1)
+   // this.userService.addLike(id, numberOfLikes+1)
   }
 
   addDislike(id, numberOfDislikes){
