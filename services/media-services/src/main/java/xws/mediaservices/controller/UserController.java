@@ -195,6 +195,20 @@ public class UserController {
     }
 
 
+    @GetMapping(value = "/getByUsername/{username}")
+    public ResponseEntity<User> getUserByUsername(@PathVariable("username") String username) throws Exception {
+
+        User user = userService.getByUsername(username);
+
+        if(user!=null) {
+            LOGGER.info("USER-ID:{0}-returned, USER-ID:{1}", user.getId(), user.getName());
+        } else {
+            LOGGER.error("USER-ID:{0}-not returned, USER-ID:{1}", user.getId(), user.getName());
+        }
+
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+
 
 
     @PostMapping(value = "/user/resetPassword")

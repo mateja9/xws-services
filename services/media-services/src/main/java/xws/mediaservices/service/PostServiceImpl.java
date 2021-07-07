@@ -137,6 +137,7 @@ public class PostServiceImpl implements PostService{
         Set<Post> posts = user.getFavouritePosts();
         posts.add(newPost);
         user.setFavouritePosts(posts);
+        userRepository.save(user);
     }
 
 

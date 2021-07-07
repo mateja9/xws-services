@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { KorisnikService } from "app/services/korisnik.services";
 import { Post } from "app/model/post";
+import { PostComment } from "app/model/PostComment";
 
 @Component({
   selector: "app-favourite",
@@ -9,8 +10,10 @@ import { Post } from "app/model/post";
 })
 export class FavouriteComponent implements OnInit {
 
-  posts : Post[] = [];
-
+  posts : PostComment[] = [];
+  id: number;
+  postId:number;
+  allComments: Comment[]=[];
   selectedFile: File = null;
   fileName = "";
   fileExtension = "";
@@ -18,8 +21,9 @@ export class FavouriteComponent implements OnInit {
   description = "";
   tag = "";
   comment = "";
-  numberOfLikes = 0;
-  numberOfDislikes = 0;
+  username = "";
+  numberOfLikes:number;
+  numberOfDislikes:number;
 
   public onlyCloseFriends = "no";
   public highlighted = "no";
@@ -32,30 +36,49 @@ export class FavouriteComponent implements OnInit {
         console.log("Dobavio sam postove");
         this.posts = posts;
         posts.forEach((p) => {
-          p.isVideo = p.pathOfContent.endsWith("mp4");
+          p.post.isVideo = p.post.pathOfContent.endsWith("mp4");
           console.log(p);
         });
       },
     });
   }
 
-  addComment(id, userId) {
+  addComment(id, userId, username) {
     let fd = {
       postId: id,
       autorId: userId,
-      content: this.comment
+      content: this.comment,
+      username: username
     };
     this.userService.createComment(fd).subscribe((data) => {
       console.log(data);
+      this.ngOnInit();
+      this.comment = '';
     })
   }
 
+  addToFavourite(postId) {
+  
+    this.userService.addToFavourite(+localStorage.getItem("currentUserId"), postId).subscribe((data) => 
+    console.log(data));
+
+
+  }
+
   addLike(id, numberOfLikes){
-   // this.userService.addLike(id, numberOfLikes+1)
+    console.log("Like u post.ts, Id:" + id + ", brojLajkova:" + numberOfLikes);
+    this.userService.addLike(id, numberOfLikes).subscribe(res => {
+      console.log(res);
+      this.ngOnInit();
+    });
+    console.log("Post.ts, prosao poziv servisa.");
   }
 
   addDislike(id, numberOfDislikes){
-    this.userService.addDislike(id, numberOfDislikes+1)
+    this.userService.addDislike(id, numberOfDislikes).subscribe(res => {
+      console.log(res);
+      this.ngOnInit();
+    });
   }
 
 

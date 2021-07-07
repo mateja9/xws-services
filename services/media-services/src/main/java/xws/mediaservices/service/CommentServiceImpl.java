@@ -29,13 +29,15 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment createComment(CommentDTO commentDTO) {
+    public Comment createComment(CommentDTO commentDTO, User user) {
         Comment newComment = new Comment();
 
         newComment.setAutorId(commentDTO.getAutorId());
         newComment.setPostId(commentDTO.getPostId());
         newComment.setContent(commentDTO.getContent());
-        newComment.setUsername(commentDTO.getUsername());
+        newComment.setUsername(user.getUsername());
+
+
 
         newComment = commentRepository.save(newComment);
 

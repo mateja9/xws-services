@@ -72,8 +72,12 @@ public class User {
     @JsonIgnore
     private Set<Post> posts = new HashSet<Post>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-    @JsonIgnore
+    //(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    @ManyToMany
+    @JoinTable(
+            name = "user_favourite_posts",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id"))
     private Set<Post> favouritePosts = new HashSet<Post>();
 
 

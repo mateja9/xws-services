@@ -111,6 +111,11 @@ public class UserServiceImpl implements UserService{
         return user;
     }
 
+    @Override
+    public User getByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
 
     //NIJE ODRADJENA LOGIKA GDE SE PROVERAVA DA LI JE PROFIL JAVAN
     @Override

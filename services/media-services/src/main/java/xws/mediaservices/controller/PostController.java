@@ -8,12 +8,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import xws.mediaservices.dto.PostComment;
 import xws.mediaservices.dto.PostDTO;
 import xws.mediaservices.dto.PostLikesDislikes;
 import xws.mediaservices.model.Post;;
 import xws.mediaservices.model.User;
 import xws.mediaservices.repository.PostRepository;
 import xws.mediaservices.repository.UserRepository;
+import xws.mediaservices.service.CommentService;
 import xws.mediaservices.service.PostService;
 import xws.mediaservices.service.UserService;
 
@@ -48,6 +50,9 @@ public class PostController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    CommentService commentService;
 
     @Value("${media.storage}")
     private String storageDirectoryPath;
@@ -119,7 +124,7 @@ public class PostController {
     }
 
     @GetMapping(value = "/media/posts")
-    public ResponseEntity<List<Post>> getUserPosts(@Context HttpServletRequest request) throws Exception {
+    public ResponseEntity<List<PostComment>> getUserPosts(@Context HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
         User sessionUser = (User) session.getAttribute("client");
         System.out.println("GET POSTS");
@@ -137,7 +142,13 @@ public class PostController {
         });
 
         System.out.println("POSTS: " + posts);
-        return new ResponseEntity<>(new ArrayList<>(posts), HttpStatus.OK);
+
+        List<PostComment> retVal = new ArrayList<>();
+        for(Post post : posts) {
+            retVal.add(new PostComment(post, commentService.getCommentsForPost(post.getId())));
+        }
+
+        return new ResponseEntity<>(new ArrayList<>(retVal), HttpStatus.OK);
     }
 
 
@@ -178,30 +189,34 @@ public class PostController {
 
 
     @GetMapping(value = "/media/posts/favourites")
-    public ResponseEntity<List<Post>> getFavouritePosts(@Context HttpServletRequest request) throws Exception {
-        HttpSession session = request.getSession();
-        User sessionUser = (User) session.getAttribute("client");
+    public ResponseEntity<List<PostComment>> getFavouritePosts(@Context HttpServletRequest request) throws Exception {
+    HttpSession session = request.getSession();
+    User sessionUser = (User) session.getAttribute("client");
         System.out.println("GET POSTS");
         System.out.println("SESSION-USER: " + sessionUser.getEmail());
 
-        User user = userRepository.findByEmail(sessionUser.getEmail());
+    User user = userRepository.findByEmail(sessionUser.getEmail());
         System.out.println("USER: " + user.getEmail());
-
-        Set<Post> postsSet = user.getFavouritePosts();
-        List<Post> posts = new ArrayList<>(postsSet);
+    Set<Post> postsSet = user.getFavouritePosts();
+    List<Post> posts = new ArrayList<>(postsSet);
         posts.sort(new Comparator<Post>() {
-            @Override
-            public int compare(Post o1, Post o2) {
-                return o2.getStartTime().compareTo(o1.getStartTime());
-            }
-        });
+        @Override
+        public int compare(Post o1, Post o2) {
+            return o2.getStartTime().compareTo(o1.getStartTime());
+        }
+    });
 
         System.out.println("POSTS: " + posts);
-        return new ResponseEntity<>(new ArrayList<>(posts), HttpStatus.OK);
-    }
 
-    @PostMapping(value="media/post/addToFavourite/{userId}")
-    public ResponseEntity<String> addToFavourite (@PathVariable("userId") Long userId, @RequestBody long postId){
+        List<PostComment> retVal = new ArrayList<>();
+            for(Post post : posts) {
+            retVal.add(new PostComment(post, commentService.getCommentsForPost(post.getId())));
+        }
+
+        return new ResponseEntity<List<PostComment>>(retVal, HttpStatus.OK);
+    }
+    @GetMapping(value="media/post/addToFavourite/{userId}/{postId}")
+    public ResponseEntity<String> addToFavourite (@PathVariable("userId") Long userId, @PathVariable("postId") Long postId){
 
         postService.addToFavourite(userId,postId);
         return new ResponseEntity<String>("Accepted", HttpStatus.ACCEPTED);
