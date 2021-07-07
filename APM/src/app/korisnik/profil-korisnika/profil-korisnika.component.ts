@@ -6,6 +6,7 @@ import { LoginService } from 'app/services/login.services';
 import { Story } from "app/model/story";
 import { StoryGroup } from "app/model/story";
 import { Post } from "app/model/post";
+import { FollowRequest } from 'app/model/FollowRequest';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class ProfilKorisnikaComponent implements OnInit {
   publicStoryGroups: StoryGroup[] = [];
   highlightStoryGroups: StoryGroup[] = [];
   posts : Post[] = [];
+  followRequests : FollowRequest[] = [];
 
   constructor(private _router: Router,private loginService:LoginService,private userService: KorisnikService,) { 
     this.korisnik = new Korisnik();
@@ -65,8 +67,14 @@ export class ProfilKorisnikaComponent implements OnInit {
           },
         });
 
+        this.userService.getFollowersRequests(korisnik.id).subscribe((res: String[]) => {
+          console.log(korisnik);
+          this.followRequests = res;
+        })
+
 
       }
+      
     });
 
   }
@@ -87,6 +95,15 @@ export class ProfilKorisnikaComponent implements OnInit {
   odjaviSe() {
     this.loginService.IzlogujSe(this.request).subscribe(result => this.kraj());
   }
+
+
+  acceptFollow(username : String) {
+   let  id = +localStorage.getItem('currentUserId');
+    this.userService.acceptFollow(username, id).subscribe(res => {
+      this.ngOnInit();
+    })
+  }
+
 
   createStoryGroups(stories:Story[]): StoryGroup[] {
     var storyGroups = [];

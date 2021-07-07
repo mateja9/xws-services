@@ -30,10 +30,10 @@ public class UserFollowController {
         return new ResponseEntity<UserFollow>(userFollowService.unfollow(id), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/userFollow/accept/{id}")
-    public ResponseEntity<UserFollow> acceptFollow(@PathVariable Long id)
+    @GetMapping(value = "/userFollow/accept/{username}/{id}")
+    public ResponseEntity<String> acceptFollow(@PathVariable String username, @PathVariable Long id)
     {
-        return new ResponseEntity<UserFollow>(userFollowService.accept(id), HttpStatus.OK);
+        return new ResponseEntity<String>(userFollowService.accept(id, username), HttpStatus.OK);
     }
 
     @PostMapping(value = "/userFollow/checkIsFollow")
@@ -47,4 +47,11 @@ public class UserFollowController {
     {
         return new ResponseEntity<List<Integer>>(userFollowService.getFollowersAndFollowing(userId), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/userFollow/getFollowersRequests/{userId}")
+    public ResponseEntity<List<String>> getFollowersRequests(@PathVariable Long userId)
+    {
+        return new ResponseEntity<List<String>>(userFollowService.getFollowersRequests(userId), HttpStatus.OK);
+    }
+
 }

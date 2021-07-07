@@ -31,6 +31,11 @@ public class UserServiceImpl implements UserFollowService {
         User userTo = restTemplate.exchange("/user/" + userFollowDTO.getUserTo(), HttpMethod.GET,
                 null, User.class).getBody();
 
+        UserFollow userFollow =  userFollowRepository.getUserFollowByUsers(userFollowDTO.getUserFrom(), userFollowDTO.getUserTo());
+
+        if(userFollow != null)
+            return null;
+
         newUserFollow.setUserFrom(userFollowDTO.getUserFrom());
         newUserFollow.setUserTo(userFollowDTO.getUserTo());
 
@@ -65,20 +70,25 @@ public class UserServiceImpl implements UserFollowService {
     }
 
     @Override
-    public UserFollow accept(Long id) {
-        Optional<UserFollow> follow = userFollowRepository.findById(id);
+    public String accept(Long id, String username) {
+        User user =  restTemplate.exchange("/getByUsername/" + username, HttpMethod.GET,
+                null, User.class).getBody();
 
-        if(!follow.isPresent()) {
+        //username - userFrom
+        //id - ulogovani korisnik - mi - userTo
+
+        UserFollow follow = userFollowRepository.getUserFollowByUsers(user.getId(), id);
+
+        if(follow == null) {
             return null;
         }
 
-        UserFollow userFollow = follow.get();
-        userFollow.setActive(true);
-        userFollow.setStatus(StatusFollowing.accepted);
+        follow.setActive(false);
+        follow.setStatus(StatusFollowing.accepted);
 
-        userFollowRepository.save(userFollow);
+        userFollowRepository.save(follow);
 
-        return userFollow;
+        return "Success";
     }
 
     @Override
@@ -102,4 +112,20 @@ public class UserServiceImpl implements UserFollowService {
 
         return retVal;
     }
+
+    @Override
+    public List<String> getFollowersRequests(Long userId) {
+
+        List<UserFollow> ret = userFollowRepository.getFollowersRequests(userId);
+        List<String> retVal = new ArrayList<>();
+
+        for (UserFollow u : ret) {
+            retVal.add(restTemplate.exchange("/user/" + u.getUserTo(), HttpMethod.GET,
+                    null, User.class).getBody().getUsername());
+        }
+
+        return retVal;
+    }
+
+
 }

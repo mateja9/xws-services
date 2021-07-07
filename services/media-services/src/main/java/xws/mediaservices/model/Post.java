@@ -44,6 +44,9 @@ public class Post{
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToMany
+    private Set<User> users;
+
     @Column(name = "StartTime", nullable = false)
     private LocalDateTime startTime;
 

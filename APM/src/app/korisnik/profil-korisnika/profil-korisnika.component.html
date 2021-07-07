@@ -197,6 +197,32 @@
 </div>
 
 <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
+<div class="card" style="margin-top: 15px;">
+    <div class="card-header card-header-success">
+        <h4 class="card-title">Zahtevi za pracenje</h4>
+    </div>
+    <div class="card-content table-responsive table-full-width">
+        <table class="table">
+
+            <thead class="text-success">
+                <th>Username</th>
+                <th></th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr *ngFor='let k of followRequests'>
+                    <td><a [routerLink]="[k]">{{k}}</a></td>
+                    <td> <button type="button" (click)="acceptFollow(k)">Accept</button> </td>
+                    <td> <button type="button" (click)="rejectFollow(k)">Reject</button> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+
 <h2>My public stories</h2>
 
 <table class="table">
@@ -239,6 +265,11 @@
         </tr>
     </tbody>
 </table>
+
+
+
+
+
 
 <h2>My public posts</h2>
 

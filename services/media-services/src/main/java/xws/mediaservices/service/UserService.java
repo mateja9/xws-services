@@ -20,6 +20,5 @@ public interface UserService {
     public User getById(Long id);
     public void createPasswordResetTokenForUser(User user, String token);
     public User getUserByPasswordResetToken (String token);
-
-
+    public User getByUsername(String username);
 }

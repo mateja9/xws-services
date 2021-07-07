@@ -6,8 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import xws.mediaservices.dto.CommentDTO;
 import xws.mediaservices.model.Comment;
+import xws.mediaservices.model.User;
 import xws.mediaservices.service.CommentService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.ws.rs.core.Context;
 import java.util.List;
 
 @RestController
@@ -17,9 +21,10 @@ public class  CommentController {
     private CommentService commentService;
 
     @PostMapping(value = "/media/post/comment/createComment")
-    public ResponseEntity<Comment> createComment(@RequestBody CommentDTO commentDTO) {
-
-        return new ResponseEntity<Comment>(commentService.createComment(commentDTO), HttpStatus.OK);
+    public ResponseEntity<Comment> createComment(@RequestBody CommentDTO commentDTO, @Context HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User sessionUser = (User) session.getAttribute("client");
+        return new ResponseEntity<Comment>(commentService.createComment(commentDTO, sessionUser), HttpStatus.OK);
     }
 
     @GetMapping(value = "/media/post/comment/{postId}")

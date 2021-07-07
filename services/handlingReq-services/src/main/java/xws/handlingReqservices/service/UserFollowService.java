@@ -9,11 +9,13 @@ public interface UserFollowService {
 
     UserFollow createUserFollow(UserFollowDTO userFollowDTO);
 
-    UserFollow accept(Long id);
+    String accept(Long id, String username);
 
     UserFollow unfollow(Long id);
 
     UserFollow checkIsFollow(UserFollowDTO followRequestDTO);
 
     List<Integer> getFollowersAndFollowing(Long userId);
+
+    List<String> getFollowersRequests(Long userId);
 }

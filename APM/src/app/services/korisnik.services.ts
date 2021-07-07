@@ -6,6 +6,7 @@ import { Korisnik } from "app/model/Korisnik";
 import { Story } from "app/model/story";
 import { SearchUser } from "../model/SearchUser";
 import { Post } from "app/model/post";
+import { PostComment } from "app/model/PostComment";
 
 
 @Injectable()
@@ -52,16 +53,16 @@ export class KorisnikService{
 
 
 
-  public getPosts(): Observable<Post[]> {
-    return this._http.get<Post[]>("/media/posts");
+  public getPosts(): Observable<PostComment[]> {
+    return this._http.get<PostComment[]>("/media/posts");
   }
 
-  public getFavouritePosts(): Observable<Post[]> {
-    return this._http.get<Post[]>("/media/posts/favourites/");
+  public getFavouritePosts(): Observable<PostComment[]> {
+    return this._http.get<PostComment[]>("/media/posts/favourites/");
   }////////////////
 
   public addToFavourite(userId:number, postId: number) {
-    return this._http.post("/media/post/addToFavourite" + userId, postId, {responseType: 'text'});
+    return this._http.get("/media/post/addToFavourite/" + userId + "/" + postId, {responseType: 'text'});
   }
 
   public getPublicPosts(userId: number): Observable<Post[]> {
@@ -79,7 +80,7 @@ export class KorisnikService{
 
   public addLike (postId:number, likes:number){
     console.log("U servisu, postID: "+postId+", broj lajkova: "+likes); //ispisuje
-      return this._http.get("/media/posts/like" + postId + "/" + likes);
+      return this._http.get("http://localhost:8080/media/posts/like/" + postId + "/" + likes);
     //putanja je ista, kopirao sam i celu putanju iz postmena koja radi, sa sve onim localhost8080/media... i opet nece
     //linija iznad ne komunicira sa bekom, probao sam i put i post i get,
     // u postmanu kada posaljem na tu adresu sve radi normalno, ostavio sam na kraju get jer tako mogu da 
@@ -117,6 +118,14 @@ export class KorisnikService{
 
   public checkIsCloseFriend(dto) {
     return this._http.post<any>("http://localhost:8500/closeFriend/checkIsCloseFriend", dto);
+  }
+
+  public getFollowersRequests(userId : number){
+  return this._http.get<String[]>("http://localhost:8500/userFollow/getFollowersRequests/" + userId);
+  }
+
+  public acceptFollow(username : String, id : number) {
+    return this._http.get<String>("http://localhost:8500/userFollow/accept/" + username + "/" + id, { responseType: 'text' as 'json' });
   }
 
 }
