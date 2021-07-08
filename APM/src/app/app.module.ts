@@ -28,6 +28,7 @@ import { StoriesComponent } from './korisnik/stories/stories.component';
 import { FollowComponent } from './korisnik/follow/follow.component';
 import { PostsComponent } from './korisnik/posts/posts.components';
 import { FavouriteComponent } from './korisnik/favourite/favourite.component';
+import { FeedComponent } from './korisnik/feed/feed.component';
 
 
 
@@ -46,7 +47,8 @@ import { FavouriteComponent } from './korisnik/favourite/favourite.component';
     StoriesComponent,
     FollowComponent,
     PostsComponent,
-    FavouriteComponent
+    FavouriteComponent,
+    FeedComponent
 
 
 
@@ -67,6 +69,7 @@ import { FavouriteComponent } from './korisnik/favourite/favourite.component';
       { path: 'stories', component: StoriesComponent },
       { path: 'posts', component: PostsComponent },
       { path: 'favourite', component: FavouriteComponent},
+      { path: 'feed', component: FeedComponent},
       { path: 'forgotpassword', component: ForgotPasswordComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' },

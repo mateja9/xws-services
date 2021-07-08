@@ -141,25 +141,10 @@ public class PostServiceImpl implements PostService{
     }
 
 
-        /*
-    @Override
-    public List<Integer> getLikesAndDislikes(long idPost) {
 
-        List<Integer> ret = new ArrayList<>();
-        Post post = postRepository.findById(idPost).orElse(null);
-        ret.add(post.getNumberOfLikes());
-        ret.add(post.getNumberOfDislikes());
 
-        return ret;
-    }
 
-   @Override
-    public void addLikesAndDislikes(long postId, int likes, int dislikes) {
-        Post post = postRepository.findById(postId).orElse(null);
-        post.setNumberOfLikes(likes);
-        post.setNumberOfDislikes(dislikes);
-        postRepository.save(post);
-    }*/
+
 
 
 

@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import xws.mediaservices.config.RestTemplateHandlingreqService;
 import xws.mediaservices.dto.PostComment;
 import xws.mediaservices.dto.PostDTO;
 import xws.mediaservices.dto.PostLikesDislikes;
@@ -30,10 +32,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -53,6 +52,9 @@ public class PostController {
 
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    RestTemplate restTemplate;
 
     @Value("${media.storage}")
     private String storageDirectoryPath;
@@ -151,6 +153,50 @@ public class PostController {
         return new ResponseEntity<>(new ArrayList<>(retVal), HttpStatus.OK);
     }
 
+
+    @GetMapping(value = "/media/getPostsForFeed")
+    public ResponseEntity<List<PostComment>> getPostsForFeed(@Context HttpServletRequest request) throws Exception {
+
+        HttpSession session = request.getSession();
+        User sessionUser = (User) session.getAttribute("client");
+        System.out.println("GET POSTS");
+        System.out.println("SESSION-USER: " + sessionUser.getEmail());
+
+        User user = userRepository.findByEmail(sessionUser.getEmail());
+        System.out.println("USER: " + user.getEmail());
+
+        // id-jevi od svih koji treba da mi izlaze
+        Long[] response =
+                restTemplate.getForEntity(
+                        "/userFollow/getMyFollowersList/"+user.getId(),
+                        Long[].class).getBody();
+
+        Set<Post> postSet = new HashSet<>();
+        for (Long r: response){
+            Set<Post> postoviKorisnika = userService.findById(r).getPosts();
+            for(Post item : postoviKorisnika) {
+                item.setUsername(userService.findById(r).getUsername());
+            }
+            postSet.addAll(postoviKorisnika);
+        }
+
+        List<Post> posts = new ArrayList<>(postSet);
+        posts.sort(new Comparator<Post>() {
+            @Override
+            public int compare(Post o1, Post o2) {
+                return o2.getStartTime().compareTo(o1.getStartTime());
+            }
+        });
+
+        System.out.println("POSTS: " + posts);
+
+        List<PostComment> retVal = new ArrayList<>();
+        for(Post post : posts) {
+            retVal.add(new PostComment(post, commentService.getCommentsForPost(post.getId())));
+        }
+
+        return new ResponseEntity<>(new ArrayList<>(retVal), HttpStatus.OK);
+    }
 
     private String getPartAsString(Part part) throws IOException {
         String result;

@@ -30,6 +30,7 @@ export class ProfilKorisnikaComponent implements OnInit {
 
   
   ngOnInit(): void {
+    
     this.loginService.getKorisnika().subscribe({
       next: korisnik => {
         this.korisnik = korisnik;
@@ -103,6 +104,14 @@ export class ProfilKorisnikaComponent implements OnInit {
       this.ngOnInit();
     })
   }
+
+
+  rejectFollow(username : String) {
+    let  id = +localStorage.getItem('currentUserId');
+     this.userService.rejectFollow(username, id).subscribe(res => {
+       this.ngOnInit();
+     })
+   }
 
 
   createStoryGroups(stories:Story[]): StoryGroup[] {

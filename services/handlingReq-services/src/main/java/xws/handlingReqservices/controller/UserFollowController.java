@@ -36,6 +36,13 @@ public class UserFollowController {
         return new ResponseEntity<String>(userFollowService.accept(id, username), HttpStatus.OK);
     }
 
+
+    @GetMapping(value = "/userFollow/reject/{username}/{id}")
+    public ResponseEntity<String> rejectFollow(@PathVariable String username, @PathVariable Long id)
+    {
+        return new ResponseEntity<String>(userFollowService.reject(id, username), HttpStatus.OK);
+    }
+
     @PostMapping(value = "/userFollow/checkIsFollow")
     public ResponseEntity<UserFollow> checkIsFollow(@RequestBody UserFollowDTO followRequestDTO)
     {
@@ -52,6 +59,12 @@ public class UserFollowController {
     public ResponseEntity<List<String>> getFollowersRequests(@PathVariable Long userId)
     {
         return new ResponseEntity<List<String>>(userFollowService.getFollowersRequests(userId), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/userFollow/getMyFollowersList/{userId}")
+    public ResponseEntity<List<Long>> getMyFollowersList(@PathVariable Long userId)
+    {
+        return new ResponseEntity<List<Long>>(userFollowService.getMyFollowersList(userId), HttpStatus.OK);
     }
 
 }
