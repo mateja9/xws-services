@@ -128,4 +128,18 @@ export class KorisnikService{
     return this._http.get<String>("http://localhost:8500/userFollow/accept/" + username + "/" + id, { responseType: 'text' as 'json' });
   }
 
+  public rejectFollow(username : String, id : number) {
+    return this._http.get<String>("http://localhost:8500/userFollow/reject/" + username + "/" + id, { responseType: 'text' as 'json' });
+  }
+
+  public getPostsForFeed(): Observable<PostComment[]> {
+    return this._http.get<PostComment[]>("/media/getPostsForFeed");
+  }
+
+  public getStoriesForFeed(): Observable<Story[]> {
+    return this._http.get<Story[]>("/media/getStoriesForFeed");
+  }
+
+
+
 }

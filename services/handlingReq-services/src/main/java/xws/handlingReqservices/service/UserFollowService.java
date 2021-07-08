@@ -11,6 +11,8 @@ public interface UserFollowService {
 
     String accept(Long id, String username);
 
+    String reject(Long id, String username);
+
     UserFollow unfollow(Long id);
 
     UserFollow checkIsFollow(UserFollowDTO followRequestDTO);
@@ -18,4 +20,8 @@ public interface UserFollowService {
     List<Integer> getFollowersAndFollowing(Long userId);
 
     List<String> getFollowersRequests(Long userId);
+
+    List<Long> getMyFollowersList(Long userId);
+
+
 }

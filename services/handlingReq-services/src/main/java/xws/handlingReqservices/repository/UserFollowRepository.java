@@ -18,8 +18,10 @@ public interface UserFollowRepository extends CrudRepository<UserFollow, Long> {
     @Query("SELECT u FROM UserFollow u WHERE u.userFromId = :userFrom AND u.userToId = :userTo")
     UserFollow getUserFollowByUsers(@Param("userFrom") Long userFrom, @Param("userTo") Long userTo);
 
-    @Query("SELECT u FROM UserFollow u WHERE u.userFromId = :userTo AND u.isActive = true") // status onWait
+    @Query("SELECT u FROM UserFollow u WHERE u.userToId = :userTo AND u.status = 'onWait' AND u.isActive = true") // status onWait
     List<UserFollow> getFollowersRequests (@Param("userTo") Long userTo);
 
+    @Query("SELECT u.userFromId FROM UserFollow u WHERE u.userToId = :userId and u.status = 'accepted' AND u.isActive = false")
+    List<Long> getMyFollowersList(@Param("userId") Long userId);
 }
 

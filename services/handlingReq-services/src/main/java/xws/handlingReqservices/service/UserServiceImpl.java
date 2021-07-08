@@ -78,6 +78,7 @@ public class UserServiceImpl implements UserFollowService {
         //id - ulogovani korisnik - mi - userTo
 
         UserFollow follow = userFollowRepository.getUserFollowByUsers(user.getId(), id);
+        //getFollowersRequests
 
         if(follow == null) {
             return null;
@@ -88,7 +89,29 @@ public class UserServiceImpl implements UserFollowService {
 
         userFollowRepository.save(follow);
 
-        return "Success";
+        return "Success";  //true-catch bolje nego samo vracanje stringa ali nebitno sad
+    }
+
+    @Override
+    public String reject(Long id, String username) {
+        User user =  restTemplate.exchange("/getByUsername/" + username, HttpMethod.GET,
+                null, User.class).getBody();
+
+        //username - userFrom
+        //id - ulogovani korisnik - mi - userTo
+
+        UserFollow follow = userFollowRepository.getUserFollowByUsers(user.getId(), id);
+
+        if(follow == null) {
+            return null;
+        }
+
+        follow.setActive(false);
+        follow.setStatus(StatusFollowing.rejected);
+
+        userFollowRepository.save(follow);
+
+        return "Success";  //true-catch bolje nego samo vracanje stringa ali nebitno sad
     }
 
     @Override
@@ -120,10 +143,17 @@ public class UserServiceImpl implements UserFollowService {
         List<String> retVal = new ArrayList<>();
 
         for (UserFollow u : ret) {
-            retVal.add(restTemplate.exchange("/user/" + u.getUserTo(), HttpMethod.GET,
+            retVal.add(restTemplate.exchange("/user/" + u.getUserFrom(), HttpMethod.GET,
                     null, User.class).getBody().getUsername());
         }
 
+        return retVal;
+    }
+
+    @Override
+    public List<Long> getMyFollowersList(Long userId) {
+
+        List <Long> retVal = userFollowRepository.getMyFollowersList(userId);
         return retVal;
     }
 

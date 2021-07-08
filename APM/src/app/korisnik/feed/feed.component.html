@@ -66,7 +66,7 @@
 
 
     <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
-        <h2>My favourite Posts</h2>
+        <h2>My feed</h2>
 
         <table class="table">
 
@@ -79,6 +79,7 @@
     <tbody>
         <tr *ngFor='let p of posts'>
             <td>
+                <h2>{{p.post.username}}</h2>
                 <div *ngIf="p.post.isVideo; else notVideo">
                     <video width="640" height="480" controls>
                         <source src="media/file/{{p.post.pathOfContent}}">
@@ -179,7 +180,7 @@
         </tr>
 
     </tbody>
-        </table>
+</table>
 
 
-    </div>
+</div>
