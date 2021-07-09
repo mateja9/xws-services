@@ -7,6 +7,7 @@ import { Story } from "app/model/story";
 import { StoryGroup } from "app/model/story";
 import { Post } from "app/model/post";
 import { FollowRequest } from 'app/model/FollowRequest';
+import { PostComment } from 'app/model/PostComment';
 
 
 @Component({
@@ -17,13 +18,15 @@ import { FollowRequest } from 'app/model/FollowRequest';
 export class ProfilKorisnikaComponent implements OnInit {
   korisnik :Korisnik;
   updatedUser:Korisnik;
+  posts : PostComment[] = [];
   request:Request;
   publicStoryGroups: StoryGroup[] = [];
   highlightStoryGroups: StoryGroup[] = [];
-  posts : Post[] = [];
+
   followRequests : FollowRequest[] = [];
   privacy: string = 'sda';
-
+  comment = "";
+  allComments: Comment[]=[];
   constructor(private _router: Router,private loginService:LoginService,private userService: KorisnikService,) { 
     this.korisnik = new Korisnik();
     this.updatedUser = new Korisnik();
@@ -59,15 +62,7 @@ export class ProfilKorisnikaComponent implements OnInit {
           },
         });
 
-        this.userService.getPublicPosts(korisnik.id).subscribe({
-          next: (posts) => {
-            console.log("Dobavio sam postove");
-            posts.forEach((element) => {
-              this.posts = posts;
-              console.log("ELEMENT " + element);
-            });
-          },
-        });
+      
 
         this.userService.getFollowersRequests(korisnik.id).subscribe((res: String[]) => {
           console.log(korisnik);
@@ -79,9 +74,67 @@ export class ProfilKorisnikaComponent implements OnInit {
       }
       
     });
+    this.userService.getPosts().subscribe({
+      next: (posts) => {
+
+        console.log("Dobavio sam postove");
+        this.posts = posts;
+        posts.forEach((p) => {
+          p.post.isVideo = p.post.pathOfContent.endsWith("mp4");
+
+          console.log(p);
+        });
+      },
+      
+    });
+
+  }
+  vratiListuKom(postId: number){
+    console.log("Vrati listu komentara  "+ postId);
+    //this.postId nije Id posta koji mi treba, pokazuje undefined, 
+    //napravio sam dugme pa ce za svaki post da posalje njegov id i prikaze komentare
+    
+    // this.userService.getComments(postId).subscribe(x => this.allComments = x);
+    // console.log(this.allComments);
+  }
+  
+  addComment(id) {
+    let fd = {
+      postId: id,
+      autorId: +localStorage.getItem('currentUserId'),
+      content: this.comment,
+      username: localStorage.getItem('currentUsername'),
+    };
+    this.userService.createComment(fd).subscribe((data) => {
+      console.log(data);
+      this.ngOnInit();
+      this.comment = '';
+    })
+  }
+
+  addToFavourite(postId) {
+  
+    this.userService.addToFavourite(+localStorage.getItem("currentUserId"), postId).subscribe((data) => 
+    console.log(data));
+
 
   }
 
+  addLike(id, numberOfLikes){
+    console.log("Like u post.ts, Id:" + id + ", brojLajkova:" + numberOfLikes);
+    this.userService.addLike(id, numberOfLikes).subscribe(res => {
+      console.log(res);
+      this.ngOnInit();
+    });
+    console.log("Post.ts, prosao poziv servisa.");
+  }
+
+  addDislike(id, numberOfDislikes){
+    this.userService.addDislike(id, numberOfDislikes).subscribe(res => {
+      console.log(res);
+      this.ngOnInit();
+    });
+  }
   getUserPrivacy() {
     this.userService.getUserPrivacy(+localStorage.getItem('currentUserId')).subscribe(res => {
       this.privacy = res;

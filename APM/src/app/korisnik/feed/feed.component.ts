@@ -7,6 +7,8 @@ import { Korisnik } from 'app/model/Korisnik';
 import { LoginService } from 'app/services/login.services';
 import { Router } from '@angular/router';
 import { FollowRequest } from 'app/model/FollowRequest';
+import { Post } from "app/model/post";
+import { SearchPost } from "app/model/SearchPost";
 
 @Component({
     selector: "app-posts",
@@ -36,12 +38,16 @@ import { FollowRequest } from 'app/model/FollowRequest';
     highlightStoryGroups: StoryGroup[] = [];
     korisnik :Korisnik;
     followRequests : FollowRequest[] = [];
+    allPosts : Post[] = [];
+    searchParameters  : SearchPost;
 
   
     public onlyCloseFriends = "no";
     public highlighted = "no";
   
-    constructor(private userService: KorisnikService, private loginService:LoginService, private _router: Router) {}
+    constructor(private userService: KorisnikService, private loginService:LoginService, private _router: Router) {
+      this.searchParameters = new SearchPost();
+    }
   
     ngOnInit(): void {
 
@@ -179,6 +185,9 @@ import { FollowRequest } from 'app/model/FollowRequest';
   
   
     }
+    refresh(){
+      window.location.reload();
+    }
   
     addLike(id, numberOfLikes){
       console.log("Like u post.ts, Id:" + id + ", brojLajkova:" + numberOfLikes);
@@ -202,5 +211,34 @@ import { FollowRequest } from 'app/model/FollowRequest';
       this.fileExtension = this.selectedFile.name.split('?')[0].split('.').pop();
       console.log(this.selectedFile.name);
     }
+
+    searchPost(){
+      let sp = new SearchPost();
+      
+      if(this.searchParameters.tag == undefined){
+          sp.tag = "all";
+      } else {
+          sp.tag = this.searchParameters.tag;
+      }
+  
+      if(this.searchParameters.location == undefined){
+          sp.location = "all";
+      } else {
+          sp.location = this.searchParameters.location;
+      }
+  
+  
+    
+      console.log(this.searchParameters);
+      console.log(sp);
+  
+      this.userService.searchPost(sp).subscribe({
+          next: pharmacies => {
+              this.allPosts = pharmacies;
+          }
+  
+      });
+      console.log(this.allPosts);
+  }
   }
   

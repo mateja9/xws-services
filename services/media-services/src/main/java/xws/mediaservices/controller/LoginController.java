@@ -44,13 +44,13 @@ public class LoginController {
             boolean isPasswordMatch = passwordEncoder.matches(zahtev.getPassword(), ak.getPassword());
 
             if (isPasswordMatch) {
-                if ( !ak.isPrviPutLogovan()){
+            //    if ( !ak.isPrviPutLogovan()){
 
                 HttpSession session = request.getSession();
                 session.setAttribute("client", ak);
                 LOGGER.info(MessageFormat.format("USER SESSION: USER-ID:{0}-session created, USER-EMAIL:{1}", ak.getId(), ak.getEmail()));
 
-            }
+           // }
                 return new ResponseEntity<User>(ak, HttpStatus.CREATED);
             }
         }

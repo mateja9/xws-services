@@ -23,27 +23,26 @@
                         </a>
                     </li>
                     <li  ng-click="func()" routerLinkActive="active" class="nav-item">
-                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/posts']" > <i class="material-icons">donut_large</i>
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/posts']" > <i class="material-icons">image</i>
                             <p style="color: green; font-weight: 500;">My posts</p>
                         </a>
                     </li>
-
+                    
                     <li ng-click="func()" routerLinkActive="active" class="nav-item">
                         <a ng-click="func()" class="nav-link sidebar-1" [routerLink]="['/favourite']"> <i
-                                class="material-icons">donut_large</i>
+                                class="material-icons">favorite</i>
                             <p style="color: green; font-weight: 500;">My favourites</p>
                         </a>
                     </li>
 
                     <li ng-click="func()" routerLinkActive="active" class="nav-item">
                         <a ng-click="func()" class="nav-link sidebar-1" [routerLink]="['/feed']"> <i
-                                class="material-icons">donut_large</i>
+                                class="material-icons">calendar_view_week</i>
                             <p style="color: green; font-weight: 500;">My feed</p>
                         </a>
                     </li>
 
                     <li  ng-click="func()" routerLinkActive="active" class="nav-item">
-
                         <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/explore']" > <i class="material-icons">explore</i>
                             <p style="color: green; font-weight: 500;">Explore Nistagram</p>
                         </a>
@@ -81,11 +80,11 @@
     <input type="radio" id="highlighted-yes" name="highlighted" value="no" checked="true" [(ngModel)]="highlighted">
     <label for="highlighted-yes">No</label><br>
 
-    <p></p>
+    <!-- <p></p>
     <p>Add tags</p>
     <input type="text" id="tag" name="tag" [(ngModel)]="tag">
 
-    <p></p>
+    <p></p> -->
     <input style="display: none" type="file" (change)="onFileSelected($event)" accept=".jpg, .png, .mp4" #fileInput>
     <button (click)="fileInput.click()">Select Image</button>
     <p></p>

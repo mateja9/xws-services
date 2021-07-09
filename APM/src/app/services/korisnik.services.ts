@@ -7,6 +7,7 @@ import { Story } from "app/model/story";
 import { SearchUser } from "../model/SearchUser";
 import { Post } from "app/model/post";
 import { PostComment } from "app/model/PostComment";
+import { SearchPost } from "app/model/SearchPost";
 
 
 @Injectable()
@@ -28,6 +29,10 @@ export class KorisnikService{
 
   public searchUser(sp: SearchUser): Observable<Korisnik[]> {
     return this._http.post<Korisnik[]>("/user/searchUser", sp);
+  }
+
+  public searchPost(sp: SearchPost): Observable<Post[]> {
+    return this._http.post<Post[]>("/user/searchPost", sp);
   }
   public vratiKor(id: number): Observable<Korisnik> {
     return this._http.get<Korisnik>("/user/" + id);

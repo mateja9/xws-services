@@ -12,55 +12,49 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li ng-click="func()" routerLinkActive="active" class="nav-item">
-                        <a ng-click="func()" class="nav-link sidebar-1" [routerLink]="['/korisnik']"> <i
-                                class="material-icons">person</i>
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/korisnik']" > <i class="material-icons">person</i>
                             <p style="color: green; font-weight: 500;">My profile</p>
                         </a>
                     </li>
-                    <li ng-click="func()" routerLinkActive="active" class="nav-item">
-                        <a ng-click="func()" class="nav-link sidebar-1" [routerLink]="['/stories']"> <i
-                                class="material-icons">donut_large</i>
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/stories']" > <i class="material-icons">donut_large</i>
                             <p style="color: green; font-weight: 500;">My stories</p>
                         </a>
                     </li>
-                    <li ng-click="func()" routerLinkActive="active" class="nav-item">
-                        <a ng-click="func()" class="nav-link sidebar-1" [routerLink]="['/posts']"> <i
-                                class="material-icons">donut_large</i>
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/posts']" > <i class="material-icons">image</i>
                             <p style="color: green; font-weight: 500;">My posts</p>
                         </a>
                     </li>
-
+                    
                     <li ng-click="func()" routerLinkActive="active" class="nav-item">
                         <a ng-click="func()" class="nav-link sidebar-1" [routerLink]="['/favourite']"> <i
-                                class="material-icons">donut_large</i>
+                                class="material-icons">favorite</i>
                             <p style="color: green; font-weight: 500;">My favourites</p>
                         </a>
                     </li>
 
                     <li ng-click="func()" routerLinkActive="active" class="nav-item">
                         <a ng-click="func()" class="nav-link sidebar-1" [routerLink]="['/feed']"> <i
-                                class="material-icons">donut_large</i>
+                                class="material-icons">calendar_view_week</i>
                             <p style="color: green; font-weight: 500;">My feed</p>
                         </a>
                     </li>
 
-
-                    <li ng-click="func()" routerLinkActive="active" class="nav-item">
-
-                        <a ng-click="func()" class="nav-link sidebar-1" [routerLink]="['/explore']"> <i
-                                class="material-icons">explore</i>
+                    <li  ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/explore']" > <i class="material-icons">explore</i>
                             <p style="color: green; font-weight: 500;">Explore Nistagram</p>
                         </a>
                     </li>
-                    <li routerLinkActive="active" class="nav-item">
-                        <a (click)="odjaviSe()" class="nav-link sidebar-1" [routerLink]="['/welcome']"> <i
+                     <li routerLinkActive="active" class="nav-item">
+                        <a (click)="odjaviSe()"  class="nav-link sidebar-1" [routerLink]="['/welcome']"> <i
                                 class="material-icons">logout</i>
                             <p style="color: green; font-weight: 500;">Log out</p>
                         </a>
                     </li>
-
-
+                   
+                  
                 </ul>
             </div>
         </div>

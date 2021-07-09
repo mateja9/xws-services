@@ -23,21 +23,21 @@
                         </a>
                     </li>
                     <li  ng-click="func()" routerLinkActive="active" class="nav-item">
-                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/posts']" > <i class="material-icons">donut_large</i>
+                        <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/posts']" > <i class="material-icons">image</i>
                             <p style="color: green; font-weight: 500;">My posts</p>
                         </a>
                     </li>
-
+                    
                     <li ng-click="func()" routerLinkActive="active" class="nav-item">
                         <a ng-click="func()" class="nav-link sidebar-1" [routerLink]="['/favourite']"> <i
-                                class="material-icons">donut_large</i>
+                                class="material-icons">favorite</i>
                             <p style="color: green; font-weight: 500;">My favourites</p>
                         </a>
                     </li>
 
                     <li ng-click="func()" routerLinkActive="active" class="nav-item">
                         <a ng-click="func()" class="nav-link sidebar-1" [routerLink]="['/feed']"> <i
-                                class="material-icons">donut_large</i>
+                                class="material-icons">calendar_view_week</i>
                             <p style="color: green; font-weight: 500;">My feed</p>
                         </a>
                     </li>
@@ -63,7 +63,29 @@
 
 
     <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
-
+        <div class="card" style="margin-top: 15px;">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Zahtevi za pracenje</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table">
+        
+                    <thead class="text-success">
+                        <th>Username</th>
+                        <th></th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let k of followRequests'>
+                            <td><a [routerLink]="[k]">{{k}}</a></td>
+                            <td> <button type="button" (click)="acceptFollow(k)">Accept</button> </td>
+                            <td> <button type="button" (click)="rejectFollow(k)">Reject</button> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        
+        </div>
     <h2>My highlights</h2>
 
     <table class="table">
@@ -77,7 +99,7 @@
                     <ng-template #notVideo>
                       <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story1.pathOfContent}}">
                     </ng-template>
-                    <p align="center">{{s.story1.tag}}</p>
+                    <!-- <p align="center">{{s.story1.tag}}</p> -->
                 </td>
                 <td>
                     <div *ngIf="s.story2">
@@ -88,7 +110,7 @@
                         <ng-template #notVideo>
                           <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story2.pathOfContent}}">
                         </ng-template>
-                        <p align="center">{{s.story2.tag}}</p>
+                        <!-- <p align="center">{{s.story2.tag}}</p> -->
                     </div>
                 </td>
                 <td>
@@ -100,7 +122,7 @@
                         <ng-template #notVideo>
                           <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story3.pathOfContent}}">
                         </ng-template>
-                        <p align="center">{{s.story3.tag}}</p>
+                        <!-- <p align="center">{{s.story3.tag}}</p> -->
                     </div>
                 </td>
             </tr>
@@ -209,29 +231,7 @@
 </div>
 
 <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
-<div class="card" style="margin-top: 15px;">
-    <div class="card-header card-header-success">
-        <h4 class="card-title">Zahtevi za pracenje</h4>
-    </div>
-    <div class="card-content table-responsive table-full-width">
-        <table class="table">
 
-            <thead class="text-success">
-                <th>Username</th>
-                <th></th>
-                <th></th>
-            </thead>
-            <tbody>
-                <tr *ngFor='let k of followRequests'>
-                    <td><a [routerLink]="[k]">{{k}}</a></td>
-                    <td> <button type="button" (click)="acceptFollow(k)">Accept</button> </td>
-                    <td> <button type="button" (click)="rejectFollow(k)">Reject</button> </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-</div>
 
 
 
@@ -248,7 +248,7 @@
                 <ng-template #notVideo>
                   <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story1.pathOfContent}}">
                 </ng-template>
-                <p align="center">{{s.story1.tag}}</p>
+                <!-- <p align="center">{{s.story1.tag}}</p> -->
             </td>
             <td>
                 <div *ngIf="s.story2">
@@ -259,7 +259,7 @@
                     <ng-template #notVideo>
                       <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story2.pathOfContent}}">
                     </ng-template>
-                    <p align="center">{{s.story2.tag}}</p>
+                    <!-- <p align="center">{{s.story2.tag}}</p> -->
                 </div>
             </td>
             <td>
@@ -271,7 +271,7 @@
                     <ng-template #notVideo>
                       <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story3.pathOfContent}}">
                     </ng-template>
-                    <p align="center">{{s.story3.tag}}</p>
+                    <!-- <p align="center">{{s.story3.tag}}</p> -->
                 </div>
             </td>
         </tr>
@@ -285,37 +285,119 @@
 
 <h2>My public posts</h2>
 
-<table class="table">
-                
-    <tbody>
-        <tr *ngFor='let p of posts'>
-            <td>
-                <div *ngIf="p.isVideo; else notVideo">
-                   <video width="640" height="480" controls><source src="media/file/{{p.pathOfContent}}"></video>
-                   <br>
-                   <div>
-                    <h3>Location: {{p.location}} </h3>
-                    <h3>Description: {{p.description}}</h3>
-                    <h3>Tags: {{p.tags}}</h3> 
-                    </div> 
-                    <br><br> 
-                </div>
+       
+ <table class="table">
 
-                
-                <ng-template #notVideo>
-                  <img width="640" height="480" style="object-fit: contain" src="media/file/{{p.pathOfContent}}">
-                  <br>
-                  <div>
-                    <h3>Location: {{p.location}}</h3>
-                    <h3>Description: {{p.description}}</h3>
-                    <h3>Tags: {{p.tags}}</h3>
-                </div>
-                  <br><br>
-                </ng-template>
-        </td>
-        </tr>
-    </tbody>
-</table>
+            <!-- <thead class="text-success">
+        <th>Name <i  (click)="sort('NAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+        <th>Last name <i  (click)="sort('LASTNAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+        <th>Username <i  (click)="sort('USERNAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+        
+    </thead> -->
+            <tbody>
+                <tr *ngFor='let p of posts'>
+                    <td>
+                        <div *ngIf="p.isVideo; else notVideo">
+                            <video width="640" height="480" controls>
+                                <source src="media/file/{{p.post.pathOfContent}}">
+                            </video>
+                            <br>
+                            <div>
+                                <!--prikaz like, dislike, dugmici, lokacija, opis, tagovi ispod videa-->
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Likes: {{p.post.numberOfLikes}}</th>
+                                            <th>Dislikes: {{p.post.numberOfDislikes}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                         
+                                              <th> <button (click)="addLike(p.post.id, p.post.numberOfLikes)">Like</button></th>
+                                            <th> <button type="button" click="addDislike(p.post.id, p.post.numberOfDislikes)">Dislike</button> </th>
+                                            <th> <button type="button" click="addToFavourite(p.post.id)">Favourite</button> </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h3>Location: {{p.post.location}}</h3>
+                                <h3>Description: {{p.post.description}}</h3>
+                                <h3>Tags: {{p.post.tags}}</h3>
+
+                            </div>
+
+                            <br><br>
+                        </div>
+
+                        <ng-template #notVideo>
+                            <img width="640" height="480" style="object-fit: contain"
+                                src="media/file/{{p.post.pathOfContent}}">
+                            <br>
+                            <div>
+
+                                <div>
+                                    <!--prikaz ispod slike, like,dislike, dugmici, lokacija, opis, tagovi-->
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Likes: {{p.post.numberOfLikes}}</th>
+                                                <th>Dislikes: {{p.post.numberOfDislikes}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th> <button type="button" (click)="addLike(p.post.id, p.post.numberOfLikes)">Like</button> </th>
+                                                <th> <button type="button" (click)="addDislike(p.post.id, p.post.numberOfDislikes)">Dislike</button> </th>
+                                                <th> <button type="button" (click)="addToFavourite(p.post.id)">Favourite</button> </th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <h3>Location: {{p.location}}</h3>
+                                    <h3>Description: {{p.description}}</h3>
+                                    <h3>Tags: {{p.tags}}</h3>
+
+                                    <!--prikaz komentara-->
+
+                                    <div class="card" style="margin-top: 150px;">
+                                        <div class="card-header card-header-success">
+                                            <h4 class="card-title">Komentari</h4>
+                                        </div>
+                                        <div class="card-content table-responsive table-full-width">
+                                            <table class="table">
+
+                                                <thead class="text-success">
+                                                    <th>Username</th>
+                                                    <th>Komentar</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor='let k of p.comments'>
+                                                        <td><a [routerLink]="[k.username]">{{k.username}}</a></td>
+                                                        <td>{{k.content}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                    <div>
+                                        <form>
+                                            <input type="text" name="comment" [(ngModel)]="comment">
+                                            <input type="submit" value="Komentarisi"
+                                                (click)="addComment(p.post.id)">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br><br>
+                        </ng-template>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
 
 
 
