@@ -1,5 +1,7 @@
 package xws.mediaservices.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -42,9 +44,11 @@ public class Post{
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @ManyToMany
+    @JsonIgnore
     private Set<User> users;
 
     @Column(name = "StartTime", nullable = false)

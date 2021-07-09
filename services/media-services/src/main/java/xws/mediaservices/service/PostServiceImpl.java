@@ -53,6 +53,7 @@ public class PostServiceImpl implements PostService{
         post.setLocation(postDTO.getLocation());
         post.setNumberOfDislikes(0);
         post.setNumberOfLikes(0);
+        post.setUsername(user.getUsername());
         Set<Comment> comments = new HashSet<>();
         post.setComments(comments);
         postRepository.save(post);

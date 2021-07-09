@@ -140,6 +140,13 @@ export class KorisnikService{
     return this._http.get<Story[]>("/media/getStoriesForFeed");
   }
 
+  public changePrivacy(userId: number): Observable<any> {
+    return this._http.get<any>("/user/changePrivacy/" + userId, { responseType: 'text' as 'json' });
+  }
+
+  public getUserPrivacy(userId: number) {
+    return this._http.get<string>("/user/getUserPrivacy/" + userId, { responseType: 'text' as 'json' });
+  }
 
 
 }

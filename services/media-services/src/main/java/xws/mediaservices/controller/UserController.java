@@ -259,5 +259,26 @@ public class UserController {
             securityService.changeUserPassword(user, passwordDto.getNewPassword());
             return new ResponseEntity<>("Password changed", HttpStatus.ACCEPTED);
     }
+
+    @GetMapping(value = "/user/getUserPrivacy/{userId}")
+    public ResponseEntity<String> getUserPrivacy(@PathVariable("userId") Long userId) throws Exception {
+
+        User user = userService.getById(userId);
+
+        return new ResponseEntity<String>(user.isPrivate() ? "Private" : "Public", HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/user/changePrivacy/{userId}")
+    public ResponseEntity<String> changePrivacy(@PathVariable("userId") Long userId) throws Exception {
+
+        User user = userService.getById(userId);
+        user.setPrivate(!user.isPrivate());
+
+        userRepository.save(user);
+
+        return new ResponseEntity<String>(user.isPrivate() ? "Private" : "Public", HttpStatus.OK);
+    }
+
+
 }
 

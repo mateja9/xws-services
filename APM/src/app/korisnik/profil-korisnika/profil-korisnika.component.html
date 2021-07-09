@@ -199,6 +199,11 @@
                 <input type="submit" value="Submit" mat-raised-button class="btn btn-success">
             </div>
 
+            <div class="col-sm-3">
+                <h3>Change privacy</h3>
+                <button (click)="changePrivacy()" mat-raised-button class="btn btn-success">{{ privacy != '' && privacy == 'Private' ? "Private" : "Public" }}</button>
+            </div>
+
         </div>
     </form>
 </div>

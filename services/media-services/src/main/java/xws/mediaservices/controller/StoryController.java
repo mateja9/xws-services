@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import xws.mediaservices.model.Post;
 import xws.mediaservices.model.Story;
 import xws.mediaservices.model.User;
 import xws.mediaservices.repository.StoryRepository;
@@ -47,6 +49,9 @@ public class StoryController {
 
     @Value("${media.storage}")
     private String storageDirectoryPath;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     Logger LOGGER = LoggerFactory.getLogger(StoryController.class);
 
@@ -185,4 +190,43 @@ public class StoryController {
 
         return text.trim();
     }
+
+
+    @GetMapping(value = "/media/getStoriesForFeed")
+    public ResponseEntity<List<Story>> getStoriesForFeed(@Context HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+        User sessionUser = (User) session.getAttribute("client");
+        System.out.println("GET STORIES");
+        System.out.println("SESSION-USER: " + sessionUser.getEmail());
+
+        User user = userRepository.findByEmail(sessionUser.getEmail());
+
+
+
+        Long[] response =
+                restTemplate.getForEntity(
+                        "/userFollow/getMyFollowersList/"+user.getId(),
+                        Long[].class).getBody();
+
+        Set<Story> storySet = new HashSet<>();
+        for (Long r: response){
+            Set<Story> stories = userService.findById(r).getStories();
+            storySet.addAll(stories);
+        }
+
+
+        System.out.println("USER: " + user.getEmail());
+        Set<Story> storiesSet = user.getStories();
+        List<Story> stories = new ArrayList<>(storiesSet);
+        stories.sort(new Comparator<Story>() {
+            @Override
+            public int compare(Story o1, Story o2) {
+                return o2.getStartTime().compareTo(o1.getStartTime());
+            }
+        });
+
+        System.out.println("STORIES: " + stories);
+        return new ResponseEntity<>(new ArrayList<>(stories), HttpStatus.OK);
+    }
+
 }
