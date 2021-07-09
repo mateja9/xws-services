@@ -22,8 +22,7 @@ export class WelcomeComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    if(this.user.id === undefined)
-      return;
+ 
     this.userService.getKorisnikeSve().subscribe({
       next: pharmacies => { this.allPharmacies = pharmacies;
           this.userService.vratiKor(this.user.id).subscribe({

@@ -1,137 +1,103 @@
 <div class="wrapper" style="background-image: url(./assets/img/backg.png); margin-top: -2px; ">
-  <div>
-      <div class="sidebar" data-color="danger" data-background-color="white" >
-          <div class="sidebar-background"></div>
-          <div class="logo">
-              <a  class="simple-text">
-                  <div class="logo-img">
-                      <img src="/assets/img/logoxml.jpg" />
-                  </div>
-                 NISTAGRAM
-              </a>
-          </div>
-          <div class="sidebar-wrapper">
-              <ul class="nav">
-                  <li  ng-click="func()" routerLinkActive="active" class="nav-item">
-                      <a  ng-click="func()"  class="nav-link sidebar-1" [routerLink]="['/signup']" > <i class="material-icons">person_add</i>
-                          <p style="color: green; font-weight: 500;">Register</p>
-                      </a>
-                  </li>
-                  <li routerLinkActive="active" class="nav-item">
-                      <a class="nav-link sidebar-1" [routerLink]="['/login']"> <i
-                              class="material-icons">person_pin</i>
-                          <p style="color: green; font-weight: 500;">Log in</p>
-                      </a>
-                  </li>
-                
-              </ul>
-          </div>
-      </div>
-  </div>
-  <div style="margin-left:300px; margin-top:-auto; padding:60px;">
-    <h1>Find Users</h1>
-    <div class="row" style="margin-top: 50px;">
-        <form (ngSubmit)="searchUser()" #allergyForm="ngForm" >
-            <div class="row">
-
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <input type="text" value="" placeholder="Name" class="form-control" name="name"
-                            #name="ngModel" [(ngModel)]="searchParameters.name" />
+    <div>
+        <div class="sidebar" data-color="danger" data-background-color="white">
+            <div class="sidebar-background"></div>
+            <div class="logo">
+                <a class="simple-text">
+                    <div class="logo-img">
+                        <img src="/assets/img/logoxml.jpg" />
                     </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <input type="text" value="" placeholder="Last name" class="form-control" name="city" #city="ngModel"
-                            [(ngModel)]="searchParameters.lastname" />
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <input type="text" value="" placeholder="Username" class="form-control" name="address"
-                            #address="ngModel" [(ngModel)]="searchParameters.email" />
-                    </div>
-                </div>
-
-                
-                <div class="col-sm-3">
-                    <input type="submit" value="Search" mat-raised-button class="btn btn-success">
-                </div>
-                <form (ngSubmit)="refresh()" #allergyForm="ngForm">
-                    <div class="col-sm-3">
-                        <input type="submit" value="Refresh" mat-raised-button class="btn btn-success">
-                    </div>
-                </form>
+                    NISTAGRAM
+                </a>
             </div>
-           
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li ng-click="func()" routerLinkActive="active" class="nav-item">
+                        <a ng-click="func()" class="nav-link sidebar-1" [routerLink]="['/signup']"> <i
+                                class="material-icons">person_add</i>
+                            <p style="color: green; font-weight: 500;">Register</p>
+                        </a>
+                    </li>
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['/login']"> <i
+                                class="material-icons">person_pin</i>
+                            <p style="color: green; font-weight: 500;">Log in</p>
+                        </a>
+                    </li>
 
-        </form>
-
-        <div class="card" style="margin-top: 150px;">
-            <div class="card-header card-header-success">
-                <h4 class="card-title">Users</h4>
-                <p class="card-category">This is the list of all public users. You can search them above.</p>
-            </div>
-            <div class="card-content table-responsive table-full-width">
-                <table class="table">
-                 
-                    <thead class="text-success">
-                        <th>Name <i  (click)="sort('NAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
-                        <th>Last name <i  (click)="sort('LASTNAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
-                        <th>Username <i  (click)="sort('USERNAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
-                        
-                    </thead>
-                    <tbody>
-                        <tr *ngFor='let k of allPharmacies'>
-                            <td><a [routerLink]="[k.id]">{{k.name}}</a></td>
-                            <td>{{k.lastname}}</td>
-                            <td>{{k.email}}</td>
-                            
-                        </tr>
-                    </tbody>
-                </table>
+                </ul>
             </div>
         </div>
     </div>
-
-</div>
-<div class="wrapper" style="background-image: url(./assets/img/backg.png); margin-top: -30px; ">
     <div style="margin-left:300px; margin-top:-auto; padding:60px;">
-        <h1>Search</h1>
-    <div class="row" style="margin-top: 50px;">
-        <form (ngSubmit)="searchUser()" #allergyForm="ngForm" >
-            <div class="row">
-             
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <input type="text" value="" placeholder="Tag" class="form-control" name="name"
-                            #name="ngModel" [(ngModel)]="searchParameters.name" />
-                    </div>
-                </div>
+        <h1>Find Users</h1>
+        <div class="row" style="margin-top: 50px;">
+            <form (ngSubmit)="searchUser()" #allergyForm="ngForm">
+                <div class="row">
 
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <input type="text" value="" placeholder="Location" class="form-control" name="city" #city="ngModel"
-                            [(ngModel)]="searchParameters.lastname" />
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="text" value="" placeholder="Name" class="form-control" name="name"
+                                #name="ngModel" [(ngModel)]="searchParameters.name" />
+                        </div>
                     </div>
-                </div>
 
-            
-                
-                <div class="col-sm-3">
-                    <input type="submit" value="Search" mat-raised-button class="btn btn-success">
-                </div>
-                <form (ngSubmit)="refresh()" #allergyForm="ngForm">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="text" value="" placeholder="Last name" class="form-control" name="city"
+                                #city="ngModel" [(ngModel)]="searchParameters.lastname" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="text" value="" placeholder="Username" class="form-control" name="address"
+                                #address="ngModel" [(ngModel)]="searchParameters.email" />
+                        </div>
+                    </div>
+
+
                     <div class="col-sm-3">
-                        <input type="submit" value="Refresh" mat-raised-button class="btn btn-success">
+                        <input type="submit" value="Search" mat-raised-button class="btn btn-success">
                     </div>
-                </form>
-            </div>
-           
+                    <form (ngSubmit)="refresh()" #allergyForm="ngForm">
+                        <div class="col-sm-3">
+                            <input type="submit" value="Refresh" mat-raised-button class="btn btn-success">
+                        </div>
+                    </form>
+                </div>
 
-        </form>
-        </div></div>
-       
-</div>
+
+            </form>
+
+            <div class="card" style="margin-top: 150px;">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title">Users</h4>
+                    <p class="card-category">This is the list of all public users. You can search them above.</p>
+                </div>
+                <div class="card-content table-responsive table-full-width">
+                    <table class="table">
+
+                        <thead class="text-success">
+                            <th>Name <i (click)="sort('NAME')" style="color: rgb(70, 70, 70); cursor: pointer;"
+                                    class="material-icons">sort</i></th>
+                            <th>Last name <i (click)="sort('LASTNAME')" style="color: rgb(70, 70, 70); cursor: pointer;"
+                                    class="material-icons">sort</i></th>
+                            <th>Username <i (click)="sort('USERNAME')" style="color: rgb(70, 70, 70); cursor: pointer;"
+                                    class="material-icons">sort</i></th>
+
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let k of allPharmacies'>
+                                <td><a [routerLink]="[k.id]">{{k.name}}</a></td>
+                                <td>{{k.lastname}}</td>
+                                <td>{{k.email}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
