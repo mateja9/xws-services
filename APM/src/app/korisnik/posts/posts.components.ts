@@ -55,12 +55,12 @@ export class PostsComponent implements OnInit {
     // console.log(this.allComments);
   }
   
-  addComment(id, userId, username) {
+  addComment(id) {
     let fd = {
       postId: id,
-      autorId: userId,
+      autorId: +localStorage.getItem('currentUserId'),
       content: this.comment,
-      username: username
+      username: localStorage.getItem('currentUsername'),
     };
     this.userService.createComment(fd).subscribe((data) => {
       console.log(data);
@@ -110,7 +110,9 @@ export class PostsComponent implements OnInit {
     this.userService.createPost(fd).subscribe(
       (data) => {
         console.log("Post is posted.");
-
+        this.location = '';
+        this.description = '';
+        this.tag = '';
         this.userService.getPosts().subscribe({
           next: (posts) => {
             console.log("Dobavio sam postove");

@@ -43,12 +43,12 @@ export class FavouriteComponent implements OnInit {
     });
   }
 
-  addComment(id, userId, username) {
+  addComment(id) {
     let fd = {
       postId: id,
-      autorId: userId,
+      autorId: +localStorage.getItem('currentUserId'),
       content: this.comment,
-      username: username
+      username: localStorage.getItem('currentUsername'),
     };
     this.userService.createComment(fd).subscribe((data) => {
       console.log(data);

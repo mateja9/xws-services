@@ -74,6 +74,7 @@ public class User {
 
     //(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "user_favourite_posts",
             joinColumns = @JoinColumn(name = "user_id"),

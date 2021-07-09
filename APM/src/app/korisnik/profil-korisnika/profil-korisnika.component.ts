@@ -22,6 +22,7 @@ export class ProfilKorisnikaComponent implements OnInit {
   highlightStoryGroups: StoryGroup[] = [];
   posts : Post[] = [];
   followRequests : FollowRequest[] = [];
+  privacy: string = 'sda';
 
   constructor(private _router: Router,private loginService:LoginService,private userService: KorisnikService,) { 
     this.korisnik = new Korisnik();
@@ -73,12 +74,20 @@ export class ProfilKorisnikaComponent implements OnInit {
           this.followRequests = res;
         })
 
+        this.getUserPrivacy();
 
       }
       
     });
 
   }
+
+  getUserPrivacy() {
+    this.userService.getUserPrivacy(+localStorage.getItem('currentUserId')).subscribe(res => {
+      this.privacy = res;
+    })
+  }
+
   edit() {
 
     console.log(this.korisnik);
@@ -113,6 +122,13 @@ export class ProfilKorisnikaComponent implements OnInit {
      })
    }
 
+   changePrivacy() {
+    let  userId = +localStorage.getItem('currentUserId');
+     this.userService.changePrivacy(userId).subscribe(res => {
+       this.privacy = res;
+     })
+   }
+  
 
   createStoryGroups(stories:Story[]): StoryGroup[] {
     var storyGroups = [];

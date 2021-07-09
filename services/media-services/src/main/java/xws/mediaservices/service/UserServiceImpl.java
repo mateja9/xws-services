@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import xws.mediaservices.dto.SearchUser;
 import xws.mediaservices.model.PasswordResetToken;
+import xws.mediaservices.model.Post;
 import xws.mediaservices.model.User;
 import xws.mediaservices.repository.PasswordTokenRepository;
 import xws.mediaservices.repository.UserRepository;
@@ -115,7 +116,6 @@ public class UserServiceImpl implements UserService{
     public User getByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-
 
     //NIJE ODRADJENA LOGIKA GDE SE PROVERAVA DA LI JE PROFIL JAVAN
     @Override

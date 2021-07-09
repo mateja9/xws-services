@@ -1,6 +1,7 @@
 package xws.mediaservices.service;
 
 import xws.mediaservices.dto.SearchUser;
+import xws.mediaservices.model.Post;
 import xws.mediaservices.model.User;
 
 import java.util.ArrayList;
@@ -21,4 +22,5 @@ public interface UserService {
     public void createPasswordResetTokenForUser(User user, String token);
     public User getUserByPasswordResetToken (String token);
     public User getByUsername(String username);
+
 }

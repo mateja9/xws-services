@@ -68,6 +68,52 @@
     <div style="margin-left:300px; margin-top:50px; padding:10px; background-color: rgb(255, 255, 255)">
         <h2>My feed</h2>
 
+
+<table class="table">
+    <tbody>
+        <tr *ngFor='let s of storyGroups'>
+            <td>
+                <div *ngIf="s.story1.isVideo; else notVideo">
+                   <video width="384" height="288" controls><source src="media/file/{{s.story1.pathOfContent}}"></video>
+                </div>
+
+                <ng-template #notVideo>
+                  <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story1.pathOfContent}}">
+                </ng-template>
+                <p align="center">{{s.story1.tag}}</p>
+            </td>
+            <td>
+                <div *ngIf="s.story2">
+                    <div *ngIf="s.story2.isVideo; else notVideo">
+                       <video width="384" height="288" controls><source src="media/file/{{s.story2.pathOfContent}}"></video>
+                    </div>
+
+                    <ng-template #notVideo>
+                      <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story2.pathOfContent}}">
+                    </ng-template>
+                    <p align="center">{{s.story2.tag}}</p>
+                </div>
+            </td>
+            <td>
+                <div *ngIf="s.story3">
+                    <div *ngIf="s.story3.isVideo; else notVideo">
+                       <video width="384" height="288" controls><source src="media/file/{{s.story3.pathOfContent}}"></video>
+                    </div>
+
+                    <ng-template #notVideo>
+                      <img width="384" height="288" style="object-fit: contain" src="media/file/{{s.story3.pathOfContent}}">
+                    </ng-template>
+                    <p align="center">{{s.story3.tag}}</p>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+
         <table class="table">
 
             <!-- <thead class="text-success">
@@ -168,7 +214,7 @@
                                 <form>
                                     <input type="text" name="comment" [(ngModel)]="comment">
                                     <input type="submit" value="Komentarisi"
-                                        (click)="addComment(p.post.id, p.post.user.id, p.post.user.username)">
+                                        (click)="addComment(p.post.id)">
                                 </form>
                             </div>
                         </div>

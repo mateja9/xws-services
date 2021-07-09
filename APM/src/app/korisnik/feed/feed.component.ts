@@ -57,8 +57,7 @@ import { FollowRequest } from 'app/model/FollowRequest';
             this.loginService.IzlogujSe(this.request).subscribe(result => this.kraj());
           }
 
-      
-          /*
+    /*
       this.userService.getPublicStories(korisnik.id).subscribe({
         next: (stories) => {
           stories.forEach((element) => {
@@ -74,6 +73,7 @@ import { FollowRequest } from 'app/model/FollowRequest';
           });
         },
       });
+      */
 
         this.userService.getStoriesForFeed().subscribe({
             next: (stories) => {
@@ -86,8 +86,7 @@ import { FollowRequest } from 'app/model/FollowRequest';
             },
           });
 
-          */
-      
+          
       this.userService.getPostsForFeed().subscribe({
         next: (posts) => {
   
@@ -159,13 +158,13 @@ import { FollowRequest } from 'app/model/FollowRequest';
 
 
       
-    addComment(id, userId, username) {
-      let fd = {
-        postId: id,
-        autorId: userId,
-        content: this.comment,
-        username: username
-      };
+      addComment(id) {
+        let fd = {
+          postId: id,
+          autorId: +localStorage.getItem('currentUserId'),
+          content: this.comment,
+          username: localStorage.getItem('currentUsername'),
+        };
       this.userService.createComment(fd).subscribe((data) => {
         console.log(data);
         this.ngOnInit();
