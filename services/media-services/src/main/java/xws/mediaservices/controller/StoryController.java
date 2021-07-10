@@ -69,28 +69,35 @@ public class StoryController {
         Long userId;
         try {
             userId = Long.valueOf(userIdString);
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
         }
 
-        User user = userRepository.findById(userId).get();
-        System.out.println("USER: " + user.getEmail());
-        Set<Story> storiesSet = user.getStories();
-        List<Story> stories = new ArrayList<>(storiesSet);
+        User userProvera = userRepository.findById(userId).get();
 
-        List<Story> publicStories = stories.stream()
-                .filter(story -> story.isPubliclyVisible())
-                .collect(Collectors.toList());
+        if (userProvera.isPrivate()) {
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+        } else {
 
-        publicStories.sort(new Comparator<Story>() {
-            @Override
-            public int compare(Story o1, Story o2) {
-                return o2.getStartTime().compareTo(o1.getStartTime());
-            }
-        });
+            User user = userRepository.findById(userId).get();
+            System.out.println("USER: " + user.getEmail());
+            Set<Story> storiesSet = user.getStories();
+            List<Story> stories = new ArrayList<>(storiesSet);
 
-        return new ResponseEntity<>(new ArrayList<>(publicStories), HttpStatus.OK);
+            List<Story> publicStories = stories.stream()
+                    .filter(story -> story.isPubliclyVisible())
+                    .collect(Collectors.toList());
+
+            publicStories.sort(new Comparator<Story>() {
+                @Override
+                public int compare(Story o1, Story o2) {
+                    return o2.getStartTime().compareTo(o1.getStartTime());
+                }
+            });
+
+            return new ResponseEntity<>(new ArrayList<>(publicStories), HttpStatus.OK);
+        }
     }
 
     @GetMapping(value = "/user/{userId}/highlightStories")

@@ -103,30 +103,36 @@ public class PostController {
         Long userId;
         try {
             userId = Long.valueOf(userIdString);
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
         }
 
-        User user = userRepository.findById(userId).get();
-        System.out.println("USER: " + user.getEmail());
-        Set<Post> postsSet = user.getPosts();
-        List<Post> posts = new ArrayList<>(postsSet);
-        posts.sort(new Comparator<Post>() {
-            @Override
-            public int compare(Post o1, Post o2) {
-                return o2.getStartTime().compareTo(o1.getStartTime());
+        User userProvera = userRepository.findById(userId).get();
+
+        if (userProvera.isPrivate()) {
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+        } else {
+            User user = userRepository.findById(userId).get();
+            System.out.println("USER: " + user.getEmail());
+            Set<Post> postsSet = user.getPosts();
+            List<Post> posts = new ArrayList<>(postsSet);
+            posts.sort(new Comparator<Post>() {
+                @Override
+                public int compare(Post o1, Post o2) {
+                    return o2.getStartTime().compareTo(o1.getStartTime());
+                }
+            });
+
+            System.out.println("POSTS: " + posts);
+
+            List<PostComment> retVal = new ArrayList<>();
+            for (Post post : posts) {
+                retVal.add(new PostComment(post, commentService.getCommentsForPost(post.getId())));
             }
-        });
 
-        System.out.println("POSTS: " + posts);
-
-        List<PostComment> retVal = new ArrayList<>();
-        for(Post post : posts) {
-            retVal.add(new PostComment(post, commentService.getCommentsForPost(post.getId())));
+            return new ResponseEntity<>(new ArrayList<>(retVal), HttpStatus.OK);
         }
-
-        return new ResponseEntity<>(new ArrayList<>(retVal), HttpStatus.OK);
     }
 
 
