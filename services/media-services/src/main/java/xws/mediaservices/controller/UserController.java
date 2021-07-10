@@ -274,8 +274,8 @@ public class UserController {
         User user = userService.getById(userId);
         user.setPrivate(!user.isPrivate());
         System.out.println("privatan: " + user.isPrivate()); //ispisuje dobro
-        
-        this.userRepository.save(user);
+
+        //this.userRepository.save(user);
         this.userService.updateUser(user);
 
 
