@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserFollowService {
         else
             newUserFollow.setStatus(StatusFollowing.accepted);
 
-        newUserFollow.setActive(false);
+        newUserFollow.setActive(true);
 
         newUserFollow = userFollowRepository.save(newUserFollow);
 

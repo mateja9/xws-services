@@ -6,6 +6,7 @@ import { KorisnikService } from 'app/services/korisnik.services';
 import { LoginService } from 'app/services/login.services';
 import { Story } from "app/model/story";
 import { StoryGroup } from "app/model/story";
+import { PostComment } from 'app/model/PostComment';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class ProfilNeRegKorComponent implements OnInit {
     errorMessage = '';
     publicStoryGroups: StoryGroup[] = [];
     highlightStoryGroups: StoryGroup[] = [];
+    posts : PostComment[] = [];
 
   constructor(private httpClient: HttpClient,private route: ActivatedRoute, private router: Router, private userService: KorisnikService) { 
     this.korisnik = new Korisnik();
@@ -51,6 +53,22 @@ export class ProfilNeRegKorComponent implements OnInit {
             },
           });
 
+          
+          this.userService.getPublicPosts(korisnik.id).subscribe({
+            next: (posts) => {
+
+              console.log("Dobavio sam postove");
+              this.posts = posts;
+              posts.forEach((p) => {
+                p.post.isVideo = p.post.pathOfContent.endsWith("mp4");
+
+                console.log(p);
+              });
+            },
+
+          });
+          
+          
           this.userService.getHighlightStories(korisnik.id).subscribe({
             next: (stories) => {
               stories.forEach((element) => {

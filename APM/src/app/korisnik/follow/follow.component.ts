@@ -7,6 +7,7 @@ import { Story } from "app/model/story";
 import { HttpClient } from '@angular/common/http';
 import { Post } from "app/model/post";
 import { StoryGroup } from "app/model/story";
+import { PostComment } from "app/model/PostComment";
 
 @Component({
  
@@ -21,7 +22,7 @@ export class FollowComponent implements OnInit {
       errorMessage = '';
       publicStoryGroups: StoryGroup[] = [];
       highlightStoryGroups: StoryGroup[] = [];
-      posts : Post[] = [];
+      posts : PostComment[] = [];
       user: Korisnik;
       comment = "";
 

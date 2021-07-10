@@ -88,7 +88,7 @@ import { SearchPost } from "app/model/SearchPost";
                 s.isVideo = s.pathOfContent.endsWith("mp4");
               });
       
-              this.createStoryGroups1();
+              this.createStoryGroups1(); //mozdaStoryGroups
             },
           });
 

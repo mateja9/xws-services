@@ -203,12 +203,12 @@ public class StoryController {
 
 
 
-        Long[] response =
-                restTemplate.getForEntity(
+        Long[] response = restTemplate.getForEntity(
                         "/userFollow/getMyFollowersList/"+user.getId(),
                         Long[].class).getBody();
 
         Set<Story> storySet = new HashSet<>();
+
         for (Long r: response){
             Set<Story> stories = userService.findById(r).getStories();
             storySet.addAll(stories);
@@ -216,8 +216,8 @@ public class StoryController {
 
 
         System.out.println("USER: " + user.getEmail());
-        Set<Story> storiesSet = user.getStories();
-        List<Story> stories = new ArrayList<>(storiesSet);
+       // Set<Story> storiesSet = user.getStories();
+        List<Story> stories = new ArrayList<>(storySet);
         stories.sort(new Comparator<Story>() {
             @Override
             public int compare(Story o1, Story o2) {
