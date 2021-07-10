@@ -23,6 +23,7 @@ export class FollowComponent implements OnInit {
       highlightStoryGroups: StoryGroup[] = [];
       posts : Post[] = [];
       user: Korisnik;
+      comment = "";
 
     userFollow: any;
     followBtnValue: string = 'FOL';
@@ -225,4 +226,46 @@ export class FollowComponent implements OnInit {
     }
     return storyGroups;
   }   
+
+
+  addComment(id) {
+    let fd = {
+      postId: id,
+      autorId: +localStorage.getItem('currentUserId'),
+      content: this.comment,
+      username: localStorage.getItem('currentUsername'),
+    };
+    this.userService.createComment(fd).subscribe((data) => {
+      console.log(data);
+      this.ngOnInit();
+      this.comment = '';
+    })
+  }
+
+  addToFavourite(postId) {
+  
+    this.userService.addToFavourite(+localStorage.getItem("currentUserId"), postId).subscribe((data) => 
+    console.log(data));
+
+
+  }
+
+  addLike(id, numberOfLikes){
+    console.log("Like u post.ts, Id:" + id + ", brojLajkova:" + numberOfLikes);
+    this.userService.addLike(id, numberOfLikes).subscribe(res => {
+      console.log(res);
+      this.ngOnInit();
+    });
+    console.log("Post.ts, prosao poziv servisa.");
+  }
+
+  addDislike(id, numberOfDislikes){
+    this.userService.addDislike(id, numberOfDislikes).subscribe(res => {
+      console.log(res);
+      this.ngOnInit();
+    });
+  }
+
+
+
 }
