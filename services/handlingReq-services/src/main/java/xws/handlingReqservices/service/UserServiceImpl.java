@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserFollowService {
         else
             newUserFollow.setStatus(StatusFollowing.accepted);
 
-        newUserFollow.setActive(true);
+        newUserFollow.setActive(false);
 
         newUserFollow = userFollowRepository.save(newUserFollow);
 
@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserFollowService {
     public UserFollow checkIsFollow(UserFollowDTO followRequestDTO) {
         for(UserFollow uf : userFollowRepository.findAll()) {
             if(uf.getUserFrom() == followRequestDTO.getUserFrom() && uf.getUserTo() == followRequestDTO.getUserTo() && uf.getStatus() == StatusFollowing.accepted && uf.isActive()) {
-              return uf;
+                return uf;
             }
         }
         return  null;
@@ -128,7 +128,8 @@ public class UserServiceImpl implements UserFollowService {
     public List<Integer> getFollowersAndFollowing(Long userId) {
         Integer countFollowers = userFollowRepository.countFollowers(userId);
         Integer countFollowings = userFollowRepository.countFollowings(userId);
-
+        System.out.println("Followers : " + countFollowers);
+        System.out.println("Following : " + countFollowings);
         List<Integer> retVal = new ArrayList<>();
         retVal.add(countFollowers);
         retVal.add(countFollowings);

@@ -6,7 +6,6 @@ import { KorisnikService } from 'app/services/korisnik.services';
 import { LoginService } from 'app/services/login.services';
 import { Story } from "app/model/story";
 import { StoryGroup } from "app/model/story";
-import { PostComment } from 'app/model/PostComment';
 
 
 @Component({
@@ -22,7 +21,7 @@ export class ProfilNeRegKorComponent implements OnInit {
     errorMessage = '';
     publicStoryGroups: StoryGroup[] = [];
     highlightStoryGroups: StoryGroup[] = [];
-    posts : PostComment[] = [];
+
   constructor(private httpClient: HttpClient,private route: ActivatedRoute, private router: Router, private userService: KorisnikService) { 
     this.korisnik = new Korisnik();
  
@@ -51,19 +50,7 @@ export class ProfilNeRegKorComponent implements OnInit {
               });
             },
           });
-          this.userService.getPosts().subscribe({
-            next: (posts) => {
-      
-              console.log("Dobavio sam postove");
-              this.posts = posts;
-              posts.forEach((p) => {
-                p.post.isVideo = p.post.pathOfContent.endsWith("mp4");
-      
-                console.log(p);
-              });
-            },
-            
-          });
+
           this.userService.getHighlightStories(korisnik.id).subscribe({
             next: (stories) => {
               stories.forEach((element) => {
@@ -106,13 +93,4 @@ export class ProfilNeRegKorComponent implements OnInit {
     }
     return storyGroups;
   }
-
-  vratiListuKom(postId: number){
-    console.log("Vrati listu komentara  "+ postId);
-    //this.postId nije Id posta koji mi treba, pokazuje undefined, 
-    //napravio sam dugme pa ce za svaki post da posalje njegov id i prikaze komentare
-    
-    // this.userService.getComments(postId).subscribe(x => this.allComments = x);
-    // console.log(this.allComments);
-  } 
 }
