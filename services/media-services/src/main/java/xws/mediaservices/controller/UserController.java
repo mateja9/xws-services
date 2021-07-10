@@ -157,7 +157,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/user/searchPost")
-    public Object searchPharmacy(@RequestBody SearchPost searchParameters) {
+    public Object searchPost(@RequestBody SearchPost searchParameters) {
 
         return postService.search(searchParameters);
     }
@@ -273,8 +273,11 @@ public class UserController {
 
         User user = userService.getById(userId);
         user.setPrivate(!user.isPrivate());
+        System.out.println("privatan: " + user.isPrivate()); //ispisuje dobro
+        
+        this.userRepository.save(user);
+        this.userService.updateUser(user);
 
-        userRepository.save(user);
 
         return new ResponseEntity<String>(user.isPrivate() ? "Private" : "Public", HttpStatus.OK);
     }

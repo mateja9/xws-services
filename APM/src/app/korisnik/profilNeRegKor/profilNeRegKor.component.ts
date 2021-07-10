@@ -52,7 +52,9 @@ export class ProfilNeRegKorComponent implements OnInit {
               });
             },
           });
-          this.userService.getPosts().subscribe({
+
+          
+          this.userService.getPublicPosts(korisnik.id).subscribe({
             next: (posts) => {
 
               console.log("Dobavio sam postove");
@@ -65,6 +67,8 @@ export class ProfilNeRegKorComponent implements OnInit {
             },
 
           });
+          
+          
           this.userService.getHighlightStories(korisnik.id).subscribe({
             next: (stories) => {
               stories.forEach((element) => {

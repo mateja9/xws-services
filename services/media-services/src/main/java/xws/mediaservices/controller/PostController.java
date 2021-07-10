@@ -99,7 +99,7 @@ public class PostController {
     }
 
     @GetMapping(value = "/user/{userId}/publicPosts")
-    public ResponseEntity<List<Post>> getPublicUserPosts(@PathVariable("userId") String userIdString) throws Exception {
+    public ResponseEntity<List<PostComment>> getPublicUserPosts(@PathVariable("userId") String userIdString) throws Exception {
         Long userId;
         try {
             userId = Long.valueOf(userIdString);
@@ -112,18 +112,23 @@ public class PostController {
         System.out.println("USER: " + user.getEmail());
         Set<Post> postsSet = user.getPosts();
         List<Post> posts = new ArrayList<>(postsSet);
-
-        List<Post> publicPosts = posts.stream().collect(Collectors.toList());
-
-        publicPosts.sort(new Comparator<Post>() {
+        posts.sort(new Comparator<Post>() {
             @Override
             public int compare(Post o1, Post o2) {
                 return o2.getStartTime().compareTo(o1.getStartTime());
             }
         });
 
-        return new ResponseEntity<>(new ArrayList<>(publicPosts), HttpStatus.OK);
+        System.out.println("POSTS: " + posts);
+
+        List<PostComment> retVal = new ArrayList<>();
+        for(Post post : posts) {
+            retVal.add(new PostComment(post, commentService.getCommentsForPost(post.getId())));
+        }
+
+        return new ResponseEntity<>(new ArrayList<>(retVal), HttpStatus.OK);
     }
+
 
     @GetMapping(value = "/media/posts")
     public ResponseEntity<List<PostComment>> getUserPosts(@Context HttpServletRequest request) throws Exception {
@@ -166,8 +171,7 @@ public class PostController {
         System.out.println("USER: " + user.getEmail());
 
         // id-jevi od svih koji treba da mi izlaze
-        Long[] response =
-                restTemplate.getForEntity(
+        Long[] response = restTemplate.getForEntity(
                         "/userFollow/getMyFollowersList/"+user.getId(),
                         Long[].class).getBody();
 
